@@ -1,0 +1,28 @@
+export const UI = {
+  en: {
+    title: 'JS Interview Flashcards',
+    subtitle: 'Master JavaScript concepts for your next interview',
+    languageToggle: 'עברית',
+    question: 'Question',
+    answer: 'Answer',
+    tapToFlip: 'Click card to reveal answer',
+    tapToFlipBack: 'Click card to see question',
+    previous: 'Previous',
+    next: 'Next',
+    cardOf: (current, total) => `Card ${current} of ${total}`,
+    progress: 'Progress',
+  },
+  he: {
+    title: 'כרטיסיות ראיון JavaScript',
+    subtitle: 'תרגל מושגי JavaScript לראיון העבודה הבא שלך',
+    languageToggle: 'English',
+    question: 'שאלה',
+    answer: 'תשובה',
+    tapToFlip: 'לחץ על הכרטיס לחשיפת התשובה',
+    tapToFlipBack: 'לחץ על הכרטיס לחזרה לשאלה',
+    previous: 'הקודם',
+    next: 'הבא',
+    cardOf: (current, total) => `כרטיס ${current} מתוך ${total}`,
+    progress: 'התקדמות',
+  },
+};
