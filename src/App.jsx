@@ -99,7 +99,6 @@ export default function App() {
             nextLabel={t.next}
             onPrevious={handlePrevious}
             onNext={handleNext}
-            isRtl={isRtl}
           />
         </footer>
       </div>

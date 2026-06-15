@@ -1,6 +1,15 @@
 import CodeBlock from './CodeBlock';
 
+function getQuestionText(content, code) {
+  if (!content) return '';
+  if (code && content.includes('\n')) {
+    return content.split('\n')[0];
+  }
+  return content;
+}
+
 function CardFace({ label, category, content, code, hint, isBack }) {
+  const displayContent = isBack ? content : getQuestionText(content, code);
   return (
     <div
       className={`flashcard-face absolute inset-0 flex flex-col rounded-3xl border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-8 ${
@@ -24,7 +33,7 @@ function CardFace({ label, category, content, code, hint, isBack }) {
 
       <div className="flex flex-1 flex-col overflow-y-auto">
         <p className="whitespace-pre-wrap text-lg font-medium leading-relaxed text-slate-800 sm:text-xl">
-          {content}
+          {displayContent}
         </p>
         <CodeBlock code={code} />
       </div>

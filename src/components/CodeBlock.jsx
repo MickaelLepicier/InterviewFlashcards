@@ -81,18 +81,21 @@ export default function CodeBlock({ code }) {
   const lines = code.split('\n');
 
   return (
-    <div className="mt-4 overflow-hidden rounded-xl border border-slate-700/60 bg-[#0d1117] shadow-inner">
+    <div
+      dir="ltr"
+      className="mt-4 overflow-hidden rounded-xl border border-slate-700/60 bg-[#0d1117] text-left shadow-inner"
+    >
       <div className="flex items-center gap-1.5 border-b border-slate-700/60 px-4 py-2.5">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        <span className="ms-auto font-mono text-xs text-slate-500">JavaScript</span>
+        <span className="ml-auto font-mono text-xs text-slate-500">JavaScript</span>
       </div>
-      <pre className="overflow-x-auto p-4 font-mono text-[13px] leading-relaxed text-slate-300">
+      <pre className="overflow-x-auto p-4 text-left font-mono text-[13px] leading-relaxed text-slate-300">
         <code>
           {lines.map((line, lineIndex) => (
             <div key={lineIndex} className="table-row">
-              <span className="table-cell select-none pe-4 text-right text-slate-600">
+              <span className="table-cell select-none pr-4 text-right text-slate-600">
                 {lineIndex + 1}
               </span>
               <span className="table-cell whitespace-pre">
