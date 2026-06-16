@@ -29,29 +29,44 @@ export default function Navigation({
   nextLabel,
   onPrevious,
   onNext,
+  isRtl,
 }) {
   const isFirst = current === 0;
   const isLast = current === total - 1;
 
   return (
     <div
-      dir="ltr"
+      dir={isRtl ? 'rtl' : 'ltr'}
       className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-between"
     >
       <NavButton onClick={onPrevious} disabled={isFirst}>
-        <span className="inline-flex items-center gap-2" dir="ltr">
-          <span aria-hidden="true">←</span>
-          <span>{previousLabel}</span>
-        </span>
+        {isRtl ? (
+          <span className="inline-flex items-center gap-2" dir="ltr">
+            <span>{previousLabel}</span>
+            <span aria-hidden="true">→</span>
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-2" dir="ltr">
+            <span aria-hidden="true">←</span>
+            <span>{previousLabel}</span>
+          </span>
+        )}
       </NavButton>
 
       <p className="text-sm font-medium text-slate-300">{cardLabel}</p>
 
       <NavButton onClick={onNext} disabled={isLast} variant="primary">
-        <span className="inline-flex items-center gap-2" dir="ltr">
-          <span>{nextLabel}</span>
-          <span aria-hidden="true">→</span>
-        </span>
+        {isRtl ? (
+          <span className="inline-flex items-center gap-2">
+            <span>{nextLabel}</span>
+            <span aria-hidden="true">←</span>
+          </span>
+        ) : (
+          <span className="inline-flex items-center gap-2" dir="ltr">
+            <span>{nextLabel}</span>
+            <span aria-hidden="true">→</span>
+          </span>
+        )}
       </NavButton>
     </div>
   );

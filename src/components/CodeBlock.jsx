@@ -1,3 +1,5 @@
+import CopyButton from './CopyButton';
+
 const KEYWORDS = new Set([
   'const', 'let', 'var', 'function', 'return', 'if', 'else', 'for', 'in', 'of',
   'class', 'new', 'this', 'true', 'false', 'null', 'undefined', 'typeof',
@@ -75,7 +77,7 @@ function Token({ type, text }) {
   );
 }
 
-export default function CodeBlock({ code }) {
+export default function CodeBlock({ code, copyLabel, copiedLabel }) {
   if (!code) return null;
 
   const lines = code.split('\n');
@@ -89,16 +91,24 @@ export default function CodeBlock({ code }) {
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
         <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
         <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-        <span className="ml-auto font-mono text-xs text-slate-500">JavaScript</span>
+        <span className="ml-auto flex items-center gap-2">
+          <CopyButton
+            text={code}
+            label={copyLabel}
+            copiedLabel={copiedLabel}
+            className="border-slate-600 bg-slate-800 text-slate-300 hover:border-violet-500 hover:bg-slate-700 hover:text-white"
+          />
+          <span className="font-mono text-xs text-slate-500">JavaScript</span>
+        </span>
       </div>
-      <pre className="overflow-x-auto p-4 text-left font-mono text-[13px] leading-relaxed text-slate-300">
+      <pre className="select-text overflow-x-auto p-4 text-left font-mono text-[13px] leading-relaxed text-slate-300">
         <code>
           {lines.map((line, lineIndex) => (
             <div key={lineIndex} className="table-row">
               <span className="table-cell select-none pr-4 text-right text-slate-600">
                 {lineIndex + 1}
               </span>
-              <span className="table-cell whitespace-pre">
+              <span className="table-cell whitespace-pre select-text">
                 {highlightLine(line).map((token, tokenIndex) => (
                   <Token key={tokenIndex} {...token} />
                 ))}

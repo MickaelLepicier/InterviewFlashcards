@@ -1,4 +1,5 @@
 import CodeBlock from './CodeBlock';
+import CopyButton from './CopyButton';
 
 function getQuestionText(content, code) {
   if (!content) return '';
@@ -8,8 +9,19 @@ function getQuestionText(content, code) {
   return content;
 }
 
-function CardFace({ label, category, content, code, hint, isBack }) {
+function CardFace({
+  label,
+  category,
+  content,
+  code,
+  hint,
+  isBack,
+  copyTextLabel,
+  copiedLabel,
+  copyCodeLabel,
+}) {
   const displayContent = isBack ? content : getQuestionText(content, code);
+
   return (
     <div
       className={`flashcard-face absolute inset-0 flex flex-col rounded-3xl border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-8 ${
@@ -32,10 +44,21 @@ function CardFace({ label, category, content, code, hint, isBack }) {
       </div>
 
       <div className="flex flex-1 flex-col overflow-y-auto">
-        <p className="whitespace-pre-wrap text-lg font-medium leading-relaxed text-slate-800 sm:text-xl">
-          {displayContent}
-        </p>
-        <CodeBlock code={code} />
+        <div className="mb-3 flex items-start justify-between gap-3">
+          <p className="select-text whitespace-pre-wrap text-lg font-medium leading-relaxed text-slate-800 sm:text-xl">
+            {displayContent}
+          </p>
+          <CopyButton
+            text={displayContent}
+            label={copyTextLabel}
+            copiedLabel={copiedLabel}
+          />
+        </div>
+        <CodeBlock
+          code={code}
+          copyLabel={copyCodeLabel}
+          copiedLabel={copiedLabel}
+        />
       </div>
 
       <p className="mt-4 text-center text-xs text-slate-400">{hint}</p>
@@ -52,15 +75,31 @@ export default function FlashCard({
   answerLabel,
   flipHint,
   flipBackHint,
+  copyTextLabel,
+  copyCodeLabel,
+  copiedLabel,
 }) {
   const question = lang === 'he' ? card.question_he : card.question_en;
   const answer = lang === 'he' ? card.answer_he : card.answer_en;
 
+  const handleFlip = () => {
+    const selection = window.getSelection();
+    if (selection?.toString().length > 0) return;
+    onFlip();
+  };
+
   return (
     <div className="flashcard-scene mx-auto w-full max-w-2xl">
-      <button
-        type="button"
-        onClick={onFlip}
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={handleFlip}
+        onKeyDown={(event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            handleFlip();
+          }
+        }}
         className="relative h-[min(68vh,520px)] w-full cursor-pointer text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
         aria-label={isFlipped ? flipBackHint : flipHint}
         aria-pressed={isFlipped}
@@ -72,6 +111,9 @@ export default function FlashCard({
             content={question}
             code={card.code_snippet}
             hint={flipHint}
+            copyTextLabel={copyTextLabel}
+            copiedLabel={copiedLabel}
+            copyCodeLabel={copyCodeLabel}
           />
           <CardFace
             label={answerLabel}
@@ -80,9 +122,12 @@ export default function FlashCard({
             code={null}
             hint={flipBackHint}
             isBack
+            copyTextLabel={copyTextLabel}
+            copiedLabel={copiedLabel}
+            copyCodeLabel={copyCodeLabel}
           />
         </div>
-      </button>
+      </div>
     </div>
   );
 }

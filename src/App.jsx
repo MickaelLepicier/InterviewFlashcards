@@ -33,6 +33,8 @@ export default function App() {
       if (event.key === 'ArrowLeft') goTo(Math.max(0, currentIndex - 1));
       if (event.key === 'ArrowRight') goTo(Math.min(cards.length - 1, currentIndex + 1));
       if (event.key === ' ' || event.key === 'Enter') {
+        const selection = window.getSelection();
+        if (selection?.toString().length > 0) return;
         event.preventDefault();
         setIsFlipped((prev) => !prev);
       }
@@ -87,6 +89,9 @@ export default function App() {
             answerLabel={t.answer}
             flipHint={t.tapToFlip}
             flipBackHint={t.tapToFlipBack}
+            copyTextLabel={t.copyText}
+            copyCodeLabel={t.copyCode}
+            copiedLabel={t.copied}
           />
         </main>
 
@@ -99,6 +104,7 @@ export default function App() {
             nextLabel={t.next}
             onPrevious={handlePrevious}
             onNext={handleNext}
+            isRtl={isRtl}
           />
         </footer>
       </div>
