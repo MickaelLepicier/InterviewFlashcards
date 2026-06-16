@@ -1,48 +1,34 @@
-import { useCallback, useEffect, useState } from 'react';
-import cards from '../data.json';
-import FlashCard from './components/FlashCard';
+import { useEffect, useState } from 'react';
+import AiExamMode from './components/AiExamMode';
+import FlashcardsMode from './components/FlashcardsMode';
+import GameModeSelector from './components/GameModeSelector';
 import LanguageToggle from './components/LanguageToggle';
-import Navigation from './components/Navigation';
-import ProgressBar from './components/ProgressBar';
 import { UI } from './i18n';
 
 export default function App() {
   const [lang, setLang] = useState('en');
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [gameMode, setGameMode] = useState('flashcards');
 
   const t = UI[lang];
   const isRtl = lang === 'he';
-  const currentCard = cards[currentIndex];
 
-  const goTo = useCallback((index) => {
-    setCurrentIndex(index);
-    setIsFlipped(false);
-  }, []);
-
-  const handlePrevious = () => goTo(Math.max(0, currentIndex - 1));
-  const handleNext = () => goTo(Math.min(cards.length - 1, currentIndex + 1));
+  const gameModes = [
+    {
+      id: 'flashcards',
+      label: t.flashcardsMode,
+      description: t.flashcardsModeDesc,
+    },
+    {
+      id: 'exam',
+      label: t.aiExamMode,
+      description: t.aiExamModeDesc,
+    },
+  ];
 
   useEffect(() => {
     document.documentElement.lang = lang;
     document.documentElement.dir = isRtl ? 'rtl' : 'ltr';
   }, [lang, isRtl]);
-
-  useEffect(() => {
-    const onKeyDown = (event) => {
-      if (event.key === 'ArrowLeft') goTo(Math.max(0, currentIndex - 1));
-      if (event.key === 'ArrowRight') goTo(Math.min(cards.length - 1, currentIndex + 1));
-      if (event.key === ' ' || event.key === 'Enter') {
-        const selection = window.getSelection();
-        if (selection?.toString().length > 0) return;
-        event.preventDefault();
-        setIsFlipped((prev) => !prev);
-      }
-    };
-
-    window.addEventListener('keydown', onKeyDown);
-    return () => window.removeEventListener('keydown', onKeyDown);
-  }, [currentIndex, goTo]);
 
   return (
     <div
@@ -70,43 +56,22 @@ export default function App() {
           />
         </header>
 
-        <div className="animate-fade-up mb-8" style={{ animationDelay: '0.08s' }}>
-          <ProgressBar
-            current={currentIndex + 1}
-            total={cards.length}
-            label={t.progress}
+        <section className="animate-fade-up mb-8" style={{ animationDelay: '0.05s' }}>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
+            {t.gameModeLabel}
+          </p>
+          <GameModeSelector
+            modes={gameModes}
+            activeMode={gameMode}
+            onSelect={setGameMode}
           />
-        </div>
+        </section>
 
-        <main className="animate-fade-up flex flex-1 flex-col justify-center" style={{ animationDelay: '0.14s' }}>
-          <FlashCard
-            key={currentCard.id}
-            card={currentCard}
-            lang={lang}
-            isFlipped={isFlipped}
-            onFlip={() => setIsFlipped((prev) => !prev)}
-            questionLabel={t.question}
-            answerLabel={t.answer}
-            flipHint={t.tapToFlip}
-            flipBackHint={t.tapToFlipBack}
-            copyTextLabel={t.copyText}
-            copyCodeLabel={t.copyCode}
-            copiedLabel={t.copied}
-          />
-        </main>
-
-        <footer className="animate-fade-up mt-8" style={{ animationDelay: '0.2s' }}>
-          <Navigation
-            current={currentIndex}
-            total={cards.length}
-            cardLabel={t.cardOf(currentIndex + 1, cards.length)}
-            previousLabel={t.previous}
-            nextLabel={t.next}
-            onPrevious={handlePrevious}
-            onNext={handleNext}
-            isRtl={isRtl}
-          />
-        </footer>
+        {gameMode === 'flashcards' ? (
+          <FlashcardsMode lang={lang} t={t} isRtl={isRtl} />
+        ) : (
+          <AiExamMode lang={lang} t={t} isRtl={isRtl} />
+        )}
       </div>
     </div>
   );

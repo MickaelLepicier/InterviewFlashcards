@@ -1,5 +1,6 @@
 import CodeBlock from './CodeBlock';
 import CopyButton from './CopyButton';
+import { useState } from 'react';
 
 function getQuestionText(content, code) {
   if (!content) return '';
@@ -19,8 +20,13 @@ function CardFace({
   copyTextLabel,
   copiedLabel,
   copyCodeLabel,
+  hintText,
+  showHintLabel,
+  hideHintLabel,
+  hintTitle,
 }) {
   const displayContent = isBack ? content : getQuestionText(content, code);
+  const [isHintOpen, setIsHintOpen] = useState(false);
 
   return (
     <div
@@ -61,7 +67,30 @@ function CardFace({
         />
       </div>
 
-      <p className="mt-4 text-center text-xs text-slate-400">{hint}</p>
+      {!isBack && hintText ? (
+        <div className="mt-4 space-y-2">
+          <button
+            type="button"
+            onClick={(event) => {
+              event.stopPropagation();
+              setIsHintOpen((prev) => !prev);
+            }}
+            className="inline-flex items-center gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800 transition-colors hover:bg-amber-100"
+          >
+            <span>{isHintOpen ? hideHintLabel : showHintLabel}</span>
+          </button>
+          {isHintOpen ? (
+            <div className="rounded-lg border border-amber-200 bg-amber-50 p-3 text-sm text-amber-900">
+              <p className="mb-1 text-xs font-bold uppercase tracking-wide text-amber-700">
+                {hintTitle}
+              </p>
+              <p className="select-text whitespace-pre-wrap">{hintText}</p>
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        <p className="mt-4 text-center text-xs text-slate-400">{hint}</p>
+      )}
     </div>
   );
 }
@@ -78,9 +107,13 @@ export default function FlashCard({
   copyTextLabel,
   copyCodeLabel,
   copiedLabel,
+  showHintLabel,
+  hideHintLabel,
+  hintTitle,
 }) {
   const question = lang === 'he' ? card.question_he : card.question_en;
   const answer = lang === 'he' ? card.answer_he : card.answer_en;
+  const hintText = lang === 'he' ? card.hint_he : card.hint_en;
 
   const handleFlip = () => {
     const selection = window.getSelection();
@@ -114,6 +147,10 @@ export default function FlashCard({
             copyTextLabel={copyTextLabel}
             copiedLabel={copiedLabel}
             copyCodeLabel={copyCodeLabel}
+            hintText={hintText}
+            showHintLabel={showHintLabel}
+            hideHintLabel={hideHintLabel}
+            hintTitle={hintTitle}
           />
           <CardFace
             label={answerLabel}
