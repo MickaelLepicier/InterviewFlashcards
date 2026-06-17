@@ -69,6 +69,7 @@ export default function AiExamMode({ lang, t, isRtl }) {
         officialAnswer,
         codeSnippet: card.code_snippet,
         studentAnswer: answer.trim(),
+        lang,
       });
       setFeedback(result);
     } catch (err) {
@@ -157,7 +158,10 @@ export default function AiExamMode({ lang, t, isRtl }) {
                     {feedback.isCorrect ? t.correct : t.incorrect}
                   </span>
                 </div>
-                <p className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800" dir="rtl">
+                <p
+                  className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800"
+                  dir={lang === 'he' ? 'rtl' : 'ltr'}
+                >
                   {feedback.explanation}
                 </p>
               </div>
