@@ -1,79 +1,250 @@
 import { normalizeAnswer } from './answerSimilarity';
+import {
+  getConceptConflictAnchors,
+  getPrimaryAnchorSet,
+  tokenMatchesPrimaryAnchor,
+} from './conceptAnchors';
 
-export const PHRASE_MATCH_THRESHOLD = 72;
+export const PHRASE_MATCH_THRESHOLD = 75;
 
-function levenshteinDistance(a, b) {
-  const rows = a.length + 1;
-  const cols = b.length + 1;
-  const matrix = Array.from({ length: rows }, () => Array(cols).fill(0));
+const STOP_WORDS = new Set([
+  'a', 'an', 'the', 'is', 'are', 'was', 'were', 'of', 'in', 'to', 'for',
+  'on', 'with', 'at', 'by', 'from', 'as', 'that', 'this', 'it', 'be',
+  'has', 'have', 'been', 'will', 'can', 'or', 'and', 'but', 'not', 'use',
+  'used', 'where', 'when', 'which', 'who', 'how', 'what', 'why', 'if',
+  'do', 'does', 'did', 'into', 'over', 'also', 'than', 'then', 'them',
+  'their', 'there', 'these', 'those', 'such', 'only', 'just', 'about',
+  'כל', 'הוא', 'היא', 'הם', 'של', 'על', 'את', 'זה', 'זו', 'אך', 'או',
+  'גם', 'לא', 'כי', 'אם', 'עם', 'יש', 'אין', 'כדי', 'היא', 'הוא',
+  'זו', 'או', 'גם', 'עם', 'את', 'של', 'על', 'כל', 'זה',
+]);
 
-  for (let i = 0; i < rows; i += 1) matrix[i][0] = i;
-  for (let j = 0; j < cols; j += 1) matrix[0][j] = j;
+function tokenize(text) {
+  return text.split(' ').filter(Boolean);
+}
 
-  for (let i = 1; i < rows; i += 1) {
-    for (let j = 1; j < cols; j += 1) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      matrix[i][j] = Math.min(
-        matrix[i - 1][j] + 1,
-        matrix[i][j - 1] + 1,
-        matrix[i - 1][j - 1] + cost,
-      );
+function extractAnchors(normalizedPhrase) {
+  const anchors = [];
+  for (const token of tokenize(normalizedPhrase)) {
+    if (token.length < 2 || STOP_WORDS.has(token)) continue;
+    anchors.push(token);
+    if (anchors.length >= 4) break;
+  }
+  return anchors;
+}
+
+function buildWordNgrams(tokens, n) {
+  if (tokens.length < n) {
+    return tokens.length ? [tokens.join(' ')] : [];
+  }
+
+  const ngrams = [];
+  for (let i = 0; i <= tokens.length - n; i += 1) {
+    ngrams.push(tokens.slice(i, i + n).join(' '));
+  }
+  return ngrams;
+}
+
+function selectNgrams(phraseTokens) {
+  const trigrams = buildWordNgrams(phraseTokens, 3);
+  if (trigrams.length >= 2) return trigrams;
+
+  const bigrams = buildWordNgrams(phraseTokens, 2);
+  if (bigrams.length >= 1) return bigrams;
+
+  return phraseTokens.length ? [phraseTokens.join(' ')] : [];
+}
+
+function anchorsInOrder(windowTokens, anchors) {
+  if (anchors.length === 0) return true;
+
+  let searchFrom = 0;
+  for (const anchor of anchors) {
+    const index = windowTokens.indexOf(anchor, searchFrom);
+    if (index === -1) return false;
+    searchFrom = index + 1;
+  }
+  return true;
+}
+
+function orderedNgramCoverage(windowText, ngrams) {
+  if (ngrams.length === 0) return 100;
+
+  let found = 0;
+  let searchFrom = 0;
+  for (const ngram of ngrams) {
+    const index = windowText.indexOf(ngram, searchFrom);
+    if (index === -1) continue;
+    found += 1;
+    searchFrom = index + 1;
+  }
+
+  return Math.round((found / ngrams.length) * 100);
+}
+
+function buildConflictAnchors(phrasePairs, currentIndex) {
+  const conflicts = new Set();
+
+  phrasePairs.forEach((pair, index) => {
+    if (index === currentIndex) return;
+
+    for (const phrase of [pair.en, pair.he]) {
+      const primary = extractAnchors(phrase)[0];
+      if (!primary) continue;
+
+      expandConflictTokens(primary, conflicts);
+      getConceptConflictAnchors(primary).forEach((token) => conflicts.add(token));
     }
-  }
+  });
 
-  return matrix[rows - 1][cols - 1];
+  return conflicts;
 }
 
-function similarityPercent(a, b) {
-  if (!a && !b) return 100;
-  if (!a || !b) return 0;
-
-  const distance = levenshteinDistance(a, b);
-  const maxLength = Math.max(a.length, b.length);
-  return Math.round((1 - distance / maxLength) * 100);
+function expandConflictTokens(primary, conflicts) {
+  const normalized = primary.toLowerCase();
+  conflicts.add(normalized);
+  getConceptConflictAnchors(primary).forEach((token) => conflicts.add(token));
 }
 
-export function bestPhraseMatchRate(normalizedUserAnswer, normalizedPhrase) {
-  if (!normalizedPhrase) return 100;
-  if (!normalizedUserAnswer) return 0;
+function findExactPhraseMatch(normalizedUserAnswer, normalizedPhrase, searchStart) {
+  const userTokens = tokenize(normalizedUserAnswer);
+  const phraseTokenCount = tokenize(normalizedPhrase).length;
+  const searchPrefix = userTokens.slice(0, searchStart).join(' ');
+  const charOffset = searchPrefix.length > 0 ? searchPrefix.length + 1 : 0;
+  const slice = normalizedUserAnswer.slice(charOffset);
 
-  if (normalizedUserAnswer.includes(normalizedPhrase)) {
-    return 100;
-  }
+  if (!slice.includes(normalizedPhrase)) return null;
 
-  const phraseLength = normalizedPhrase.length;
-  const minWindow = Math.max(1, Math.floor(phraseLength * 0.65));
-  const maxWindow = Math.ceil(phraseLength * 1.35);
-  let bestRate = 0;
+  const relativeIndex = slice.indexOf(normalizedPhrase);
+  const absoluteIndex = charOffset + relativeIndex;
+  const matchedTokens = tokenize(normalizedUserAnswer.slice(absoluteIndex));
+  const endIndex = searchStart + Math.min(phraseTokenCount, matchedTokens.length);
 
-  for (let windowSize = minWindow; windowSize <= maxWindow; windowSize += 1) {
-    if (windowSize > normalizedUserAnswer.length) break;
+  return { matchRate: 100, endIndex, found: true };
+}
 
-    for (let start = 0; start <= normalizedUserAnswer.length - windowSize; start += 1) {
-      const window = normalizedUserAnswer.slice(start, start + windowSize);
-      const rate = similarityPercent(window, normalizedPhrase);
-      bestRate = Math.max(bestRate, rate);
+function findOrderedPhraseMatch(
+  normalizedUserAnswer,
+  normalizedPhrase,
+  searchStart,
+  conflictAnchors,
+  primaryAnchorSet,
+) {
+  const exactMatch = findExactPhraseMatch(
+    normalizedUserAnswer,
+    normalizedPhrase,
+    searchStart,
+  );
+  if (exactMatch) return exactMatch;
 
-      if (bestRate === 100) {
-        return 100;
+  const userTokens = tokenize(normalizedUserAnswer);
+  const phraseTokens = tokenize(normalizedPhrase);
+  const anchors = extractAnchors(normalizedPhrase);
+  const ngrams = selectNgrams(phraseTokens);
+
+  const minWindow = Math.max(phraseTokens.length, 3);
+  const maxWindow = Math.ceil(phraseTokens.length * 1.35);
+
+  let best = { matchRate: 0, endIndex: searchStart, found: false };
+
+  for (let start = searchStart; start < userTokens.length; start += 1) {
+    const startToken = userTokens[start];
+
+    if (
+      primaryAnchorSet.size > 0 &&
+      !tokenMatchesPrimaryAnchor(startToken, primaryAnchorSet)
+    ) {
+      continue;
+    }
+
+    if (conflictAnchors.has(startToken.toLowerCase())) continue;
+
+    for (let windowSize = minWindow; windowSize <= maxWindow; windowSize += 1) {
+      if (start + windowSize > userTokens.length) break;
+
+      const windowTokens = userTokens.slice(start, start + windowSize);
+      const windowText = windowTokens.join(' ');
+
+      if (!anchorsInOrder(windowTokens, anchors)) continue;
+
+      const ngramRate = orderedNgramCoverage(windowText, ngrams);
+
+      if (ngramRate > best.matchRate) {
+        best = {
+          matchRate: ngramRate,
+          endIndex: start + windowSize,
+          found: ngramRate >= PHRASE_MATCH_THRESHOLD,
+        };
       }
     }
   }
 
-  return bestRate;
+  return best;
 }
 
-export function matchCorePhrases(studentAnswer, corePhrases) {
-  const normalizedUserAnswer = normalizeAnswer(studentAnswer);
+function findBestBilingualPhraseMatch(
+  normalizedUserAnswer,
+  phrasePair,
+  searchStart,
+  conflictAnchors,
+) {
+  const primaryAnchorSet = getPrimaryAnchorSet(
+    phrasePair.en,
+    phrasePair.he,
+    extractAnchors,
+  );
 
-  const phraseResults = corePhrases.map((phrase) => {
-    const normalizedPhrase = normalizeAnswer(phrase);
-    const matchRate = bestPhraseMatchRate(normalizedUserAnswer, normalizedPhrase);
+  const enMatch = findOrderedPhraseMatch(
+    normalizedUserAnswer,
+    phrasePair.en,
+    searchStart,
+    conflictAnchors,
+    primaryAnchorSet,
+  );
+  const heMatch = findOrderedPhraseMatch(
+    normalizedUserAnswer,
+    phrasePair.he,
+    searchStart,
+    conflictAnchors,
+    primaryAnchorSet,
+  );
+
+  if (enMatch.matchRate >= heMatch.matchRate) {
+    return { ...enMatch, matchedLang: 'en', phrase: phrasePair.sourceEn };
+  }
+
+  return { ...heMatch, matchedLang: 'he', phrase: phrasePair.sourceHe };
+}
+
+export function matchBilingualPhrasePairs(studentAnswer, phrasePairs) {
+  const normalizedUserAnswer = normalizeAnswer(studentAnswer);
+  const normalizedPairs = phrasePairs.map(({ en, he }) => ({
+    en: normalizeAnswer(en),
+    he: normalizeAnswer(he),
+    sourceEn: en,
+    sourceHe: he,
+  }));
+
+  let searchStart = 0;
+
+  const phraseResults = normalizedPairs.map((pair, index) => {
+    const conflictAnchors = buildConflictAnchors(normalizedPairs, index);
+    const match = findBestBilingualPhraseMatch(
+      normalizedUserAnswer,
+      pair,
+      searchStart,
+      conflictAnchors,
+    );
+
+    if (match.found) {
+      searchStart = match.endIndex;
+    }
 
     return {
-      phrase,
-      matchRate,
-      found: matchRate >= PHRASE_MATCH_THRESHOLD,
+      phrase: match.phrase,
+      matchRate: match.matchRate,
+      found: match.found,
+      matchedLang: match.matchedLang,
     };
   });
 
@@ -94,4 +265,10 @@ export function matchCorePhrases(studentAnswer, corePhrases) {
     isCorrect:
       phraseResults.length > 0 && phraseResults.every((result) => result.found),
   };
+}
+
+/** @deprecated Use matchBilingualPhrasePairs — kept for single-language tests */
+export function matchCorePhrases(studentAnswer, corePhrases) {
+  const pairs = corePhrases.map((phrase) => ({ en: phrase, he: phrase }));
+  return matchBilingualPhrasePairs(studentAnswer, pairs);
 }

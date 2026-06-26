@@ -1,21 +1,35 @@
 export const POINTS_PER_CORRECT = 100;
-export const BEST_SCORE_KEY = 'ai-exam-best-score';
+export const EXAM_QUESTION_COUNT = 10;
+export const HIGH_SCORE_PREFIX = 'highScore_';
 
-export function getBestScore() {
+export function getHighScoreKey(subjectId) {
+  return `${HIGH_SCORE_PREFIX}${subjectId}`;
+}
+
+export function getBestScore(subjectId) {
+  if (!subjectId) return 0;
+
   try {
-    const value = localStorage.getItem(BEST_SCORE_KEY);
+    const value = localStorage.getItem(getHighScoreKey(subjectId));
     return value ? Number.parseInt(value, 10) : 0;
   } catch {
     return 0;
   }
 }
 
-export function saveBestScore(score) {
+export function saveBestScore(subjectId, correctCount) {
+  if (!subjectId) return;
+
   try {
-    localStorage.setItem(BEST_SCORE_KEY, String(score));
+    localStorage.setItem(getHighScoreKey(subjectId), String(correctCount));
   } catch {
     // ignore storage errors
   }
+}
+
+export function formatHighScore(correctCount, totalQuestions = EXAM_QUESTION_COUNT) {
+  if (!correctCount) return '—';
+  return `${correctCount}/${totalQuestions}`;
 }
 
 export function getSuccessPercentage(correctCount, totalQuestions) {

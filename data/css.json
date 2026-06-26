@@ -1,0 +1,118 @@
+[
+  {
+    "id": 1,
+    "category": "CSS / Specificity",
+    "question_en": "Challenge: CSS selector specificity – how does it work?",
+    "question_he": "אתגר: CSS selector specificity – איך זה עובד?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Element selectors score 1 point, class/attribute selectors 10, id selectors 100, inline styles 1000, and !important overrides normal specificity.",
+    "correctAnswer_he": "selectors של אלמנטים שווים 1 נקודה, class/attribute selectors שווים 10, id selectors שווים 100, inline styles שווים 1000, ו-!important דורס specificity רגיל.",
+    "code_snippet": "h1 { color: red }\n.highlite { color: pink }\n.highlite.now { color: brown }\n/* inline style color: blue wins */"
+  },
+  {
+    "id": 2,
+    "category": "CSS / Accessibility",
+    "question_en": "Challenge: What are the different ways to visually hide content?",
+    "question_he": "אתגר: מהן הדרכים השונות להסתרת תוכן ויזואלית?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Common techniques include display: none, visibility: hidden, zero height, off-screen positioning, opacity: 0, scale: 0, and the hidden attribute.",
+    "correctAnswer_he": "טכניקות נפוצות כוללות display: none, visibility: hidden, גובה אפס, מיקום מחוץ למסך, opacity: 0, scale: 0 ו-attribute hidden.",
+    "code_snippet": "div { display: none; visibility: hidden; opacity: 0; }\n<p hidden></p>"
+  },
+  {
+    "id": 3,
+    "category": "CSS / Box Model",
+    "question_en": "Challenge: Explain the box model",
+    "question_he": "אתגר: הסבר את box model",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "The CSS box model is a box that wraps around an HTML element, consisting of content, padding, border, and margin areas.",
+    "correctAnswer_he": "box model ב-CSS הוא קופסה שעוטפת אלמנט HTML, המורכבת מאזורי content, padding, border ו-margin."
+  },
+  {
+    "id": 4,
+    "category": "CSS / Box Model",
+    "question_en": "Challenge: What does * { box-sizing: border-box; } do?",
+    "question_he": "אתגר: מה עושה * { box-sizing: border-box; }?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "It changes box-sizing from content-box to border-box so width and height include padding and borders.",
+    "correctAnswer_he": "זה משנה את box-sizing מ-content-box ל-border-box כך ש-width ו-height כוללים padding ו-borders.",
+    "code_snippet": ".box {\n  box-sizing: border-box;\n  padding: 20px;\n  border: 5px solid black;\n  width: 200px;\n}"
+  },
+  {
+    "id": 5,
+    "category": "CSS / Selectors",
+    "question_en": "Challenge: pseudo-elements and pseudo-classes?",
+    "question_he": "אתגר: pseudo-elements ו-pseudo-classes?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Pseudo-elements style specific parts of an element (e.g. ::first-line, ::after). Pseudo-classes style elements in a particular state (e.g. :hover, :visited).",
+    "correctAnswer_he": "pseudo-elements מעצבים חלקים ספציפיים של אלמנט (למשל ::first-line, ::after). pseudo-classes מעצבים אלמנטים במצב מסוים (למשל :hover, :visited).",
+    "code_snippet": "p::first-line { text-transform: uppercase }\na:hover { color: #FF00FF }"
+  },
+  {
+    "id": 6,
+    "category": "CSS / Responsive",
+    "question_en": "Challenge: What are @media properties?",
+    "question_he": "אתגר: מהם @media properties?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "@media rules apply CSS only when certain conditions are met, such as screen width, print mode, or supported features.",
+    "correctAnswer_he": "כללי @media מחילים CSS רק כשתנאים מסוימים מתקיימים, כמו רוחב מסך, מצב הדפסה או features נתמכים.",
+    "code_snippet": "@media screen and (min-width: 900px) {\n  article { padding: 1rem 3rem }\n}"
+  },
+  {
+    "id": 7,
+    "category": "CSS / Layout",
+    "question_en": "Challenge: What can you say about CSS Floats",
+    "question_he": "אתגר: מה אפשר לומר על CSS Floats",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Float is a layout technique. Floated elements may require z-index handling and a clearfix to contain the layout.",
+    "correctAnswer_he": "float הוא טכניקת פריסה. אלמנטים עם float עשויים לדרוש טיפול ב-z-index ו-clearfix כדי להכיל את הפריסה.",
+    "code_snippet": ".btn-close { float: inline-end }\n.clearfix { overflow: auto }"
+  },
+  {
+    "id": 8,
+    "category": "CSS / Layout",
+    "question_en": "Challenge: When Flexbox and when Grid?",
+    "question_he": "אתגר: מתי Flexbox ומתי Grid?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "CSS Grid is for overall layout with rows, columns, gaps, and overlap. Flexbox is for alignment and one-dimensional flexible layouts, including dynamic content.",
+    "correctAnswer_he": "CSS Grid מיועד לפריסה כוללת עם שורות, עמודות, gaps וחפיפה. Flexbox מיועד ליישור ופריסות גמישות חד-ממדיות, כולל תוכן דינמי."
+  },
+  {
+    "id": 9,
+    "category": "CSS / Responsive",
+    "question_en": "Challenge: What is mobile-first strategy?",
+    "question_he": "אתגר: מהי אסטרטגיית mobile-first?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Start designing for mobile constraints first, then progressively enhance the experience for tablet and desktop.",
+    "correctAnswer_he": "מתחילים בעיצוב למגבלות מובייל, ואז משפרים בהדרגה את החוויה לטאבלט ולדסקטופ."
+  },
+  {
+    "id": 10,
+    "category": "CSS / Fundamentals",
+    "question_en": "Challenge: \"resetting\" vs \"normalizing\" CSS?",
+    "question_he": "אתגר: \"resetting\" לעומת \"normalizing\" ב-CSS?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Normalize sets common defaults across browsers while preserving useful defaults. Reset removes most browser default styles entirely.",
+    "correctAnswer_he": "normalize קובע ברירות מחדל משותפות בין דפדפנים תוך שמירה על defaults שימושיים. reset מסיר את רוב סגנונות ברירת המחדל של הדפדפן לחלוטין."
+  },
+  {
+    "id": 11,
+    "category": "CSS / Best Practices",
+    "question_en": "Challenge: Best practices for CSS",
+    "question_he": "אתגר: שיטות עבודה מומלצות ל-CSS",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Use a color theme and style guide, write clean consistent code, comment, split into files, minify, use preprocessors like SASS, reset or normalize, prefer classes over IDs, use fallbacks, and avoid !important and overly specific selectors.",
+    "correctAnswer_he": "השתמשו בערכת צבעים וב-style guide, כתבו קוד נקי ועקבי, הוסיפו הערות, פצלו לקבצים, בצעו minify, השתמשו ב-preprocessors כמו SASS, reset או normalize, העדיפו classes על IDs, השתמשו ב-fallbacks, והימנעו מ-!important ו-selectors ספציפיים מדי."
+  }
+]

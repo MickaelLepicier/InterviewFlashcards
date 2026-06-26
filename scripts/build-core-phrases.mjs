@@ -1,9 +1,9 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { readdirSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
-const cards = JSON.parse(readFileSync(join(root, 'data.json'), 'utf8'));
+const dataDir = join(root, 'data');
 
 function splitIntoPhrases(text) {
   const numbered = text
@@ -21,28 +21,51 @@ function splitIntoPhrases(text) {
     .filter((part) => part.length > 12);
 }
 
-const phrasesById = Object.fromEntries(
-  cards.map((card) => [
-    card.id,
-    {
-      he: splitIntoPhrases(card.answer_he),
-      en: splitIntoPhrases(card.answer_en),
-    },
-  ]),
+function getAnswer(card, lang) {
+  if (lang === 'he') {
+    return card.correctAnswer_he ?? card.answer_he ?? '';
+  }
+  return card.correctAnswer_en ?? card.answer_en ?? '';
+}
+
+function buildPhrasePairs(card) {
+  const enPhrases = splitIntoPhrases(getAnswer(card, 'en'));
+  const hePhrases = splitIntoPhrases(getAnswer(card, 'he'));
+  const count = Math.max(enPhrases.length, hePhrases.length, 1);
+
+  return Array.from({ length: count }, (_, index) => ({
+    en: enPhrases[index] ?? enPhrases[enPhrases.length - 1] ?? getAnswer(card, 'en'),
+    he: hePhrases[index] ?? hePhrases[hePhrases.length - 1] ?? getAnswer(card, 'he'),
+  }));
+}
+
+const subjectFiles = readdirSync(dataDir).filter(
+  (file) => file.endsWith('.json') && file !== 'subjects.json',
 );
 
-const output = `// Auto-generated core semantic phrases per question.
+const phrasesByKey = {};
+
+for (const file of subjectFiles) {
+  const subjectId = file.replace(/\.json$/, '');
+  const cards = JSON.parse(readFileSync(join(dataDir, file), 'utf8'));
+
+  for (const card of cards) {
+    phrasesByKey[`${subjectId}:${card.id}`] = buildPhrasePairs(card);
+  }
+}
+
+const output = `// Auto-generated bilingual phrase pairs per question.
 // Run: node scripts/build-core-phrases.mjs
 
-const CORE_PHRASES_BY_ID = ${JSON.stringify(phrasesById, null, 2)};
+const CORE_PHRASES_BY_KEY = ${JSON.stringify(phrasesByKey, null, 2)};
 
-export function getCorePhrases(cardId, lang) {
-  const phrases = CORE_PHRASES_BY_ID[cardId];
-  if (!phrases) return [];
-  return lang === 'he' ? phrases.he : phrases.en;
+export function getPhrasePairs(subjectId, cardId) {
+  return CORE_PHRASES_BY_KEY[\`\${subjectId}:\${cardId}\`] ?? [];
 }
 `;
 
 mkdirSync(join(root, 'src', 'data'), { recursive: true });
 writeFileSync(join(root, 'src', 'data', 'corePhrases.js'), output, 'utf8');
-console.log(`Wrote core phrases for ${cards.length} cards.`);
+console.log(
+  `Wrote bilingual phrase pairs for ${subjectFiles.length} subjects (${Object.keys(phrasesByKey).length} questions).`,
+);

@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
-import cards from '../../data.json';
 import FlashCard from './FlashCard';
 import Navigation from './Navigation';
 import ProgressBar from './ProgressBar';
 
-export default function FlashcardsMode({ lang, t, isRtl }) {
+export default function FlashcardsMode({ cards, lang, t, isRtl }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isFlipped, setIsFlipped] = useState(false);
   const currentCard = cards[currentIndex];
@@ -13,6 +12,11 @@ export default function FlashcardsMode({ lang, t, isRtl }) {
     setCurrentIndex(index);
     setIsFlipped(false);
   }, []);
+
+  useEffect(() => {
+    setCurrentIndex(0);
+    setIsFlipped(false);
+  }, [cards]);
 
   const handlePrevious = () => goTo(Math.max(0, currentIndex - 1));
   const handleNext = () => goTo(Math.min(cards.length - 1, currentIndex + 1));
@@ -31,7 +35,9 @@ export default function FlashcardsMode({ lang, t, isRtl }) {
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [currentIndex, goTo]);
+  }, [currentIndex, goTo, cards.length]);
+
+  if (!currentCard) return null;
 
   return (
     <>
@@ -40,6 +46,7 @@ export default function FlashcardsMode({ lang, t, isRtl }) {
           current={currentIndex + 1}
           total={cards.length}
           label={t.progress}
+          detail={t.cardOf(currentIndex + 1, cards.length)}
         />
       </div>
 

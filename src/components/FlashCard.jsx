@@ -1,6 +1,7 @@
 import CodeBlock from './CodeBlock';
 import CopyButton from './CopyButton';
 import { useState } from 'react';
+import { getCorrectAnswer, getHint, getQuestion } from '../utils/cardContent';
 
 function getQuestionText(content, code) {
   if (!content) return '';
@@ -112,9 +113,9 @@ export default function FlashCard({
   hideHintLabel,
   hintTitle,
 }) {
-  const question = lang === 'he' ? card.question_he : card.question_en;
-  const answer = lang === 'he' ? card.answer_he : card.answer_en;
-  const hintText = lang === 'he' ? card.hint_he : card.hint_en;
+  const question = getQuestion(card, lang);
+  const answer = getCorrectAnswer(card, lang);
+  const hintText = getHint(card, lang);
 
   const handleFlip = () => {
     const selection = window.getSelection();

@@ -1,4 +1,4 @@
-import { renderStars } from '../utils/examScore';
+import { formatHighScore, renderStars } from '../utils/examScore';
 
 export default function ExamSummary({
   sessionScore,
@@ -11,19 +11,17 @@ export default function ExamSummary({
   t,
   onPlayAgain,
 }) {
-  const displayedBest = Math.max(sessionScore, bestScore);
+  const displayedBest = Math.max(correctCount, bestScore);
 
   return (
     <main className="animate-fade-up flex flex-1 flex-col justify-center">
       <div className="rounded-3xl border border-white/20 bg-white/95 p-6 text-center shadow-2xl backdrop-blur-xl sm:p-10">
         <p className="text-sm font-semibold uppercase tracking-wider text-violet-600">
-          {t.examComplete}
+          {t.examCompletedTitle}
         </p>
-        <h2 className="mt-2 text-3xl font-bold text-slate-900 sm:text-4xl">{t.totalScore}</h2>
-        <p className="mt-2 text-5xl font-bold text-violet-600">
-          {sessionScore.toLocaleString()}
-          <span className="ms-2 text-lg font-medium text-slate-500">{t.points}</span>
-        </p>
+        <h2 className="mt-3 text-2xl font-bold text-slate-900 sm:text-3xl">
+          {t.examCompletedScore(correctCount, totalQuestions)}
+        </h2>
 
         {isNewBest ? (
           <p className="mt-4 inline-block rounded-full bg-amber-100 px-4 py-2 text-sm font-bold text-amber-800">
@@ -53,9 +51,16 @@ export default function ExamSummary({
         </div>
 
         <p className="mt-6 text-sm text-slate-500">
+          {t.totalScore}:{' '}
+          <span className="font-semibold text-slate-700">
+            {sessionScore.toLocaleString()} {t.points}
+          </span>
+        </p>
+
+        <p className="mt-2 text-sm text-slate-500">
           {t.bestRecord}:{' '}
           <span className="font-semibold text-slate-700">
-            {displayedBest.toLocaleString()} {t.points}
+            {formatHighScore(displayedBest, totalQuestions)}
           </span>
         </p>
 

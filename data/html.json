@@ -1,0 +1,75 @@
+[
+  {
+    "id": 1,
+    "category": "HTML / Entities",
+    "question_en": "Challenge: What are HTML Entities?",
+    "question_he": "אתגר: מהם HTML Entities?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "HTML entities are used to output special characters safely in HTML, such as &lt;, &amp;, &copy;, and currency symbols.",
+    "correctAnswer_he": "HTML entities משמשים להצגה בטוחה של תווים מיוחדים ב-HTML, כמו &lt;, &amp;, &copy; וסמלי מטבע.",
+    "code_snippet": "<ul>\n  <li>&lt;Aha&gt;</li>\n  <li>Me &amp; You</li>\n  <li>&copy; &nbsp; &reg;</li>\n</ul>"
+  },
+  {
+    "id": 2,
+    "category": "HTML / Document",
+    "question_en": "Challenge: What is the doctype?",
+    "question_he": "אתגר: מהו doctype?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "The doctype is a legacy browser compatibility declaration. HTML5 uses the simple <!DOCTYPE html>.",
+    "correctAnswer_he": "doctype הוא הצהרת תאימות לדפדפנים ישנים. ב-HTML5 משתמשים ב-<!DOCTYPE html> הפשוט.",
+    "code_snippet": "<!DOCTYPE html>"
+  },
+  {
+    "id": 3,
+    "category": "HTML / HTML5",
+    "question_en": "Challenge: What are the building blocks of HTML5?",
+    "question_he": "אתגר: מהם אבני הבניין של HTML5?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Semantic elements, richer form controls and validation, data- attributes, Web Storage, audio/video, geolocation, web sockets, web workers, and more.",
+    "correctAnswer_he": "אלמנטים סמנטיים, בקרות טופס ו-validation עשירים יותר, data- attributes, Web Storage, audio/video, geolocation, web sockets, web workers ועוד."
+  },
+  {
+    "id": 4,
+    "category": "HTML / HTML5",
+    "question_en": "Challenge: What are Web Workers?",
+    "question_he": "אתגר: מהם Web Workers?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Worker threads perform tasks without blocking the UI. Workers have no access to window or document.",
+    "correctAnswer_he": "worker threads מבצעים משימות בלי לחסום את ה-UI. ל-workers אין גישה ל-window או ל-document.",
+    "code_snippet": "const worker = new Worker(\"primesWorker.js\")\nworker.onmessage = (ev) => { /* use ev.data */ }"
+  },
+  {
+    "id": 5,
+    "category": "HTML / Storage",
+    "question_en": "Challenge: What are the Different types of Browser storage?",
+    "question_he": "אתגר: מהם סוגי האחסון השונים בדפדפן?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "localStorage, sessionStorage, indexedDB, cookies, and the Cache API.",
+    "correctAnswer_he": "localStorage, sessionStorage, indexedDB, cookies ו-Cache API."
+  },
+  {
+    "id": 6,
+    "category": "HTML / Storage",
+    "question_en": "What is the difference between local storage and cookies?",
+    "question_he": "מה ההבדל בין local storage ל-cookies?",
+    "hint_en": "Compare persistence and server communication.",
+    "hint_he": "השוו בין התמדה (persistence) לתקשורת עם השרת.",
+    "correctAnswer_en": "Both are browser storage. localStorage persists until manually cleared. sessionStorage is short term. Cookies are automatically sent by the browser to the server on subsequent requests.",
+    "correctAnswer_he": "שניהם אחסון בדפדפן. localStorage נשמר עד ניקוי ידני. sessionStorage לטווח קצר. cookies נשלחים אוטומטית על ידי הדפדפן לשרת בבקשות הבאות."
+  },
+  {
+    "id": 7,
+    "category": "HTML / Graphics",
+    "question_en": "Challenge: Canvas vs. SVG",
+    "question_he": "אתגר: Canvas לעומת SVG",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Canvas is pixel based and modified through script only. SVG is vector based, part of the DOM, supports CSS and accessibility, and is resolution independent with better animation support.",
+    "correctAnswer_he": "Canvas מבוסס פיקסלים ומשתנה רק דרך script. SVG מבוסס וקטורי, חלק מה-DOM, תומך ב-CSS ו-accessibility, בלתי תלוי ברזולוציה ועם תמיכה טובה יותר באנימציה."
+  }
+]

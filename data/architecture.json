@@ -1,0 +1,305 @@
+[
+  {
+    "id": 1,
+    "category": "Architecture / Frontend",
+    "question_en": "Challenge: Name some benefits of using Vite",
+    "question_he": "אתגר: ציין יתרונות בשימוש ב-Vite",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Vite powers modern framework CLIs and handles the dev server, compilation (Babel, SCSS), tests, and production builds.",
+    "correctAnswer_he": "Vite מניע CLIs מודרניים של frameworks ומטפל ב-dev server, קומפילציה (Babel, SCSS), בדיקות ו-production builds."
+  },
+  {
+    "id": 2,
+    "category": "Architecture / Data Flow",
+    "question_en": "Challenge: What are two-way-data-binding and one-way-data-flow, and how are they different?",
+    "question_he": "אתגר: מהם two-way-data-binding ו-one-way-data-flow, ומה ההבדל ביניהם?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "One-way data flow sends data in a single direction via props, store state, or observables. Two-way binding synchronizes form controls and the data model in both directions.",
+    "correctAnswer_he": "one-way data flow שולח נתונים בכיוון אחד דרך props, store state או observables. two-way binding מסנכרן בקרות טופס ומודל הנתונים בשני הכיוונים."
+  },
+  {
+    "id": 3,
+    "category": "Architecture / State",
+    "question_en": "What is the purpose of flux / redux / vuex?",
+    "question_he": "מה מטרת flux / redux / vuex?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "They manage frontend state in a store, provide a single source of truth, and enforce unidirectional data flow through a dispatcher.",
+    "correctAnswer_he": "הם מנהלים state בצד הלקוח ב-store, מספקים single source of truth, ואוכפים זרימת נתונים חד-כיוונית דרך dispatcher."
+  },
+  {
+    "id": 4,
+    "category": "Architecture / State",
+    "question_en": "Name some easy features coming from state management",
+    "question_he": "ציין תכונות קלות שמגיעות מניהול state",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Session recording, analytics collection, error handling, optimistic mutations, undo, and collaborative editing.",
+    "correctAnswer_he": "הקלטת session, איסוף analytics, טיפול בשגיאות, optimistic mutations, undo ועריכה שיתופית."
+  },
+  {
+    "id": 5,
+    "category": "Architecture / Patterns",
+    "question_en": "Challenge: How to implement Undo?",
+    "question_he": "אתגר: איך מממשים Undo?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Use a stack (LIFO): push states on change and pop to restore the previous state.",
+    "correctAnswer_he": "השתמשו ב-stack (LIFO): דחפו states בשינוי והוציאו (pop) כדי לשחזר את המצב הקודם.",
+    "code_snippet": "function createStack() {\n  const items = []\n  return { push(item) { items.push(item) }, pop() { return items.pop() } }\n}"
+  },
+  {
+    "id": 6,
+    "category": "Architecture / Browser",
+    "question_en": "Challenge: What is feature detection?",
+    "question_he": "אתגר: מהו feature detection?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Feature detection checks at runtime whether a capability is supported and provides graceful degradation if not.",
+    "correctAnswer_he": "feature detection בודק בזמן ריצה האם יכולת נתמכת ומספק graceful degradation אם לא.",
+    "code_snippet": "if (\"geolocation\" in navigator) { /* use geolocation */ }"
+  },
+  {
+    "id": 7,
+    "category": "Architecture / HTTP",
+    "question_en": "Challenge: Explain Ajax",
+    "question_he": "אתגר: הסבר Ajax",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "AJAX (Asynchronous JavaScript And XML) uses JavaScript and HTTP requests so the frontend can communicate with the backend without full page reloads.",
+    "correctAnswer_he": "AJAX (Asynchronous JavaScript And XML) משתמש ב-JavaScript ובבקשות HTTP כדי שה-frontend יתקשר עם ה-backend בלי רענון מלא של הדף."
+  },
+  {
+    "id": 8,
+    "category": "Architecture / Security",
+    "question_en": "Challenge: Explain the same-origin policy with regards to JavaScript",
+    "question_he": "אתגר: הסבר את same-origin policy בהקשר של JavaScript",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "A script from one origin is blocked from making AJAX calls to another origin unless CORS headers explicitly allow it.",
+    "correctAnswer_he": "script מ-origin אחד נחסם מביצוע קריאות AJAX ל-origin אחר אלא אם כותרות CORS מאפשרות זאת במפורש."
+  },
+  {
+    "id": 9,
+    "category": "Architecture / Debugging",
+    "question_en": "Challenge: How do you debug?",
+    "question_he": "אתגר: איך אתה מדבג?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Use browser or IDE debuggers, logs, unit tests, console.log, documentation, Stack Overflow, and AI assistants.",
+    "correctAnswer_he": "השתמשו ב-debuggers של דפדפן או IDE, logs, unit tests, console.log, תיעוד, Stack Overflow ועוזרי AI."
+  },
+  {
+    "id": 10,
+    "category": "Architecture / Testing",
+    "question_en": "Challenge: Have you done testing?",
+    "question_he": "אתגר: האם ביצעת testing?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Yes. Write unit tests for your code and use testing tools such as Jest to verify expected behavior.",
+    "correctAnswer_he": "כן. כתבו unit tests לקוד והשתמשו בכלי בדיקה כמו Jest לאימות התנהגות צפויה.",
+    "code_snippet": "it('adds 1 + 2 to equal 3', () => {\n  expect(sum(1, 2)).toBe(3)\n})"
+  },
+  {
+    "id": 11,
+    "category": "Architecture / Patterns",
+    "question_en": "Challenge: What is MVC",
+    "question_he": "אתגר: מהו MVC",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Model-View-Controller separates application logic: Model manages data, View renders UI, and Controller handles input and updates the model and view.",
+    "correctAnswer_he": "Model-View-Controller מפריד לוגיקת אפליקציה: Model מנהל נתונים, View מרנדר UI, ו-Controller מטפל בקלט ומעדכן את ה-model וה-view."
+  },
+  {
+    "id": 12,
+    "category": "Architecture / i18n",
+    "question_en": "Challenge: What to consider when developing a multilingual site?",
+    "question_he": "אתגר: מה לקחת בחשבון בפיתוח אתר רב-לשוני?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Number formats, currencies, units, date formats, timezones, text direction, and translation.",
+    "correctAnswer_he": "פורמטי מספרים, מטבעות, יחידות, פורמטי תאריך, אזורי זמן, כיוון טקסט ותרגום."
+  },
+  {
+    "id": 13,
+    "category": "Architecture / OOP",
+    "question_en": "Challenge: What is OOP?",
+    "question_he": "אתגר: מהו OOP?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Object-Oriented Programming organizes software around objects that combine data and behavior, using concepts like encapsulation, inheritance, and polymorphism.",
+    "correctAnswer_he": "Object-Oriented Programming מארגן תוכנה סביב אובייקטים שמשלבים נתונים והתנהגות, עם מושגים כמו encapsulation, inheritance ו-polymorphism."
+  },
+  {
+    "id": 14,
+    "category": "Architecture / OOP",
+    "question_en": "Challenge: What is an OOP class in JS?",
+    "question_he": "אתגר: מהי OOP class ב-JS?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "A JavaScript class is syntactic sugar based on constructor functions and prototypes.",
+    "correctAnswer_he": "class ב-JavaScript הוא syntactic sugar המבוסס על constructor functions ו-prototypes."
+  },
+  {
+    "id": 15,
+    "category": "Architecture / OOP",
+    "question_en": "Challenge: Why can't I use 'this' inside a static method",
+    "question_he": "אתגר: למה אי אפשר להשתמש ב-'this' בתוך static method",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Static methods belong to the class itself, not to instances, so this inside a static method does not refer to an instance object.",
+    "correctAnswer_he": "static methods שייכים למחלקה עצמה ולא ל-instances, ולכן this בתוך static method לא מתייחס לאובייקט instance."
+  },
+  {
+    "id": 16,
+    "category": "Architecture / SSR",
+    "question_en": "Challenge: What is Hydration",
+    "question_he": "אתגר: מהו Hydration",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Hydration is the process of attaching interactivity and event handlers to server-rendered HTML so the app becomes interactive in the browser.",
+    "correctAnswer_he": "hydration הוא התהליך של חיבור אינטראקטיביות ו-event handlers ל-HTML שרונדר בשרת, כך שהאפליקציה הופכת לאינטראקטיבית בדפדפן."
+  },
+  {
+    "id": 17,
+    "category": "Architecture / SSR",
+    "question_en": "Challenge: What's the story of SSR",
+    "question_he": "אתגר: מה הסיפור של SSR",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "SSR is largely about SEO and faster first paint. Solutions include template engines, PHP, frameworks like Next/Nuxt, and prerendering for bots.",
+    "correctAnswer_he": "SSR עוסק בעיקר ב-SEO וב-first paint מהיר יותר. פתרונות כוללים template engines, PHP, frameworks כמו Next/Nuxt ו-prerendering לבוטים."
+  },
+  {
+    "id": 18,
+    "category": "Architecture / Microservices",
+    "question_en": "Challenge: Why would you break the backend to Micro Services?",
+    "question_he": "אתגר: למה לפצל את ה-backend ל-Micro Services?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Microservices enable rapid, frequent, and reliable delivery of large, complex applications by splitting them into independently deployable services.",
+    "correctAnswer_he": "microservices מאפשרים אספקה מהירה, תכופה ואמינה של אפליקציות גדולות ומורכבות על ידי פיצול לשירותים שניתן לפרוס בנפרד."
+  },
+  {
+    "id": 19,
+    "category": "Architecture / Microservices",
+    "question_en": "Challenge: How do Micro Services communicate?",
+    "question_he": "אתגר: איך Micro Services מתקשרים?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Microservices often communicate through message brokers or HTTP APIs for cross-service communication.",
+    "correctAnswer_he": "microservices לעיתים מתקשרים דרך message brokers או HTTP APIs לתקשורת בין שירותים."
+  },
+  {
+    "id": 20,
+    "category": "Architecture / Security",
+    "question_en": "Challenge: Name some Security issues",
+    "question_he": "אתגר: ציין נושאי אבטחה",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Authentication, authorization, information leakage, encryption, bots/captchas, DOS, XSS, SQL/NoSQL injection, and CSRF.",
+    "correctAnswer_he": "authentication, authorization, דליפת מידע, encryption, bots/captchas, DOS, XSS, SQL/NoSQL injection ו-CSRF."
+  },
+  {
+    "id": 21,
+    "category": "Architecture / APIs",
+    "question_en": "Challenge: What is REST API",
+    "question_he": "אתגר: מהו REST API",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "REST is an architectural style for backend APIs. Common HTTP methods POST, GET, PUT, and DELETE map to CRUDL operations.",
+    "correctAnswer_he": "REST הוא סגנון ארכיטקטוני ל-backend APIs. מתודות HTTP נפוצות POST, GET, PUT ו-DELETE ממופות לפעולות CRUDL."
+  },
+  {
+    "id": 22,
+    "category": "Architecture / APIs",
+    "question_en": "Challenge: REST API vs. GraphQL",
+    "question_he": "אתגר: REST API לעומת GraphQL",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "REST exposes multiple endpoints with fixed response shapes. GraphQL uses a single endpoint where clients request exactly the fields they need.",
+    "correctAnswer_he": "REST חושף endpoints מרובים עם צורות תגובה קבועות. GraphQL משתמש ב-endpoint יחיד שבו clients מבקשים בדיוק את השדות שהם צריכים."
+  },
+  {
+    "id": 23,
+    "category": "Architecture / Databases",
+    "question_en": "Challenge: Relational (SQL) vs Non-Relational Databases (NoSQL)",
+    "question_he": "אתגר: מסדי נתונים Relational (SQL) לעומת Non-Relational (NoSQL)",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "SQL databases use structured schemas and relations with ACID guarantees. NoSQL databases favor flexible schemas and horizontal scaling for unstructured or rapidly changing data.",
+    "correctAnswer_he": "מסדי SQL משתמשים בסכמות מובנות ויחסים עם ערבויות ACID. NoSQL מעדיפים סכמות גמישות ו-scaling אופקי לנתונים לא מובנים או משתנים במהירות."
+  },
+  {
+    "id": 24,
+    "category": "Architecture / DevOps",
+    "question_en": "Challenge: What are Docker containers?",
+    "question_he": "אתגר: מהם Docker containers?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Docker packages applications in loosely isolated containers, separating apps from infrastructure and reducing delay between writing code and running it in production.",
+    "correctAnswer_he": "Docker אורז אפליקציות ב-containers מבודדים באופן רופף, מפריד אפליקציות מתשתית ומקצר את הפער בין כתיבת קוד להרצה ב-production."
+  },
+  {
+    "id": 25,
+    "category": "Architecture / Career",
+    "question_en": "Challenge: Our backend in another technology — Is it a problem for you?",
+    "question_he": "אתגר: ה-backend שלנו בטכנולוגיה אחרת — האם זו בעיה עבורך?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "No. A frontend developer should be able to collaborate with any backend stack through clear API contracts.",
+    "correctAnswer_he": "לא. מפתח frontend צריך לשתף פעולה עם כל backend stack דרך חוזי API ברורים."
+  },
+  {
+    "id": 26,
+    "category": "Architecture / JavaScript",
+    "question_en": "Challenge: What is the type of the array?",
+    "question_he": "אתגר: מהו ה-type של מערך?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "In JavaScript, arrays are objects. typeof [] returns \"object\", and Array.isArray([]) returns true.",
+    "correctAnswer_he": "ב-JavaScript מערכים הם objects. typeof [] מחזיר \"object\", ו-Array.isArray([]) מחזיר true."
+  },
+  {
+    "id": 27,
+    "category": "Architecture / Angular",
+    "question_en": "Challenge: Name the features of Angular",
+    "question_he": "אתגר: ציין את התכונות של Angular",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "TypeScript and RxJS, signals, decorators, NgModules/standalone components, structural and attribute directives, components, dependency injection, advanced router features, two-way binding, reactive forms, and pipes including async.",
+    "correctAnswer_he": "TypeScript ו-RxJS, signals, decorators, NgModules/standalone components, structural ו-attribute directives, components, dependency injection, יכולות router מתקדמות, two-way binding, reactive forms ו-pipes כולל async."
+  },
+  {
+    "id": 28,
+    "category": "Architecture / Career",
+    "question_en": "Challenge: Describe a tech challenge and how you dealt with it",
+    "question_he": "אתגר: תאר אתגר טכנולוגי ואיך התמודדת איתו",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Describe a real challenge such as complex state management, marketplace booking flows, camera access, or reusable UI, and explain the concrete approach you used to solve it.",
+    "correctAnswer_he": "תארו אתגר אמיתי כמו ניהול state מורכב, תהליכי הזמנה ב-marketplace, גישה למצלמה או UI לשימוש חוזר, והסבירו את הגישה הקונקרטית שבה השתמשתם לפתרון."
+  },
+  {
+    "id": 29,
+    "category": "Architecture / Performance",
+    "question_en": "Challenge: Web optimizations",
+    "question_he": "אתגר: אופטימיזציות web",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Examples include optimizing images, reducing requests, adding caching and compression, fixing memory leaks, removing unused listeners, effective pagination, and adding database indexes.",
+    "correctAnswer_he": "דוגמאות: אופטימיזציה של תמונות, הפחתת בקשות, הוספת caching ו-compression, תיקון memory leaks, הסרת listeners לא בשימוש, pagination יעיל והוספת database indexes."
+  },
+  {
+    "id": 30,
+    "category": "Architecture / Design",
+    "question_en": "Challenge: Plan Model and data-flow based on UI",
+    "question_he": "אתגר: תכנון Model ו-data-flow על בסיס UI",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Identify UI entities and user actions, define models and state shape, map data flow between components and services, and decide where state lives (local, lifted, or global store).",
+    "correctAnswer_he": "זהו ישויות UI ופעולות משתמש, הגדירו models וצורת state, מפו data flow בין components ו-services, והחליטו היכן ה-state חי (local, lifted או global store)."
+  }
+]

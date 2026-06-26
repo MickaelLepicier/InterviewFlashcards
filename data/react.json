@@ -1,0 +1,141 @@
+[
+  {
+    "id": 1,
+    "category": "React / Core",
+    "question_en": "Challenge: what is the Virtual-Dom?",
+    "question_he": "אתגר: מהו Virtual-DOM?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "The virtual DOM is a lightweight JavaScript copy of the real DOM. React updates the virtual DOM first, then applies only the differences to the real DOM as an optimization.",
+    "correctAnswer_he": "virtual DOM הוא עותק JavaScript קל של ה-DOM האמיתי. React מעדכן קודם את ה-virtual DOM, ואז מחיל רק את ההבדלים על ה-DOM האמיתי כאופטימיזציה."
+  },
+  {
+    "id": 2,
+    "category": "React / Core",
+    "question_en": "Challenge: What is JSX?",
+    "question_he": "אתגר: מהו JSX?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "JSX is a syntax extension to JavaScript that allows HTML-like markup inside JS code.",
+    "correctAnswer_he": "JSX הוא הרחבת תחביר ל-JavaScript שמאפשרת markup דמוי HTML בתוך קוד JS.",
+    "code_snippet": "const heading = <h1>Hello JSX</h1>"
+  },
+  {
+    "id": 3,
+    "category": "React / Lifecycle",
+    "question_en": "Challenge: Describe React Component life-cycle",
+    "question_he": "אתגר: תאר את מחזור החיים של React Component",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "In hooks: mount/update via useEffect, cleanup via the function returned from useEffect. In class components: componentDidMount, componentDidUpdate, and componentWillUnmount.",
+    "correctAnswer_he": "ב-hooks: mount/update דרך useEffect, cleanup דרך הפונקציה שמוחזרת מ-useEffect. ב-class components: componentDidMount, componentDidUpdate ו-componentWillUnmount."
+  },
+  {
+    "id": 4,
+    "category": "React / Hooks",
+    "question_en": "Challenge: When would you use refs?",
+    "question_he": "אתגר: מתי משתמשים ב-refs?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Use refs to store values that do not affect rendering, such as DOM nodes, timeout IDs, or other imperative handles.",
+    "correctAnswer_he": "משתמשים ב-refs לשמירת ערכים שלא משפיעים על rendering, כמו DOM nodes, timeout IDs או handles אימפרטיביים אחרים.",
+    "code_snippet": "const inputEl = useRef(null)\ninputEl.current.focus()"
+  },
+  {
+    "id": 5,
+    "category": "React / Context",
+    "question_en": "Challenge: What is React Context?",
+    "question_he": "אתגר: מהו React Context?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Context passes data through the component tree without manually passing props at every level, useful for theme, locale, or authenticated user.",
+    "correctAnswer_he": "Context מעביר נתונים דרך עץ הקומפוננטות בלי להעביר props ידנית בכל רמה, שימושי ל-theme, locale או משתמש מאומת."
+  },
+  {
+    "id": 6,
+    "category": "React / Performance",
+    "question_en": "Challenge: What is React memo?",
+    "question_he": "אתגר: מהו React memo?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "memo skips re-rendering a component when its props are unchanged.",
+    "correctAnswer_he": "memo מדלג על re-render של קומפוננטה כשה-props שלה לא השתנו.",
+    "code_snippet": "const Greeting = memo(function Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>\n})"
+  },
+  {
+    "id": 7,
+    "category": "React / Hooks",
+    "question_en": "Challenge: What is useMemo?",
+    "question_he": "אתגר: מהו useMemo?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "useMemo caches the result of a calculation between re-renders until dependencies change.",
+    "correctAnswer_he": "useMemo שומר ב-cache את תוצאת חישוב בין re-renders עד שה-dependencies משתנים.",
+    "code_snippet": "const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab])"
+  },
+  {
+    "id": 8,
+    "category": "React / Hooks",
+    "question_en": "Challenge: What is useCallback?",
+    "question_he": "אתגר: מהו useCallback?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "useCallback caches a function definition between re-renders until dependencies change.",
+    "correctAnswer_he": "useCallback שומר ב-cache הגדרת פונקציה בין re-renders עד שה-dependencies משתנים.",
+    "code_snippet": "const handleSubmit = useCallback((orderDetails) => { /* ... */ }, [productId])"
+  },
+  {
+    "id": 9,
+    "category": "React / Props",
+    "question_en": "Challenge: What is props-validation?",
+    "question_he": "אתגר: מהו props-validation?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "PropTypes and defaultProps let you validate and default props passed from a parent component.",
+    "correctAnswer_he": "PropTypes ו-defaultProps מאפשרים לאמת ולהגדיר ברירות מחדל ל-props שמועברים מקומפוננטת הורה.",
+    "code_snippet": "MyCmp.propTypes = { name: PropTypes.string.isRequired }\nMyCmp.defaultProps = { count: 0 }"
+  },
+  {
+    "id": 10,
+    "category": "React / Hooks",
+    "question_en": "Challenge: when should you code a custom-hook?",
+    "question_he": "אתגר: מתי כדאי לכתוב custom-hook?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Custom hooks extract reusable stateful logic at the component layer, such as online status or data fetching patterns.",
+    "correctAnswer_he": "custom hooks מחלצים לוגיקה stateful לשימוש חוזר בשכבת הקומפוננטות, כמו סטטוס online או דפוסי data fetching.",
+    "code_snippet": "export function useOnlineStatus() {\n  const [isOnline, setIsOnline] = useState(true)\n  useEffect(() => { /* listeners */ }, [])\n  return isOnline\n}"
+  },
+  {
+    "id": 11,
+    "category": "React / Redux",
+    "question_en": "Challenge: List down the components of Redux",
+    "question_he": "אתגר: פרט את רכיבי Redux",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "Redux is composed of Actions, Reducers, Store, and View.",
+    "correctAnswer_he": "Redux מורכב מ-Actions, Reducers, Store ו-View."
+  },
+  {
+    "id": 12,
+    "category": "React / Patterns",
+    "question_en": "Challenge: What are Higher-Order Components?",
+    "question_he": "אתגר: מהם Higher-Order Components?",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "A higher-order component is a function that takes a component and returns a new enhanced component, such as withRouter or connect.",
+    "correctAnswer_he": "higher-order component היא פונקציה שמקבלת קומפוננטה ומחזירה קומפוננטה משופרת חדשה, כמו withRouter או connect.",
+    "code_snippet": "const EnhancedComponent = higherOrderComponent(WrappedComponent)"
+  },
+  {
+    "id": 13,
+    "category": "React / Components",
+    "question_en": "Challenge: Code an Accordion",
+    "question_he": "אתגר: קוד Accordion",
+    "hint_en": "Focus on the key concepts from the official answer.",
+    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "correctAnswer_en": "An accordion group tracks the active item index and passes isActive and onToggle to each AccordionItem, often using React.Children.map and cloneElement.",
+    "correctAnswer_he": "קבוצת accordion עוקבת אחר אינדקס הפריט הפעיל ומעבירה isActive ו-onToggle לכל AccordionItem, לעיתים עם React.Children.map ו-cloneElement.",
+    "code_snippet": "<AccordionGroup>\n  <AccordionItem title=\"The Team\">...</AccordionItem>\n</AccordionGroup>"
+  }
+]

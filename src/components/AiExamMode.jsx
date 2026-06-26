@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import cards from '../../data.json';
+import { useCallback, useState } from 'react';
 import { evaluateAnswer } from '../services/evaluateAnswer';
+import { getCorrectAnswer, getHint, getQuestion } from '../utils/cardContent';
 import {
   calculateSessionStats,
   getStarCount,
@@ -22,22 +22,38 @@ function getQuestionText(content, code) {
   return content;
 }
 
-export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdated }) {
+export default function AiExamMode({
+  cards,
+  subjectId,
+  lang,
+  t,
+  isRtl,
+  bestScore,
+  onBestScoreUpdated,
+  onNewSession,
+}) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answer, setAnswer] = useState('');
   const [isHintOpen, setIsHintOpen] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [error, setError] = useState('');
   const [results, setResults] = useState({});
+  const [summaryStats, setSummaryStats] = useState(null);
   const [showSummary, setShowSummary] = useState(false);
   const [pointsPulse, setPointsPulse] = useState(false);
   const [isNewBest, setIsNewBest] = useState(false);
 
   const card = cards[currentIndex];
-  const question = lang === 'he' ? card.question_he : card.question_en;
-  const hint = lang === 'he' ? card.hint_he : card.hint_en;
-  const displayQuestion = getQuestionText(question, card.code_snippet);
+  const question = getQuestion(card, lang);
+  const hint = getHint(card, lang);
+  const displayQuestion = getQuestionText(question, card?.code_snippet);
+  const officialAnswer = getCorrectAnswer(card, lang);
   const hasFeedback = feedback !== null;
+  const feedbackMessage = feedback
+    ? feedback.isCorrect
+      ? t.feedbackSuccess(feedback.averageMatchRate)
+      : t.feedbackFailure(feedback.averageMatchRate)
+    : '';
 
   const stats = calculateSessionStats(results, cards.length);
   const liveStarCount = getStarCount(
@@ -46,13 +62,38 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
       : 0,
   );
 
+  const completeExam = useCallback(
+    (finalResults) => {
+      const finalStats = calculateSessionStats(finalResults, cards.length);
+
+      setResults(finalResults);
+      setSummaryStats(finalStats);
+
+      const newBest = finalStats.correctCount > bestScore;
+      setIsNewBest(newBest);
+
+      if (newBest) {
+        saveBestScore(subjectId, finalStats.correctCount);
+        onBestScoreUpdated(finalStats.correctCount);
+      }
+
+      setFeedback(null);
+      setError('');
+      setPointsPulse(false);
+      setShowSummary(true);
+    },
+    [bestScore, cards.length, onBestScoreUpdated, subjectId],
+  );
+
   const resetExam = () => {
+    onNewSession();
     setCurrentIndex(0);
     setAnswer('');
     setIsHintOpen(false);
     setFeedback(null);
     setError('');
     setResults({});
+    setSummaryStats(null);
     setShowSummary(false);
     setPointsPulse(false);
     setIsNewBest(false);
@@ -71,16 +112,6 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
     resetQuestionState();
   };
 
-  const finishExam = () => {
-    const newBest = stats.sessionScore > bestScore;
-    setIsNewBest(newBest);
-    if (newBest) {
-      saveBestScore(stats.sessionScore);
-      onBestScoreUpdated(stats.sessionScore);
-    }
-    setShowSummary(true);
-  };
-
   const handlePrevious = () => goTo(Math.max(0, currentIndex - 1));
   const handleNext = () => goTo(Math.min(cards.length - 1, currentIndex + 1));
 
@@ -89,7 +120,7 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
       if (currentIndex < cards.length - 1) {
         goTo(currentIndex + 1);
       } else {
-        finishExam();
+        completeExam(results);
       }
       return;
     }
@@ -102,34 +133,42 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
     setError('');
 
     const result = evaluateAnswer({
+      subjectId,
       cardId: card.id,
       studentAnswer: answer.trim(),
-      lang,
     });
 
     const wasCorrect = result.isCorrect;
-    const previousResult = results[card.id];
+    const previousResult = results[currentIndex];
+    const nextResults = {
+      ...results,
+      [currentIndex]: { isCorrect: wasCorrect },
+    };
 
-    setResults((prev) => ({
-      ...prev,
-      [card.id]: { isCorrect: wasCorrect },
-    }));
+    setResults(nextResults);
 
     if (wasCorrect && !previousResult?.isCorrect) {
       setPointsPulse(true);
     }
 
+    const isLastQuestion = currentIndex === cards.length - 1;
+
+    if (isLastQuestion) {
+      completeExam(nextResults);
+      return;
+    }
+
     setFeedback(result);
   };
 
-  if (showSummary) {
+  if (showSummary && summaryStats) {
     return (
       <ExamSummary
-        sessionScore={stats.sessionScore}
-        correctCount={stats.correctCount}
+        sessionScore={summaryStats.sessionScore}
+        correctCount={summaryStats.correctCount}
         totalQuestions={cards.length}
-        percentage={stats.percentage}
-        starCount={stats.starCount}
+        percentage={summaryStats.percentage}
+        starCount={summaryStats.starCount}
         bestScore={bestScore}
         isNewBest={isNewBest}
         t={t}
@@ -137,6 +176,8 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
       />
     );
   }
+
+  if (!card) return null;
 
   return (
     <>
@@ -161,6 +202,7 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
           current={currentIndex + 1}
           total={cards.length}
           label={t.progress}
+          detail={t.questionOf(currentIndex + 1, cards.length)}
         />
       </div>
 
@@ -241,8 +283,19 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
                   className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800"
                   dir={lang === 'he' ? 'rtl' : 'ltr'}
                 >
-                  {feedback.explanation}
+                  {feedbackMessage}
                 </p>
+                <div className="mt-3 border-t border-slate-200/80 pt-3">
+                  <p className="mb-1 text-xs font-bold uppercase tracking-wide text-slate-500">
+                    {t.officialAnswerLabel}
+                  </p>
+                  <p
+                    className="whitespace-pre-wrap text-sm leading-relaxed text-slate-700"
+                    dir={lang === 'he' ? 'rtl' : 'ltr'}
+                  >
+                    {officialAnswer}
+                  </p>
+                </div>
               </div>
             ) : null}
 
@@ -285,7 +338,7 @@ export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdat
         <Navigation
           current={currentIndex}
           total={cards.length}
-          cardLabel={t.cardOf(currentIndex + 1, cards.length)}
+          cardLabel={t.questionOf(currentIndex + 1, cards.length)}
           previousLabel={t.previous}
           nextLabel={t.next}
           onPrevious={handlePrevious}
