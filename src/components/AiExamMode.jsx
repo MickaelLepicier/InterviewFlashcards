@@ -1,8 +1,16 @@
 import { useState } from 'react';
 import cards from '../../data.json';
-import { evaluateAnswer } from '../services/gemini';
+import { evaluateAnswer } from '../services/evaluateAnswer';
+import {
+  calculateSessionStats,
+  getStarCount,
+  getSuccessPercentage,
+  POINTS_PER_CORRECT,
+  saveBestScore,
+} from '../utils/examScore';
 import CodeBlock from './CodeBlock';
-import LoadingSpinner from './LoadingSpinner';
+import ExamScoreBoard from './ExamScoreBoard';
+import ExamSummary from './ExamSummary';
 import Navigation from './Navigation';
 import ProgressBar from './ProgressBar';
 
@@ -14,27 +22,48 @@ function getQuestionText(content, code) {
   return content;
 }
 
-export default function AiExamMode({ lang, t, isRtl }) {
+export default function AiExamMode({ lang, t, isRtl, bestScore, onBestScoreUpdated }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answer, setAnswer] = useState('');
   const [isHintOpen, setIsHintOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState(null);
   const [error, setError] = useState('');
+  const [results, setResults] = useState({});
+  const [showSummary, setShowSummary] = useState(false);
+  const [pointsPulse, setPointsPulse] = useState(false);
+  const [isNewBest, setIsNewBest] = useState(false);
 
   const card = cards[currentIndex];
   const question = lang === 'he' ? card.question_he : card.question_en;
-  const officialAnswer = lang === 'he' ? card.answer_he : card.answer_en;
   const hint = lang === 'he' ? card.hint_he : card.hint_en;
   const displayQuestion = getQuestionText(question, card.code_snippet);
   const hasFeedback = feedback !== null;
+
+  const stats = calculateSessionStats(results, cards.length);
+  const liveStarCount = getStarCount(
+    stats.answeredCount > 0
+      ? getSuccessPercentage(stats.correctCount, stats.answeredCount)
+      : 0,
+  );
+
+  const resetExam = () => {
+    setCurrentIndex(0);
+    setAnswer('');
+    setIsHintOpen(false);
+    setFeedback(null);
+    setError('');
+    setResults({});
+    setShowSummary(false);
+    setPointsPulse(false);
+    setIsNewBest(false);
+  };
 
   const resetQuestionState = () => {
     setAnswer('');
     setIsHintOpen(false);
     setFeedback(null);
     setError('');
-    setIsLoading(false);
+    setPointsPulse(false);
   };
 
   const goTo = (index) => {
@@ -42,15 +71,25 @@ export default function AiExamMode({ lang, t, isRtl }) {
     resetQuestionState();
   };
 
+  const finishExam = () => {
+    const newBest = stats.sessionScore > bestScore;
+    setIsNewBest(newBest);
+    if (newBest) {
+      saveBestScore(stats.sessionScore);
+      onBestScoreUpdated(stats.sessionScore);
+    }
+    setShowSummary(true);
+  };
+
   const handlePrevious = () => goTo(Math.max(0, currentIndex - 1));
   const handleNext = () => goTo(Math.min(cards.length - 1, currentIndex + 1));
 
-  const handleSubmit = async () => {
+  const handleSubmit = () => {
     if (hasFeedback) {
       if (currentIndex < cards.length - 1) {
         goTo(currentIndex + 1);
       } else {
-        resetQuestionState();
+        finishExam();
       }
       return;
     }
@@ -61,27 +100,62 @@ export default function AiExamMode({ lang, t, isRtl }) {
     }
 
     setError('');
-    setIsLoading(true);
 
-    try {
-      const result = await evaluateAnswer({
-        question: displayQuestion,
-        officialAnswer,
-        codeSnippet: card.code_snippet,
-        studentAnswer: answer.trim(),
-        lang,
-      });
-      setFeedback(result);
-    } catch (err) {
-      console.error(err);
-      setError(err instanceof Error ? err.message : t.apiError);
-    } finally {
-      setIsLoading(false);
+    const result = evaluateAnswer({
+      cardId: card.id,
+      studentAnswer: answer.trim(),
+      lang,
+    });
+
+    const wasCorrect = result.isCorrect;
+    const previousResult = results[card.id];
+
+    setResults((prev) => ({
+      ...prev,
+      [card.id]: { isCorrect: wasCorrect },
+    }));
+
+    if (wasCorrect && !previousResult?.isCorrect) {
+      setPointsPulse(true);
     }
+
+    setFeedback(result);
   };
+
+  if (showSummary) {
+    return (
+      <ExamSummary
+        sessionScore={stats.sessionScore}
+        correctCount={stats.correctCount}
+        totalQuestions={cards.length}
+        percentage={stats.percentage}
+        starCount={stats.starCount}
+        bestScore={bestScore}
+        isNewBest={isNewBest}
+        t={t}
+        onPlayAgain={resetExam}
+      />
+    );
+  }
 
   return (
     <>
+      <div className="animate-fade-up mb-4" style={{ animationDelay: '0.06s' }}>
+        <ExamScoreBoard
+          score={stats.sessionScore}
+          correctCount={stats.correctCount}
+          totalQuestions={cards.length}
+          stars={liveStarCount}
+          label={t.score}
+          correctLabel={t.correctAnswers}
+        />
+        {pointsPulse && feedback?.isCorrect ? (
+          <p className="mt-2 text-center text-sm font-semibold text-amber-300 animate-fade-up">
+            {t.pointsEarned}
+          </p>
+        ) : null}
+      </div>
+
       <div className="animate-fade-up mb-8" style={{ animationDelay: '0.08s' }}>
         <ProgressBar
           current={currentIndex + 1}
@@ -125,7 +199,7 @@ export default function AiExamMode({ lang, t, isRtl }) {
               value={answer}
               onChange={(event) => setAnswer(event.target.value)}
               rows={8}
-              disabled={isLoading || hasFeedback}
+              disabled={hasFeedback}
               placeholder={t.answerPlaceholder}
               className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-relaxed text-slate-800 shadow-inner outline-none transition-colors focus:border-violet-400 focus:ring-2 focus:ring-violet-200 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
             />
@@ -157,6 +231,11 @@ export default function AiExamMode({ lang, t, isRtl }) {
                   >
                     {feedback.isCorrect ? t.correct : t.incorrect}
                   </span>
+                  {feedback.isCorrect ? (
+                    <span className="text-xs font-semibold text-emerald-700">
+                      +{POINTS_PER_CORRECT} {t.points}
+                    </span>
+                  ) : null}
                 </div>
                 <p
                   className="whitespace-pre-wrap text-sm leading-relaxed text-slate-800"
@@ -167,27 +246,23 @@ export default function AiExamMode({ lang, t, isRtl }) {
               </div>
             ) : null}
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={isLoading}
-                className="rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 transition-all hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60"
+                className="rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 transition-all hover:brightness-110 active:scale-[0.98]"
               >
-                {isLoading ? (
-                  <LoadingSpinner label={t.evaluating} />
-                ) : hasFeedback ? (
-                  t.nextQuestion
-                ) : (
-                  t.submitAnswer
-                )}
+                {hasFeedback
+                  ? currentIndex < cards.length - 1
+                    ? t.nextQuestion
+                    : t.examComplete
+                  : t.submitAnswer}
               </button>
               {hint && !hasFeedback ? (
                 <button
                   type="button"
                   onClick={() => setIsHintOpen((prev) => !prev)}
-                  disabled={isLoading}
-                  className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 transition-colors hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-60"
+                  className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 transition-colors hover:bg-amber-100"
                 >
                   {isHintOpen ? t.hideHint : t.showHint}
                 </button>

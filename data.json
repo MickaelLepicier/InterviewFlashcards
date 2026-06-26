@@ -19,7 +19,7 @@
     "hint_en": "Does this loop iterate over the values or the keys/indices?",
     "answer_he": "הפלט יהיה האינדקסים כמחרוזות: \"0\", \"1\", \"2\". לולאת for...in עוברת על ה-Keys (האינדקסים) של המערך ולא על הערכים שלו. בשביל לקבל את הערכים עצמם יש להשתמש ב-for...of.",
     "answer_en": "The output will be the indices as strings: \"0\", \"1\", \"2\". A for...in loop iterates over the enumerable properties (keys/indices) of an array, not its values. Use for...of for values.",
-    "code_snippet": "const arr = ['a', 'b', 'c'];\nfor (let x in arr) {\n    console.log(x); // '0', '1', '2'\n}"
+    "code_snippet": "const arr = ['a', 'b', 'c'];\nfor (let x in arr) {\n    console.log(x); \n}"
   },
   {
     "id": 3,
@@ -50,7 +50,7 @@
     "question_en": "What's IIFE?",
     "hint_he": "זהו קיצור של Immediately Invoked Function Expression.",
     "hint_en": "It stands for Immediately Invoked Function Expression.",
-    "answer_he": "פונקציה שרצה מיד ברגע שהיא מוגדרת. שימשה בעבר בעיקר ליצירת סקופ מבודד ומניעת זליגה של משתנים לסקופ הגלובלי (לפני עיδן let/const ו-Modules).",
+    "answer_he": "פונקציה שרצה מיד ברגע שהיא מוגדרת. שימשה בעבר בעיקר ליצירת סקופ מבודד ומניעת זליגה של משתנים לסקופ הגלובלי (לפני עידן let/const ו-Modules).",
     "answer_en": "Stands for Immediately Invoked Function Expression. A function that runs as soon as it is defined. Historically used to create local scope and avoid polluting the global namespace.",
     "code_snippet": "(function() {\n    const secret = \"I am safe here\";\n    console.log(\"I run immediately!\");\n})();"
   },
@@ -61,8 +61,8 @@
     "question_en": "What are the main differences between var and let?",
     "hint_he": "תחשוב על שלושה היבטים: Scope (סקופ בלוקי מול פונקציונלי), Hoisting, והצהרה מחדש (Redeclaration).",
     "hint_en": "Think about three aspects: Scope (block vs function), Hoisting, and Redeclaration.",
-    "answer_he": "1. Scope: ה-var הוא Function-scoped, ה-let הוא Block-scoped (בתוך {}). 2. Hoisting: ה-var מאותחל כ-undefined, ה-let מורם ללא אתחול (TDZ). 3. הצהרה מחדש: ניתן להצהיר מחדש על var באותו סקופ, אך let יזרוק שגיאה.",
-    "answer_en": "1. Scope: var is function-scoped, let is block-scoped. 2. Hoisting: var is initialized as undefined, let is uninitialized (TDZ). 3. Redeclaration: var allows redeclaring in the same scope, let throws an error.",
+    "answer_he": "1. Scope: ה-var הוא Function-scoped, ה-let הוא Block-scoped (בתוך {}).\n2. Hoisting: ה-var מאותחל כ-undefined, ה-let מורם ללא אתחול (TDZ).\n3. הצהרה מחדש: ניתן להצהיר מחדש על var באותו סקופ, אך let יזרוק שגיאה.",
+    "answer_en": "1. Scope: var is function-scoped, let is block-scoped.\n2. Hoisting: var is initialized as undefined, let is uninitialized (TDZ).\n3. Redeclaration: var allows redeclaring in the same scope, let throws an error.",
     "code_snippet": "if (true) {\n    var x = 5;\n    let y = 10;\n}\nconsole.log(x); // 5\n// console.log(y); // ReferenceError"
   },
   {

@@ -4,10 +4,12 @@ import FlashcardsMode from './components/FlashcardsMode';
 import GameModeSelector from './components/GameModeSelector';
 import LanguageToggle from './components/LanguageToggle';
 import { UI } from './i18n';
+import { getBestScore } from './utils/examScore';
 
 export default function App() {
   const [lang, setLang] = useState('en');
   const [gameMode, setGameMode] = useState('flashcards');
+  const [bestScore, setBestScore] = useState(() => getBestScore());
 
   const t = UI[lang];
   const isRtl = lang === 'he';
@@ -65,12 +67,26 @@ export default function App() {
             activeMode={gameMode}
             onSelect={setGameMode}
           />
+          {bestScore > 0 ? (
+            <p className="mt-4 inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm text-amber-200">
+              <span>🏆</span>
+              <span>
+                {t.bestRecord}: <strong>{bestScore.toLocaleString()}</strong> {t.points}
+              </span>
+            </p>
+          ) : null}
         </section>
 
         {gameMode === 'flashcards' ? (
           <FlashcardsMode lang={lang} t={t} isRtl={isRtl} />
         ) : (
-          <AiExamMode lang={lang} t={t} isRtl={isRtl} />
+          <AiExamMode
+            lang={lang}
+            t={t}
+            isRtl={isRtl}
+            bestScore={bestScore}
+            onBestScoreUpdated={setBestScore}
+          />
         )}
       </div>
     </div>
