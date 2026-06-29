@@ -114,5 +114,16 @@
     "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
     "correctAnswer_en": "Use a color theme and style guide, write clean consistent code, comment, split into files, minify, use preprocessors like SASS, reset or normalize, prefer classes over IDs, use fallbacks, and avoid !important and overly specific selectors.",
     "correctAnswer_he": "השתמשו בערכת צבעים וב-style guide, כתבו קוד נקי ועקבי, הוסיפו הערות, פצלו לקבצים, בצעו minify, השתמשו ב-preprocessors כמו SASS, reset או normalize, העדיפו classes על IDs, השתמשו ב-fallbacks, והימנעו מ-!important ו-selectors ספציפיים מדי."
+  },
+  {
+    "id": 12,
+    "category": "CSS / Layout",
+    "question_en": "In the CSS display property, what is the difference between block and inline?",
+    "question_he": "במאפיין display ב-CSS, מה ההבדל בין block לבין inline?",
+    "hint_en": "Think about new lines, width/height properties, and content size.",
+    "hint_he": "חשוב על שורות חדשות, הגדרות רוחב/גובה, וגודל התוכן.",
+    "correctAnswer_en": "A 'block' element starts on a new line and takes up the full width available, and allows setting custom width and height (e.g., div, p). An 'inline' element does not start on a new line, takes up only as much width as its content, and ignores width and height properties (e.g., span, a).",
+    "correctAnswer_he": "אלמנט 'block' (בלוק) מתחיל תמיד בשורה חדשה ותופס את כל הרוחב הזמין, וניתן להגדיר לו רוחב וגובה מותאמים אישית (למשל div, p). אלמנט 'inline' (אינליין) אינו מתחיל בשורה חדשה, תופס רק את הרוחב של התוכן שלו, ומתעלם מהגדרות רוחב וגובה (למשל span, a).",
+    "code_snippet": "div { display: block; }\nspan { display: inline; }"
   }
 ]

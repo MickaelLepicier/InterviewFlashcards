@@ -119,6 +119,6 @@ export const UI = {
     officialAnswerLabel: 'תשובה רשמית',
     examCompletedTitle: 'סיום מבחן',
     examCompletedScore: (correct, total) =>
-      ` ${correct} תשובות נכונות מתוך ${total}!`,
+      `הצלחת ${correct} תשובות נכונות מתוך ${total}!`,
   },
 };

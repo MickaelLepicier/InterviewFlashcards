@@ -137,5 +137,28 @@
     "correctAnswer_en": "An accordion group tracks the active item index and passes isActive and onToggle to each AccordionItem, often using React.Children.map and cloneElement.",
     "correctAnswer_he": "קבוצת accordion עוקבת אחר אינדקס הפריט הפעיל ומעבירה isActive ו-onToggle לכל AccordionItem, לעיתים עם React.Children.map ו-cloneElement.",
     "code_snippet": "<AccordionGroup>\n  <AccordionItem title=\"The Team\">...</AccordionItem>\n</AccordionGroup>"
+  },
+  {
+    "id": 14,
+    "category": "React / Hooks",
+    "question_en": "What is useContext, and when/where should you use it?",
+    "question_he": "מה זה useContext, ואיפה/מתי משתמשים בו?",
+    "hint_en": "Think about global state and avoiding passing props through many levels.",
+    "hint_he": "חשוב על סטייט גלובלי ומניעת העברת פרופס דרך הרבה רמות.",
+    "correctAnswer_en": "useContext is a React Hook that allows you to share and consume global state across components without passing props down manually through every level (Props Drilling). It is used for global data like themes, user authentication state, or language settings.",
+    "correctAnswer_he": "useContext הוא React Hook המאפשר לשתף ולצרוך סטייט (state) גלובלי בין קומפוננטות מבלי להעביר פרופס ידנית דרך כל הרמות (פרופס דרילינג - Props Drilling). משתמשים בו למידע גלובלי כמו ערכות עיצוב (Themes), מצב התחברות של משתמש (Auth) או הגדרות שפה.",
+    "code_snippet": "const value = useContext(MyContext);"
+  },
+  {
+    "id": 15,
+    "category": "React / Hooks",
+    "question_en": "What is useRef, and when/where should you use it?",
+    "question_he": "מה זה useRef, ואיפה/מתי משתמשים בו?",
+    "hint_en": "Think about persisting values without re-rendering or accessing DOM elements directly.",
+    "hint_he": "חשוב על שמירת ערכים ללא רינדור מחדש או גישה ישירה לאלמנטים ב-DOM.",
+    "correctAnswer_en": "useRef is a Hook that returns a mutable ref object whose .current property persists across renders. Changing it does not trigger a re-render. It is used to directly access and manipulate DOM elements (like focusing an input) or to store a value that needs to persist without updating the UI.",
+    "correctAnswer_he": "useRef הוא Hook המחזיר אובייקט עם מאפיין .current ששומר על הערך שלו לאורך רינדורים (renders). שינוי הערך אינו גורם לרינדור מחדש של המסך. משתמשים בו כדי לגשת ולשנות ישירות אלמנטים ב-DOM (כמו מיקוד בתיבת טקסט) או כדי לשמור ערך שצריך להישמר ברקע בלי לעדכן את ה-UI.",
+    "code_snippet": "const inputRef = useRef(null);\n// inputRef.current.focus();"
   }
+
 ]
