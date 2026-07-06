@@ -4,8 +4,8 @@
     "category": "React / Core",
     "question_en": "Challenge: what is the Virtual-Dom?",
     "question_he": "אתגר: מהו Virtual-DOM?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Why does React compare a lightweight copy before touching the real DOM?",
+    "hint_he": "למה React משווה עותק קל לפני שנוגע ב-DOM האמיתי?",
     "correctAnswer_en": "The virtual DOM is a lightweight JavaScript copy of the real DOM. React updates the virtual DOM first, then applies only the differences to the real DOM as an optimization.",
     "correctAnswer_he": "virtual DOM הוא עותק JavaScript קל של ה-DOM האמיתי. React מעדכן קודם את ה-virtual DOM, ואז מחיל רק את ההבדלים על ה-DOM האמיתי כאופטימיזציה."
   },
@@ -14,8 +14,8 @@
     "category": "React / Core",
     "question_en": "Challenge: What is JSX?",
     "question_he": "אתגר: מהו JSX?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "What lets you write HTML-like syntax inside JavaScript?",
+    "hint_he": "מה מאפשר לכתוב תחביר דמוי HTML בתוך JavaScript?",
     "correctAnswer_en": "JSX is a syntax extension to JavaScript that allows HTML-like markup inside JS code.",
     "correctAnswer_he": "JSX הוא הרחבת תחביר ל-JavaScript שמאפשרת markup דמוי HTML בתוך קוד JS.",
     "code_snippet": "const heading = <h1>Hello JSX</h1>"
@@ -25,8 +25,8 @@
     "category": "React / Lifecycle",
     "question_en": "Challenge: Describe React Component life-cycle",
     "question_he": "אתגר: תאר את מחזור החיים של React Component",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Think mount, update, and cleanup — in hooks and class components.",
+    "hint_he": "חשוב על mount, update ו-cleanup — ב-hooks וב-class components.",
     "correctAnswer_en": "In hooks: mount/update via useEffect, cleanup via the function returned from useEffect. In class components: componentDidMount, componentDidUpdate, and componentWillUnmount.",
     "correctAnswer_he": "ב-hooks: mount/update דרך useEffect, cleanup דרך הפונקציה שמוחזרת מ-useEffect. ב-class components: componentDidMount, componentDidUpdate ו-componentWillUnmount."
   },
@@ -35,8 +35,8 @@
     "category": "React / Hooks",
     "question_en": "Challenge: When would you use refs?",
     "question_he": "אתגר: מתי משתמשים ב-refs?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "When do you need a value that should not trigger a re-render?",
+    "hint_he": "מתי צריך ערך שלא אמור לגרום ל-re-render?",
     "correctAnswer_en": "Use refs to store values that do not affect rendering, such as DOM nodes, timeout IDs, or other imperative handles.",
     "correctAnswer_he": "משתמשים ב-refs לשמירת ערכים שלא משפיעים על rendering, כמו DOM nodes, timeout IDs או handles אימפרטיביים אחרים.",
     "code_snippet": "const inputEl = useRef(null)\ninputEl.current.focus()"
@@ -46,8 +46,8 @@
     "category": "React / Context",
     "question_en": "Challenge: What is React Context?",
     "question_he": "אתגר: מהו React Context?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "How can data reach deep components without passing props at every level?",
+    "hint_he": "איך נתונים יכולים להגיע לקומפוננטות עמוקות בלי להעביר props בכל רמה?",
     "correctAnswer_en": "Context passes data through the component tree without manually passing props at every level, useful for theme, locale, or authenticated user.",
     "correctAnswer_he": "Context מעביר נתונים דרך עץ הקומפוננטות בלי להעביר props ידנית בכל רמה, שימושי ל-theme, locale או משתמש מאומת."
   },
@@ -56,8 +56,8 @@
     "category": "React / Performance",
     "question_en": "Challenge: What is React memo?",
     "question_he": "אתגר: מהו React memo?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "When should React skip re-rendering a component?",
+    "hint_he": "מתי React צריך לדלג על re-render של קומפוננטה?",
     "correctAnswer_en": "memo skips re-rendering a component when its props are unchanged.",
     "correctAnswer_he": "memo מדלג על re-render של קומפוננטה כשה-props שלה לא השתנו.",
     "code_snippet": "const Greeting = memo(function Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>\n})"
@@ -67,8 +67,8 @@
     "category": "React / Hooks",
     "question_en": "Challenge: What is useMemo?",
     "question_he": "אתגר: מהו useMemo?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "What expensive calculation should be cached between re-renders?",
+    "hint_he": "איזה חישוב יקר כדאי לשמור ב-cache בין re-renders?",
     "correctAnswer_en": "useMemo caches the result of a calculation between re-renders until dependencies change.",
     "correctAnswer_he": "useMemo שומר ב-cache את תוצאת חישוב בין re-renders עד שה-dependencies משתנים.",
     "code_snippet": "const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab])"
@@ -78,8 +78,8 @@
     "category": "React / Hooks",
     "question_en": "Challenge: What is useCallback?",
     "question_he": "אתגר: מהו useCallback?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Why cache a function reference instead of recreating it each render?",
+    "hint_he": "למה לשמור reference לפונקציה במקום ליצור אותה מחדש בכל render?",
     "correctAnswer_en": "useCallback caches a function definition between re-renders until dependencies change.",
     "correctAnswer_he": "useCallback שומר ב-cache הגדרת פונקציה בין re-renders עד שה-dependencies משתנים.",
     "code_snippet": "const handleSubmit = useCallback((orderDetails) => { /* ... */ }, [productId])"
@@ -89,8 +89,8 @@
     "category": "React / Props",
     "question_en": "Challenge: What is props-validation?",
     "question_he": "אתגר: מהו props-validation?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "How can a parent enforce expected prop types and defaults?",
+    "hint_he": "איך קומפוננטת הורה יכולה לאכוף סוגי props וברירות מחדל?",
     "correctAnswer_en": "PropTypes and defaultProps let you validate and default props passed from a parent component.",
     "correctAnswer_he": "PropTypes ו-defaultProps מאפשרים לאמת ולהגדיר ברירות מחדל ל-props שמועברים מקומפוננטת הורה.",
     "code_snippet": "MyCmp.propTypes = { name: PropTypes.string.isRequired }\nMyCmp.defaultProps = { count: 0 }"
@@ -100,8 +100,8 @@
     "category": "React / Hooks",
     "question_en": "Challenge: when should you code a custom-hook?",
     "question_he": "אתגר: מתי כדאי לכתוב custom-hook?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "When is the same stateful logic reused across multiple components?",
+    "hint_he": "מתי אותה לוגיקה stateful משמשת חוזר בכמה קומפוננטות?",
     "correctAnswer_en": "Custom hooks extract reusable stateful logic at the component layer, such as online status or data fetching patterns.",
     "correctAnswer_he": "custom hooks מחלצים לוגיקה stateful לשימוש חוזר בשכבת הקומפוננטות, כמו סטטוס online או דפוסי data fetching.",
     "code_snippet": "export function useOnlineStatus() {\n  const [isOnline, setIsOnline] = useState(true)\n  useEffect(() => { /* listeners */ }, [])\n  return isOnline\n}"
@@ -111,8 +111,8 @@
     "category": "React / Redux",
     "question_en": "Challenge: List down the components of Redux",
     "question_he": "אתגר: פרט את רכיבי Redux",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Name the core building blocks of the Redux data flow.",
+    "hint_he": "פרט את אבני הבניין המרכזיות של זרימת הנתונים ב-Redux.",
     "correctAnswer_en": "Redux is composed of Actions, Reducers, Store, and View.",
     "correctAnswer_he": "Redux מורכב מ-Actions, Reducers, Store ו-View."
   },
@@ -121,8 +121,8 @@
     "category": "React / Patterns",
     "question_en": "Challenge: What are Higher-Order Components?",
     "question_he": "אתגר: מהם Higher-Order Components?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "What kind of function takes a component and returns an enhanced one?",
+    "hint_he": "איזו פונקציה מקבלת קומפוננטה ומחזירה אחת משופרת?",
     "correctAnswer_en": "A higher-order component is a function that takes a component and returns a new enhanced component, such as withRouter or connect.",
     "correctAnswer_he": "higher-order component היא פונקציה שמקבלת קומפוננטה ומחזירה קומפוננטה משופרת חדשה, כמו withRouter או connect.",
     "code_snippet": "const EnhancedComponent = higherOrderComponent(WrappedComponent)"
@@ -132,8 +132,8 @@
     "category": "React / Components",
     "question_en": "Challenge: Code an Accordion",
     "question_he": "אתגר: קוד Accordion",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "How does an accordion track which item is open?",
+    "hint_he": "איך accordion עוקב אחרי איזה פריט פתוח?",
     "correctAnswer_en": "An accordion group tracks the active item index and passes isActive and onToggle to each AccordionItem, often using React.Children.map and cloneElement.",
     "correctAnswer_he": "קבוצת accordion עוקבת אחר אינדקס הפריט הפעיל ומעבירה isActive ו-onToggle לכל AccordionItem, לעיתים עם React.Children.map ו-cloneElement.",
     "code_snippet": "<AccordionGroup>\n  <AccordionItem title=\"The Team\">...</AccordionItem>\n</AccordionGroup>"
@@ -160,5 +160,4 @@
     "correctAnswer_he": "useRef הוא Hook המחזיר אובייקט עם מאפיין .current ששומר על הערך שלו לאורך רינדורים (renders). שינוי הערך אינו גורם לרינדור מחדש של המסך. משתמשים בו כדי לגשת ולשנות ישירות אלמנטים ב-DOM (כמו מיקוד בתיבת טקסט) או כדי לשמור ערך שצריך להישמר ברקע בלי לעדכן את ה-UI.",
     "code_snippet": "const inputRef = useRef(null);\n// inputRef.current.focus();"
   }
-
 ]

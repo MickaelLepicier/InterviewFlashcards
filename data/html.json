@@ -4,8 +4,8 @@
     "category": "HTML / Entities",
     "question_en": "Challenge: What are HTML Entities?",
     "question_he": "אתגר: מהם HTML Entities?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "How do you safely display characters like <, &, or © in HTML?",
+    "hint_he": "איך מציגים בבטחה תווים כמו <, & או © ב-HTML?",
     "correctAnswer_en": "HTML entities are used to output special characters safely in HTML, such as &lt;, &amp;, &copy;, and currency symbols.",
     "correctAnswer_he": "HTML entities משמשים להצגה בטוחה של תווים מיוחדים ב-HTML, כמו &lt;, &amp;, &copy; וסמלי מטבע.",
     "code_snippet": "<ul>\n  <li>&lt;Aha&gt;</li>\n  <li>Me &amp; You</li>\n  <li>&copy; &nbsp; &reg;</li>\n</ul>"
@@ -15,8 +15,8 @@
     "category": "HTML / Document",
     "question_en": "Challenge: What is the doctype?",
     "question_he": "אתגר: מהו doctype?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "What declaration tells the browser which HTML version to expect?",
+    "hint_he": "איזו הצהרה אומרת לדפדפן איזו גרסת HTML לצפות?",
     "correctAnswer_en": "The doctype is a legacy browser compatibility declaration. HTML5 uses the simple <!DOCTYPE html>.",
     "correctAnswer_he": "doctype הוא הצהרת תאימות לדפדפנים ישנים. ב-HTML5 משתמשים ב-<!DOCTYPE html> הפשוט.",
     "code_snippet": "<!DOCTYPE html>"
@@ -26,8 +26,8 @@
     "category": "HTML / HTML5",
     "question_en": "Challenge: What are the building blocks of HTML5?",
     "question_he": "אתגר: מהם אבני הבניין של HTML5?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Think semantic tags, richer forms, storage, media, and APIs.",
+    "hint_he": "חשוב על תגיות סמנטיות, טפסים עשירים, storage, מדיה ו-APIs.",
     "correctAnswer_en": "Semantic elements, richer form controls and validation, data- attributes, Web Storage, audio/video, geolocation, web sockets, web workers, and more.",
     "correctAnswer_he": "אלמנטים סמנטיים, בקרות טופס ו-validation עשירים יותר, data- attributes, Web Storage, audio/video, geolocation, web sockets, web workers ועוד."
   },
@@ -36,8 +36,8 @@
     "category": "HTML / HTML5",
     "question_en": "Challenge: What are Web Workers?",
     "question_he": "אתגר: מהם Web Workers?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "How can heavy work run without blocking the main UI thread?",
+    "hint_he": "איך עבודה כבדה יכולה לרוץ בלי לחסום את ה-main UI thread?",
     "correctAnswer_en": "Worker threads perform tasks without blocking the UI. Workers have no access to window or document.",
     "correctAnswer_he": "worker threads מבצעים משימות בלי לחסום את ה-UI. ל-workers אין גישה ל-window או ל-document.",
     "code_snippet": "const worker = new Worker(\"primesWorker.js\")\nworker.onmessage = (ev) => { /* use ev.data */ }"
@@ -47,8 +47,8 @@
     "category": "HTML / Storage",
     "question_en": "Challenge: What are the Different types of Browser storage?",
     "question_he": "אתגר: מהם סוגי האחסון השונים בדפדפן?",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Name the main ways browsers can persist data on the client.",
+    "hint_he": "פרט את הדרכים העיקריות שבהן דפדפן שומר נתונים בצד הלקוח.",
     "correctAnswer_en": "localStorage, sessionStorage, indexedDB, cookies, and the Cache API.",
     "correctAnswer_he": "localStorage, sessionStorage, indexedDB, cookies ו-Cache API."
   },
@@ -67,8 +67,8 @@
     "category": "HTML / Graphics",
     "question_en": "Challenge: Canvas vs. SVG",
     "question_he": "אתגר: Canvas לעומת SVG",
-    "hint_en": "Focus on the key concepts from the official answer.",
-    "hint_he": "התמקד במושגים המרכזיים מהתשובה הרשמית.",
+    "hint_en": "Pixel-based scripting vs vector DOM graphics — what are the tradeoffs?",
+    "hint_he": "גרפיקה מבוססת פיקסלים מול וקטורית ב-DOM — מה היתרונות והחסרונות?",
     "correctAnswer_en": "Canvas is pixel based and modified through script only. SVG is vector based, part of the DOM, supports CSS and accessibility, and is resolution independent with better animation support.",
     "correctAnswer_he": "Canvas מבוסס פיקסלים ומשתנה רק דרך script. SVG מבוסס וקטורי, חלק מה-DOM, תומך ב-CSS ו-accessibility, בלתי תלוי ברזולוציה ועם תמיכה טובה יותר באנימציה."
   }
