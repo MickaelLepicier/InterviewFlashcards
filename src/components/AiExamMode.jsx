@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { checkAchievements } from '../utils/achievements';
 import { evaluateAnswer } from '../services/evaluateAnswer';
 import { getCorrectAnswer, getHint, getQuestion } from '../utils/cardContent';
 import {
@@ -31,6 +32,7 @@ export default function AiExamMode({
   bestScore,
   onBestScoreUpdated,
   onNewSession,
+  onAchievementsUnlocked,
 }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answer, setAnswer] = useState('');
@@ -77,12 +79,19 @@ export default function AiExamMode({
         onBestScoreUpdated(finalStats.correctCount);
       }
 
+      const newlyUnlocked = checkAchievements(
+        finalStats.sessionScore,
+        subjectId,
+        cards.length,
+      );
+      onAchievementsUnlocked?.(newlyUnlocked);
+
       setFeedback(null);
       setError('');
       setPointsPulse(false);
       setShowSummary(true);
     },
-    [bestScore, cards.length, onBestScoreUpdated, subjectId],
+    [bestScore, cards.length, onAchievementsUnlocked, onBestScoreUpdated, subjectId],
   );
 
   const resetExam = () => {

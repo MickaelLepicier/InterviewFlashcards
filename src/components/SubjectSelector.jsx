@@ -1,4 +1,5 @@
 import { formatHighScore, getBestScore } from '../utils/examScore';
+import { getAchievementProgress } from '../utils/achievements';
 import {
   getSubjectDescription,
   getSubjectLabel,
@@ -10,10 +11,14 @@ export default function SubjectSelector({
   t,
   questionCounts,
   highScoreVersion,
+  achievementsVersion,
   onSelect,
+  onOpenAchievements,
 }) {
   const subjects = getSubjects();
   void highScoreVersion;
+  void achievementsVersion;
+  const { unlockedCount, totalCount } = getAchievementProgress();
 
   return (
     <section className="animate-fade-up flex flex-1 flex-col justify-center">
@@ -27,6 +32,17 @@ export default function SubjectSelector({
         <p className="mt-2 text-sm text-slate-400 sm:text-base">
           {t.subjectSelectionDesc}
         </p>
+        <button
+          type="button"
+          onClick={onOpenAchievements}
+          className="mt-5 inline-flex items-center gap-2 rounded-2xl border border-amber-400/30 bg-amber-400/10 px-5 py-3 text-sm font-semibold text-amber-100 transition-all hover:border-amber-300/50 hover:bg-amber-400/15"
+        >
+          <span aria-hidden="true">🏅</span>
+          <span>{t.achievementsButton}</span>
+          <span className="rounded-full bg-amber-400/20 px-2 py-0.5 text-xs text-amber-50">
+            {unlockedCount}/{totalCount}
+          </span>
+        </button>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

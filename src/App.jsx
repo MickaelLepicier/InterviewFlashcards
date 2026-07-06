@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
+import AchievementToast from './components/AchievementToast';
+import AchievementsScreen from './components/AchievementsScreen';
 import AiExamMode from './components/AiExamMode';
 import FlashcardsMode from './components/FlashcardsMode';
 import GameModeSelector from './components/GameModeSelector';
@@ -26,6 +28,9 @@ export default function App() {
   const [bestScore, setBestScore] = useState(0);
   const [highScoreVersion, setHighScoreVersion] = useState(0);
   const [sessionKey, setSessionKey] = useState(0);
+  const [homeView, setHomeView] = useState('subjects');
+  const [achievementToasts, setAchievementToasts] = useState([]);
+  const [achievementsVersion, setAchievementsVersion] = useState(0);
 
   const t = UI[lang];
   const isRtl = lang === 'he';
@@ -111,6 +116,22 @@ export default function App() {
     setSessionKey((prev) => prev + 1);
   }, [subjectCards]);
 
+  const handleAchievementsUnlocked = useCallback((achievements) => {
+    if (!achievements?.length) return;
+    setAchievementToasts((current) => [
+      ...current,
+      ...achievements.map((achievement) => ({
+        id: `${achievement.id}-${Date.now()}-${Math.random()}`,
+        achievement,
+      })),
+    ]);
+    setAchievementsVersion((version) => version + 1);
+  }, []);
+
+  const dismissAchievementToast = useCallback((toastId) => {
+    setAchievementToasts((current) => current.filter((toast) => toast.id !== toastId));
+  }, []);
+
   return (
     <div
       dir={isRtl ? 'rtl' : 'ltr'}
@@ -153,13 +174,24 @@ export default function App() {
         </header>
 
         {!selectedSubject ? (
-          <SubjectSelector
-            lang={lang}
-            t={t}
-            questionCounts={questionCounts}
-            highScoreVersion={highScoreVersion}
-            onSelect={handleSubjectSelect}
-          />
+          homeView === 'achievements' ? (
+            <AchievementsScreen
+              lang={lang}
+              t={t}
+              achievementsVersion={achievementsVersion}
+              onBack={() => setHomeView('subjects')}
+            />
+          ) : (
+            <SubjectSelector
+              lang={lang}
+              t={t}
+              questionCounts={questionCounts}
+              highScoreVersion={highScoreVersion}
+              achievementsVersion={achievementsVersion}
+              onSelect={handleSubjectSelect}
+              onOpenAchievements={() => setHomeView('achievements')}
+            />
+          )
         ) : isLoadingSubject ? (
           <div className="flex flex-1 items-center justify-center py-20">
             <LoadingSpinner label={t.loadingSubject} />
@@ -211,10 +243,23 @@ export default function App() {
                 bestScore={bestScore}
                 onBestScoreUpdated={handleBestScoreUpdated}
                 onNewSession={handleNewExamSession}
+                onAchievementsUnlocked={handleAchievementsUnlocked}
               />
             )}
           </>
         )}
+      </div>
+
+      <div className="pointer-events-none fixed inset-x-0 top-4 z-50 flex flex-col items-center gap-3 px-4">
+        {achievementToasts.map((toast) => (
+          <AchievementToast
+            key={toast.id}
+            achievement={toast.achievement}
+            lang={lang}
+            t={t}
+            onDismiss={() => dismissAchievementToast(toast.id)}
+          />
+        ))}
       </div>
     </div>
   );

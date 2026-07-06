@@ -59,6 +59,15 @@ export const UI = {
     examCompletedTitle: 'Exam Completed',
     examCompletedScore: (correct, total) =>
       `You got ${correct} correct answers out of ${total}!`,
+    achievementsLabel: 'Medals & Badges',
+    achievementsTitle: 'My Achievements',
+    achievementsButton: 'My Achievements',
+    achievementsProgress: (unlocked, total) => `${unlocked} of ${total} unlocked`,
+    achievementUnlocked: 'Unlocked',
+    achievementLocked: 'Locked',
+    backToSubjects: 'Back to subjects',
+    achievementUnlockedToast: (title) => `🏆 New achievement unlocked: ${title}!`,
+    closeToast: 'Close',
   },
   he: {
     title: 'כרטיסיות ראיון טכני',
@@ -120,5 +129,14 @@ export const UI = {
     examCompletedTitle: 'סיום מבחן',
     examCompletedScore: (correct, total) =>
       `הצלחת ${correct} תשובות נכונות מתוך ${total}!`,
+    achievementsLabel: 'הישגים ומדליות',
+    achievementsTitle: 'ההישגים שלי',
+    achievementsButton: 'ההישגים שלי',
+    achievementsProgress: (unlocked, total) => `${unlocked} מתוך ${total} נפתחו`,
+    achievementUnlocked: 'נפתח',
+    achievementLocked: 'נעול',
+    backToSubjects: 'חזרה לנושאים',
+    achievementUnlockedToast: (title) => `🏆 הישג חדש נפתח: ${title}!`,
+    closeToast: 'סגור',
   },
 };
