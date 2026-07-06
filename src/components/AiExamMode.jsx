@@ -219,8 +219,8 @@ export default function AiExamMode({
         className="animate-fade-up flex flex-1 flex-col justify-center"
         style={{ animationDelay: '0.14s' }}
       >
-        <div className="rounded-3xl border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
-          <div className="mb-4 flex items-start justify-between gap-3">
+        <div className="content-card rounded-3xl border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-8">
+          <div className="card-meta-row mb-4 flex items-start justify-between gap-3">
             <span className="rounded-full bg-violet-100 px-3 py-1 text-xs font-semibold tracking-wide text-violet-700">
               {t.question}
             </span>
@@ -229,7 +229,7 @@ export default function AiExamMode({
             </span>
           </div>
 
-          <p className="mb-4 whitespace-pre-wrap text-lg font-medium leading-relaxed text-slate-800 sm:text-xl">
+          <p className="mb-4 whitespace-pre-wrap text-base font-medium leading-relaxed text-slate-800 sm:text-lg md:text-xl">
             {displayQuestion}
           </p>
 
@@ -252,7 +252,7 @@ export default function AiExamMode({
               rows={8}
               disabled={hasFeedback}
               placeholder={t.answerPlaceholder}
-              className="w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-relaxed text-slate-800 shadow-inner outline-none transition-colors focus:border-violet-400 focus:ring-2 focus:ring-violet-200 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
+              className="exam-textarea w-full resize-y rounded-xl border border-slate-200 bg-white px-4 py-3 font-mono text-sm leading-relaxed text-slate-800 shadow-inner outline-none transition-colors focus:border-violet-400 focus:ring-2 focus:ring-violet-200 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-500"
             />
 
             {error ? (
@@ -308,11 +308,11 @@ export default function AiExamMode({
               </div>
             ) : null}
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="action-btn-row flex flex-wrap items-center gap-3">
               <button
                 type="button"
                 onClick={handleSubmit}
-                className="rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 transition-all hover:brightness-110 active:scale-[0.98]"
+                className="action-btn rounded-xl bg-gradient-to-r from-violet-600 to-fuchsia-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-500/25 transition-all hover:brightness-110 active:scale-[0.98]"
               >
                 {hasFeedback
                   ? currentIndex < cards.length - 1
@@ -324,7 +324,7 @@ export default function AiExamMode({
                 <button
                   type="button"
                   onClick={() => setIsHintOpen((prev) => !prev)}
-                  className="rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 transition-colors hover:bg-amber-100"
+                  className="action-btn rounded-xl border border-amber-200 bg-amber-50 px-5 py-3 text-sm font-semibold text-amber-800 transition-colors hover:bg-amber-100"
                 >
                   {isHintOpen ? t.hideHint : t.showHint}
                 </button>

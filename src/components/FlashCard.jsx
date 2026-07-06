@@ -31,11 +31,11 @@ function CardFace({
 
   return (
     <div
-      className={`flashcard-face absolute inset-0 flex flex-col rounded-3xl border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-8 ${
+      className={`flashcard-face content-card absolute inset-0 flex flex-col rounded-3xl border border-white/20 bg-white/95 p-6 shadow-2xl backdrop-blur-xl sm:p-8 ${
         isBack ? 'flashcard-back' : ''
       }`}
     >
-      <div className="mb-4 flex items-start justify-between gap-3">
+      <div className="mb-4 flex items-start justify-between gap-3 card-meta-row">
         <span
           className={`rounded-full px-3 py-1 text-xs font-semibold tracking-wide ${
             isBack
@@ -135,7 +135,7 @@ export default function FlashCard({
             handleFlip();
           }
         }}
-        className="relative h-[min(68vh,520px)] w-full cursor-pointer text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+        className="flashcard-shell relative h-[min(68vh,520px)] w-full cursor-pointer text-start focus:outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
         aria-label={isFlipped ? flipBackHint : flipHint}
         aria-pressed={isFlipped}
       >

@@ -2,7 +2,7 @@ import { renderStars } from '../utils/examScore';
 
 export default function ExamScoreBoard({ score, correctCount, totalQuestions, stars, label, correctLabel }) {
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/10 px-5 py-4 backdrop-blur-md">
+    <div className="score-board flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-white/15 bg-white/10 px-5 py-4 backdrop-blur-md">
       <div>
         <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">{label}</p>
         <p className="mt-1 text-2xl font-bold text-amber-300">

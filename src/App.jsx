@@ -135,7 +135,7 @@ export default function App() {
   return (
     <div
       dir={isRtl ? 'rtl' : 'ltr'}
-      className="relative min-h-screen overflow-hidden bg-slate-950 text-white"
+      className="relative min-h-screen overflow-x-hidden bg-slate-950 text-white"
     >
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -top-32 start-1/4 h-96 w-96 rounded-full bg-violet-600/30 blur-3xl" />
@@ -143,13 +143,13 @@ export default function App() {
         <div className="absolute bottom-0 start-1/3 h-72 w-72 rounded-full bg-amber-500/15 blur-3xl" />
       </div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 sm:py-10">
-        <header className="animate-fade-up mb-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h1 className="bg-gradient-to-r from-white via-violet-200 to-fuchsia-200 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
+      <div className="app-shell relative mx-auto flex min-h-screen max-w-4xl flex-col px-4 py-8 sm:px-6 sm:py-10">
+        <header className="app-header animate-fade-up mb-8 flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+          <div className="min-w-0 flex-1">
+            <h1 className="app-title bg-gradient-to-r from-white via-violet-200 to-fuchsia-200 bg-clip-text text-3xl font-bold tracking-tight text-transparent sm:text-4xl">
               {t.title}
             </h1>
-            <p className="mt-2 text-sm text-slate-400 sm:text-base">{t.subtitle}</p>
+            <p className="app-subtitle mt-2 text-sm text-slate-400 sm:text-base">{t.subtitle}</p>
             {activeSubject ? (
               <div className="mt-3 flex flex-wrap items-center gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-sm text-slate-200">
@@ -166,11 +166,13 @@ export default function App() {
               </div>
             ) : null}
           </div>
-          <LanguageToggle
+          <div className="header-actions shrink-0">
+            <LanguageToggle
             lang={lang}
             label={t.languageToggle}
             onToggle={() => setLang((prev) => (prev === 'en' ? 'he' : 'en'))}
-          />
+            />
+          </div>
         </header>
 
         {!selectedSubject ? (
@@ -207,7 +209,7 @@ export default function App() {
                 activeMode={gameMode}
                 onSelect={setGameMode}
               />
-              <div className="mt-4 flex flex-wrap gap-3">
+              <div className="meta-badges mt-4 flex flex-wrap gap-3">
                 {bestScore > 0 ? (
                   <p className="inline-flex items-center gap-2 rounded-xl border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm text-amber-200">
                     <span>🏆</span>
@@ -250,7 +252,7 @@ export default function App() {
         )}
       </div>
 
-      <div className="pointer-events-none fixed inset-x-0 top-4 z-50 flex flex-col items-center gap-3 px-4">
+      <div className="toast-stack pointer-events-none fixed inset-x-0 z-50 flex flex-col items-center gap-3 px-4">
         {achievementToasts.map((toast) => (
           <AchievementToast
             key={toast.id}

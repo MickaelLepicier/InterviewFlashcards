@@ -15,7 +15,7 @@ export default function ExamSummary({
 
   return (
     <main className="animate-fade-up flex flex-1 flex-col justify-center">
-      <div className="rounded-3xl border border-white/20 bg-white/95 p-6 text-center shadow-2xl backdrop-blur-xl sm:p-10">
+      <div className="content-card rounded-3xl border border-white/20 bg-white/95 p-6 text-center shadow-2xl backdrop-blur-xl sm:p-10">
         <p className="text-sm font-semibold uppercase tracking-wider text-violet-600">
           {t.examCompletedTitle}
         </p>
@@ -29,7 +29,7 @@ export default function ExamSummary({
           </p>
         ) : null}
 
-        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+        <div className="exam-summary-grid mt-8 grid gap-4 sm:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
             <p className="text-xs font-semibold uppercase tracking-wider text-slate-500">
               {t.successRate}

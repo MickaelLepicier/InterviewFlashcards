@@ -14,7 +14,7 @@ function NavButton({ children, onClick, disabled, variant = 'secondary' }) {
       type="button"
       onClick={onClick}
       disabled={disabled}
-      className={`${base} ${variants[variant]}`}
+      className={`${base} ${variants[variant]} nav-btn`}
     >
       {children}
     </button>
@@ -37,7 +37,7 @@ export default function Navigation({
   return (
     <div
       dir={isRtl ? 'rtl' : 'ltr'}
-      className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-between"
+      className="nav-bar flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-between"
     >
       <NavButton onClick={onPrevious} disabled={isFirst}>
         {isRtl ? (
@@ -53,7 +53,7 @@ export default function Navigation({
         )}
       </NavButton>
 
-      <p className="text-sm font-medium text-slate-300">{cardLabel}</p>
+      <p className="nav-label text-sm font-medium text-slate-300">{cardLabel}</p>
 
       <NavButton onClick={onNext} disabled={isLast} variant="primary">
         {isRtl ? (

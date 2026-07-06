@@ -9,11 +9,23 @@
   box-sizing: border-box;
 }
 
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 [dir='rtl'] body,
@@ -100,4 +112,208 @@ body {
 
 .achievement-toast {
   animation: achievement-toast-in 0.35s ease-out both;
+}
+
+/* ── Mobile layout (phones) ───────────────────────────────────────── */
+
+.app-shell {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+  padding-bottom: max(2rem, env(safe-area-inset-bottom, 0px));
+}
+
+.toast-stack {
+  top: max(1rem, env(safe-area-inset-top, 0px));
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+.content-card {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.exam-textarea {
+  width: 100%;
+  max-width: 100%;
+}
+
+.nav-bar .nav-btn {
+  min-height: 44px;
+}
+
+.action-btn-row .action-btn {
+  min-height: 44px;
+}
+
+@media (max-width: 639px) {
+  .app-shell {
+    padding-top: max(0.75rem, env(safe-area-inset-top, 0px));
+    padding-bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+  }
+
+  .app-header {
+    margin-bottom: 1.25rem;
+    gap: 1rem;
+  }
+
+  .app-title {
+    font-size: 1.75rem;
+    line-height: 1.15;
+    word-break: break-word;
+  }
+
+  .app-subtitle {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .header-actions > button {
+    width: 100%;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .content-card {
+    padding: 1rem !important;
+    border-radius: 1.25rem;
+  }
+
+  .flashcard-scene {
+    max-width: 100%;
+  }
+
+  .flashcard-shell {
+    height: min(58vh, 440px) !important;
+  }
+
+  .flashcard-face p {
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  .nav-bar {
+    gap: 0.75rem;
+  }
+
+  .nav-bar .nav-btn {
+    width: 100%;
+    justify-content: center;
+    padding-inline: 1rem;
+  }
+
+  .nav-bar .nav-label {
+    order: -1;
+    width: 100%;
+    text-align: center;
+  }
+
+  .game-mode-grid {
+    flex-direction: column;
+  }
+
+  .game-mode-grid > button {
+    width: 100%;
+    min-width: 0 !important;
+    min-height: 44px;
+  }
+
+  .score-board {
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+  }
+
+  .score-board > div {
+    text-align: center;
+  }
+
+  .score-board .text-end {
+    text-align: center;
+  }
+
+  .action-btn-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-btn-row .action-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .exam-textarea {
+    min-height: 9rem;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .achievement-toast {
+    width: 100%;
+    max-width: none;
+    padding: 0.875rem;
+  }
+
+  .achievements-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .achievements-header button {
+    width: 100%;
+    min-height: 44px;
+  }
+
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .meta-badges {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .meta-badges > p {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .code-block pre {
+    font-size: 12px;
+    padding: 0.75rem;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .exam-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .card-meta-row {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .card-meta-row span {
+    max-width: 100%;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-title {
+    font-size: 1.5rem;
+  }
+
+  .flashcard-shell {
+    height: min(52vh, 380px) !important;
+  }
+
+  .content-card {
+    padding: 0.875rem !important;
+  }
 }

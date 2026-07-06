@@ -45,7 +45,7 @@ export default function SubjectSelector({
         </button>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="subject-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {subjects.map((subject) => {
           const bestScore = getBestScore(subject.id);
           const questionCount = questionCounts[subject.id] ?? 0;

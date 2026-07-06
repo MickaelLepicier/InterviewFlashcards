@@ -7,7 +7,7 @@ export default function AchievementsScreen({ lang, t, achievementsVersion, onBac
 
   return (
     <section className="animate-fade-up flex flex-1 flex-col">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div className="achievements-header mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-wider text-violet-300">
             {t.achievementsLabel}

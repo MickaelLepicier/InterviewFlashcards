@@ -1,6 +1,6 @@
 export default function GameModeSelector({ modes, activeMode, onSelect }) {
   return (
-    <div className="flex flex-wrap gap-3">
+    <div className="game-mode-grid flex flex-wrap gap-3">
       {modes.map(({ id, label, description }) => (
         <button
           key={id}

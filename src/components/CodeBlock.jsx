@@ -85,7 +85,7 @@ export default function CodeBlock({ code, copyLabel, copiedLabel }) {
   return (
     <div
       dir="ltr"
-      className="mt-4 overflow-hidden rounded-xl border border-slate-700/60 bg-[#0d1117] text-left shadow-inner"
+      className="code-block mt-4 overflow-hidden rounded-xl border border-slate-700/60 bg-[#0d1117] text-left shadow-inner"
     >
       <div className="flex items-center gap-1.5 border-b border-slate-700/60 px-4 py-2.5">
         <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
