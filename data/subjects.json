@@ -3,40 +3,40 @@
     "id": "javascript",
     "label_en": "JavaScript",
     "label_he": "JavaScript",
-    "description_en": "Language fundamentals, async, DOM, and algorithms from the CodingAcademy interview guide",
-    "description_he": "יסודות השפה, אסינכרון, DOM ואלגוריתמים ממדריך הראיון",
+    "description_en": "Interview-ready JS: language fundamentals, ES6+, async, DOM, and algorithms — with practical why and clean code examples",
+    "description_he": "JavaScript לראיון: יסודות השפה, ES6+, אסינכרון, DOM ואלגוריתמים — עם הסבר מעשי ודוגמאות קוד נקיות",
     "icon": "⚡"
   },
   {
     "id": "html",
     "label_en": "HTML",
     "label_he": "HTML",
-    "description_en": "HTML5, storage, entities, and graphics",
-    "description_he": "HTML5, אחסון, entities וגרפיקה",
+    "description_en": "Interview-ready HTML: document structure, HTML5 APIs, storage, entities, and graphics — definitions plus when to use them",
+    "description_he": "HTML לראיון: מבנה מסמך, HTML5 APIs, אחסון, entities וגרפיקה — הגדרות ומתי להשתמש בהם",
     "icon": "📄"
   },
   {
     "id": "css",
     "label_en": "CSS",
     "label_he": "CSS",
-    "description_en": "Layout, specificity, responsive design, and best practices",
-    "description_he": "פריסה, ספציפיות, עיצוב רספונסיבי ושיטות עבודה",
+    "description_en": "Interview-ready CSS: specificity, box model, layout, responsive design, accessibility, and best practices",
+    "description_he": "CSS לראיון: specificity, box model, פריסה, עיצוב רספונסיבי, נגישות ושיטות עבודה מומלצות",
     "icon": "🎨"
   },
   {
     "id": "react",
     "label_en": "React",
     "label_he": "React",
-    "description_en": "Virtual DOM, hooks, context, performance, and patterns",
-    "description_he": "Virtual DOM, hooks, context, ביצועים ודפוסים",
+    "description_en": "Interview-ready React: Virtual DOM, JSX, lifecycle, hooks, context, memoization, Redux, and common patterns",
+    "description_he": "React לראיון: Virtual DOM, JSX, lifecycle, hooks, context, memoization, Redux ודפוסים נפוצים",
     "icon": "⚛️"
   },
   {
     "id": "architecture",
     "label_en": "Architecture",
     "label_he": "ארכיטקטורה",
-    "description_en": "System design, APIs, SSR, security, and career topics",
-    "description_he": "תכנון מערכות, APIs, SSR, אבטחה ונושאי קריירה",
+    "description_en": "Interview-ready architecture: frontend design, state and data flow, SSR, APIs, security, databases, and system tradeoffs",
+    "description_he": "ארכיטקטורה לראיון: תכנון frontend, state וזרימת נתונים, SSR, APIs, אבטחה, מסדי נתונים ו-tradeoffs מערכתיים",
     "icon": "🏗️"
   }
 ]

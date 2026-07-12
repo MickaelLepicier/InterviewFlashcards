@@ -4,126 +4,131 @@
     "category": "CSS / Specificity",
     "question_en": "Challenge: CSS selector specificity – how does it work?",
     "question_he": "אתגר: CSS selector specificity – איך זה עובד?",
-    "hint_en": "How are element, class, id, inline, and !important weighted?",
-    "hint_he": "איך שוקללים element, class, id, inline ו-!important?",
-    "correctAnswer_en": "Element selectors score 1 point, class/attribute selectors 10, id selectors 100, inline styles 1000, and !important overrides normal specificity.",
-    "correctAnswer_he": "selectors של אלמנטים שווים 1 נקודה, class/attribute selectors שווים 10, id selectors שווים 100, inline styles שווים 1000, ו-!important דורס specificity רגיל.",
-    "code_snippet": "h1 { color: red }\n.highlite { color: pink }\n.highlite.now { color: brown }\n/* inline style color: blue wins */"
+    "hint_en": "How do element, class, id, inline styles, and !important compare when rules conflict?",
+    "hint_he": "איך משווים בין element, class, id, inline styles ו-!important כשיש התנגשות בין כללים?",
+    "correctAnswer_en": "Specificity decides which CSS rule wins when selectors target the same element. Roughly: elements/pseudo-elements are weakest, then classes/attributes/pseudo-classes, then IDs, then inline styles — and !important overrides normal specificity (use sparingly). Understanding the cascade helps you write predictable styles instead of fighting accidental overrides.",
+    "correctAnswer_he": "specificity קובעת איזה כלל CSS מנצח כשכמה selectors פונים לאותו אלמנט. בגדול: elements/pseudo-elements הכי חלשים, אחר כך classes/attributes/pseudo-classes, אחר כך IDs, ואז inline styles — ו-!important דורס specificity רגיל (להשתמש בזהירות). הבנת ה-cascade עוזרת לכתוב סגנונות צפויים במקום להילחם ב-overrides מקריים.",
+    "code_snippet": "h1 { color: red; }                 /* element */\n.highlight { color: pink; }         /* class beats element */\n.highlight.now { color: brown; }    /* two classes beat one */\n#title { color: green; }            /* id beats classes */\n/* style=\"color: blue\" — inline wins over id */\n/* color: purple !important; — overrides normal specificity */"
   },
   {
     "id": 2,
     "category": "CSS / Accessibility",
     "question_en": "Challenge: What are the different ways to visually hide content?",
     "question_he": "אתגר: מהן הדרכים השונות להסתרת תוכן ויזואלית?",
-    "hint_en": "Which techniques hide content visually but may differ for screen readers?",
-    "hint_he": "אילו טכניקות מסתירות תוכן ויזואלית אך עשויות להשפיע אחרת על screen readers?",
-    "correctAnswer_en": "Common techniques include display: none, visibility: hidden, zero height, off-screen positioning, opacity: 0, scale: 0, and the hidden attribute.",
-    "correctAnswer_he": "טכניקות נפוצות כוללות display: none, visibility: hidden, גובה אפס, מיקום מחוץ למסך, opacity: 0, scale: 0 ו-attribute hidden.",
-    "code_snippet": "div { display: none; visibility: hidden; opacity: 0; }\n<p hidden></p>"
+    "hint_en": "Which techniques hide content on screen but may still (or may not) expose it to screen readers?",
+    "hint_he": "אילו טכניקות מסתירות תוכן על המסך אך עשויות (או לא) להשאיר אותו זמין ל-screen readers?",
+    "correctAnswer_en": "You can hide content with display: none, visibility: hidden, opacity: 0, clipping/off-screen positioning, zero size, or the hidden attribute. They are not equal for accessibility: display: none and hidden usually remove content from the accessibility tree, while visually-hidden / sr-only patterns keep it available to screen readers. Choose based on whether assistive tech should still announce the content.",
+    "correctAnswer_he": "אפשר להסתיר תוכן עם display: none, visibility: hidden, opacity: 0, clipping/מיקום מחוץ למסך, גודל אפס, או attribute hidden. הן לא שוות בנגישות: display: none ו-hidden לרוב מסירים מה-accessibility tree, בעוד דפוסי visually-hidden / sr-only משאירים את התוכן ל-screen readers. בוחרים לפי האם טכנולוגיה מסייעת עדיין צריכה להקריא את התוכן.",
+    "code_snippet": "/* Removed from layout + usually from a11y tree */\n.gone { display: none; }\n<p hidden>Also hidden</p>\n\n/* Invisible but may still take space / differ for a11y */\n.invisible { visibility: hidden; }\n.transparent { opacity: 0; }\n\n/* Visually hidden, still available to screen readers */\n.sr-only {\n  position: absolute;\n  width: 1px;\n  height: 1px;\n  overflow: hidden;\n  clip: rect(0, 0, 0, 0);\n}"
   },
   {
     "id": 3,
     "category": "CSS / Box Model",
     "question_en": "Challenge: Explain the box model",
     "question_he": "אתגר: הסבר את box model",
-    "hint_en": "Name the layers that wrap an element from inside out.",
-    "hint_he": "פרט את השכבות שעוטפות אלמנט מבפנים החוצה.",
-    "correctAnswer_en": "The CSS box model is a box that wraps around an HTML element, consisting of content, padding, border, and margin areas.",
-    "correctAnswer_he": "box model ב-CSS הוא קופסה שעוטפת אלמנט HTML, המורכבת מאזורי content, padding, border ו-margin."
+    "hint_en": "From the inside out: what layers wrap every element’s content?",
+    "hint_he": "מבפנים החוצה: אילו שכבות עוטפות את ה-content של כל אלמנט?",
+    "correctAnswer_en": "The CSS box model describes how every element is laid out as a rectangle made of content, padding, border, and margin. Content holds the text/image; padding is inner space; border surrounds the padding; margin is outer space between elements. Mastering it is the foundation of spacing, sizing, and debugging layout in real UIs.",
+    "correctAnswer_he": "ה-box model ב-CSS מתאר איך כל אלמנט מורכב מלבן של content, padding, border ו-margin. content מחזיק את הטקסט/תמונה; padding הוא ריווח פנימי; border עוטף את ה-padding; margin הוא ריווח חיצוני בין אלמנטים. שליטה בזה היא הבסיס לריווח, גודל ודיבוג פריסה ב-UIs אמיתיים.",
+    "code_snippet": ".card {\n  width: 200px;           /* content width (with content-box) */\n  padding: 16px;          /* inside the border */\n  border: 2px solid #333;\n  margin: 24px;           /* outside the border */\n}\n\n/* Total outer size depends on box-sizing */"
   },
   {
     "id": 4,
     "category": "CSS / Box Model",
     "question_en": "Challenge: What does * { box-sizing: border-box; } do?",
     "question_he": "אתגר: מה עושה * { box-sizing: border-box; }?",
-    "hint_en": "What changes when width includes padding and borders?",
-    "hint_he": "מה משתנה כש-width כולל padding ו-borders?",
-    "correctAnswer_en": "It changes box-sizing from content-box to border-box so width and height include padding and borders.",
-    "correctAnswer_he": "זה משנה את box-sizing מ-content-box ל-border-box כך ש-width ו-height כוללים padding ו-borders.",
-    "code_snippet": ".box {\n  box-sizing: border-box;\n  padding: 20px;\n  border: 5px solid black;\n  width: 200px;\n}"
+    "hint_en": "With the default content-box, does width include padding and border — or only the content?",
+    "hint_he": "בברירת המחדל content-box, האם width כולל padding ו-border — או רק את ה-content?",
+    "correctAnswer_en": "By default (content-box), width/height apply only to the content area, so padding and borders add extra size and break grid math. border-box makes width/height include padding and border, so a 200px box stays 200px overall. Applying * { box-sizing: border-box; } (often via a universal reset) makes layouts far more predictable in production CSS.",
+    "correctAnswer_he": "כברירת מחדל (content-box), width/height חלים רק על אזור ה-content, כך ש-padding ו-borders מוסיפים גודל ושוברים חישובי פריסה. border-box גורם ל-width/height לכלול padding ו-border, כך שקופסה של 200px נשארת 200px בסך הכל. החלת * { box-sizing: border-box; } (לעיתים דרך reset) הופכת פריסות לצפויות הרבה יותר ב-CSS בפרודקשן.",
+    "code_snippet": "*, *::before, *::after {\n  box-sizing: border-box;\n}\n\n.box {\n  width: 200px;\n  padding: 20px;\n  border: 5px solid black;\n  /* total rendered width stays 200px with border-box */\n}"
   },
   {
     "id": 5,
     "category": "CSS / Selectors",
     "question_en": "Challenge: pseudo-elements and pseudo-classes?",
     "question_he": "אתגר: pseudo-elements ו-pseudo-classes?",
-    "hint_en": "One styles a state, the other styles a part of the element — which is which?",
-    "hint_he": "אחד מעצב מצב ואחד מעצב חלק מהאלמנט — מה ההבדל?",
-    "correctAnswer_en": "Pseudo-elements style specific parts of an element (e.g. ::first-line, ::after). Pseudo-classes style elements in a particular state (e.g. :hover, :visited).",
-    "correctAnswer_he": "pseudo-elements מעצבים חלקים ספציפיים של אלמנט (למשל ::first-line, ::after). pseudo-classes מעצבים אלמנטים במצב מסוים (למשל :hover, :visited).",
-    "code_snippet": "p::first-line { text-transform: uppercase }\na:hover { color: #FF00FF }"
+    "hint_en": "One targets a state of an element; the other styles a virtual part of it — which uses : and which uses ::?",
+    "hint_he": "אחד מכוון למצב של אלמנט; השני מעצב חלק וירטואלי שלו — מי משתמש ב-: ומי ב-::?",
+    "correctAnswer_en": "Pseudo-classes (single colon, e.g. :hover, :focus, :nth-child) style an element in a particular state. Pseudo-elements (double colon, e.g. ::before, ::after, ::first-line) style a generated or partial piece of the element. Together they let you style interaction and decoration without extra HTML — a daily tool in component CSS.",
+    "correctAnswer_he": "pseudo-classes (נקודתיים בודדות, למשל :hover, :focus, :nth-child) מעצבים אלמנט במצב מסוים. pseudo-elements (נקודתיים כפולות, למשל ::before, ::after, ::first-line) מעצבים חלק שנוצר או חלקי של האלמנט. יחד הם מאפשרים לעצב אינטראקציה וקישוט בלי HTML נוסף — כלי יומיומי ב-CSS של קומפוננטות.",
+    "code_snippet": "/* Pseudo-class — element state */\na:hover {\n  color: #ff00ff;\n}\n\n/* Pseudo-element — part / generated content */\np::first-line {\n  text-transform: uppercase;\n}\n\n.btn::before {\n  content: '→ ';\n}"
   },
   {
     "id": 6,
     "category": "CSS / Responsive",
     "question_en": "Challenge: What are @media properties?",
     "question_he": "אתגר: מהם @media properties?",
-    "hint_en": "When should CSS rules apply based on screen size or device conditions?",
-    "hint_he": "מתי כללי CSS צריכים לחול לפי גודל מסך או תנאי מכשיר?",
-    "correctAnswer_en": "@media rules apply CSS only when certain conditions are met, such as screen width, print mode, or supported features.",
-    "correctAnswer_he": "כללי @media מחילים CSS רק כשתנאים מסוימים מתקיימים, כמו רוחב מסך, מצב הדפסה או features נתמכים.",
-    "code_snippet": "@media screen and (min-width: 900px) {\n  article { padding: 1rem 3rem }\n}"
+    "hint_en": "When should a block of CSS apply only for certain screen widths, print, or device capabilities?",
+    "hint_he": "מתי בלוק CSS צריך לחול רק עבור רוחבי מסך מסוימים, הדפסה, או יכולות מכשיר?",
+    "correctAnswer_en": "@media rules apply CSS only when media conditions match — viewport width/height, orientation, print vs screen, hover capability, and more. They are the backbone of responsive design: one stylesheet adapts layouts across devices without separate sites. Feature queries and well-chosen breakpoints keep the UI usable from phone to desktop.",
+    "correctAnswer_he": "כללי @media מחילים CSS רק כשתנאי media מתקיימים — רוחב/גובה viewport, orientation, print מול screen, יכולת hover ועוד. הם עמוד השדרה של עיצוב רספונסיבי: stylesheet אחד מתאים פריסות בין מכשירים בלי אתרים נפרדים. feature queries ו-breakpoints נכונים שומרים על UI שמיש ממובייל עד דסקטופ.",
+    "code_snippet": "/* Mobile base styles here... */\n\n@media screen and (min-width: 768px) {\n  .layout {\n    display: grid;\n    grid-template-columns: 240px 1fr;\n  }\n}\n\n@media print {\n  .no-print { display: none; }\n}"
   },
   {
     "id": 7,
     "category": "CSS / Layout",
     "question_en": "Challenge: What can you say about CSS Floats",
     "question_he": "אתגר: מה אפשר לומר על CSS Floats",
-    "hint_en": "What layout problems do floats create, and how do you contain them?",
-    "hint_he": "אילו בעיות פריסה יוצרים floats, ואיך מכילים אותם?",
-    "correctAnswer_en": "Float is a layout technique. Floated elements may require z-index handling and a clearfix to contain the layout.",
-    "correctAnswer_he": "float הוא טכניקת פריסה. אלמנטים עם float עשויים לדרוש טיפול ב-z-index ו-clearfix כדי להכיל את הפריסה.",
-    "code_snippet": ".btn-close { float: inline-end }\n.clearfix { overflow: auto }"
+    "hint_en": "Floats pull elements out of normal flow — what collapse problem does that create for parents?",
+    "hint_he": "Floats מוציאים אלמנטים מהזרימה הרגילה — איזו בעיית קריסה זה יוצר להורים?",
+    "correctAnswer_en": "float moves an element to the left or right and lets text/content wrap around it — historically used for multi-column layouts. Floated children are removed from normal flow, so parents can collapse in height unless you clearfix (e.g. overflow, clearfix, or clear). Today Flexbox/Grid replace most float layouts; floats remain mainly for text wrapping around images.",
+    "correctAnswer_he": "float מזיז אלמנט שמאלה או ימינה ומאפשר לטקסט/תוכן לעטוף אותו — שימש היסטורית לפריסות מרובות עמודות. ילדים עם float יוצאים מהזרימה הרגילה, כך שהורה עלול לקרוס בגובה אלא אם עושים clearfix (למשל overflow, clearfix או clear). היום Flexbox/Grid מחליפים רוב פריסות float; floats נשארים בעיקר לעטיפת טקסט סביב תמונות.",
+    "code_snippet": ".media img {\n  float: left;\n  margin-right: 1rem;\n}\n\n/* Prevent parent height collapse */\n.clearfix::after {\n  content: '';\n  display: block;\n  clear: both;\n}"
   },
   {
     "id": 8,
     "category": "CSS / Layout",
     "question_en": "Challenge: When Flexbox and when Grid?",
     "question_he": "אתגר: מתי Flexbox ומתי Grid?",
-    "hint_en": "One is for overall 2D layout, the other for flexible one-dimensional alignment.",
-    "hint_he": "אחד לפריסה דו-ממדית כוללת, השני ליישור גמיש חד-ממדי.",
-    "correctAnswer_en": "CSS Grid is for overall layout with rows, columns, gaps, and overlap. Flexbox is for alignment and one-dimensional flexible layouts, including dynamic content.",
-    "correctAnswer_he": "CSS Grid מיועד לפריסה כוללת עם שורות, עמודות, gaps וחפיפה. Flexbox מיועד ליישור ופריסות גמישות חד-ממדיות, כולל תוכן דינמי."
+    "hint_en": "One shines in a single direction (row/column); the other controls rows and columns together.",
+    "hint_he": "אחד מצטיין בכיוון אחד (שורה/עמודה); השני שולט בשורות ובעמודות יחד.",
+    "correctAnswer_en": "Flexbox is best for one-dimensional layouts: aligning items in a row or column, distributing space, and building nav bars or toolbars. CSS Grid is best for two-dimensional page/component layouts with explicit rows, columns, gaps, and overlapping areas. In practice you often combine them — Grid for the page skeleton, Flexbox for alignment inside cells.",
+    "correctAnswer_he": "Flexbox מתאים ביותר לפריסות חד-ממדיות: יישור פריטים בשורה או עמודה, חלוקת מרווחים, ובניית nav bars או toolbars. CSS Grid מתאים לפריסות דו-ממדיות של עמוד/קומפוננטה עם שורות, עמודות, gaps ואזורים חופפים. בפועל לעיתים משלבים — Grid לשלד העמוד, Flexbox ליישור בתוך התאים.",
+    "code_snippet": "/* Flexbox — 1D alignment */\n.nav {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  gap: 1rem;\n}\n\n/* Grid — 2D layout */\n.page {\n  display: grid;\n  grid-template-columns: 240px 1fr;\n  grid-template-rows: auto 1fr auto;\n  gap: 1rem;\n}"
   },
   {
     "id": 9,
     "category": "CSS / Responsive",
     "question_en": "Challenge: What is mobile-first strategy?",
     "question_he": "אתגר: מהי אסטרטגיית mobile-first?",
-    "hint_en": "Which screen size do you design for first?",
-    "hint_he": "לאיזה גודל מסך מתכננים קודם?",
-    "correctAnswer_en": "Start designing for mobile constraints first, then progressively enhance the experience for tablet and desktop.",
-    "correctAnswer_he": "מתחילים בעיצוב למגבלות מובייל, ואז משפרים בהדרגה את החוויה לטאבלט ולדסקטופ."
+    "hint_en": "Do you write the base CSS for the smallest screen, then add complexity with min-width media queries?",
+    "hint_he": "האם כותבים את ה-CSS הבסיסי למסך הקטן ביותר, ואז מוסיפים מורכבות עם media queries של min-width?",
+    "correctAnswer_en": "Mobile-first means designing and coding the simplest usable experience for small screens first, then progressively enhancing with min-width media queries for tablet and desktop. It keeps the default CSS lean, prioritizes content and performance on phones, and avoids fighting a desktop-only layout down to mobile.",
+    "correctAnswer_he": "mobile-first אומר לעצב ולכתוב קודם את החוויה הפשוטה והשמישה למסכים קטנים, ואז לשפר בהדרגה עם media queries של min-width לטאבלט ודסקטופ. זה שומר על CSS ברירת מחדל רזה, נותן עדיפות לתוכן ולביצועים במובייל, ונמנע מלכפות פריסת דסקטופ למטה למובייל.",
+    "code_snippet": "/* Base = mobile */\n.card {\n  padding: 1rem;\n}\n\n/* Enhance for larger screens */\n@media (min-width: 768px) {\n  .card {\n    padding: 2rem;\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n  }\n}"
   },
   {
     "id": 10,
     "category": "CSS / Fundamentals",
     "question_en": "Challenge: \"resetting\" vs \"normalizing\" CSS?",
     "question_he": "אתגר: \"resetting\" לעומת \"normalizing\" ב-CSS?",
-    "hint_en": "Does the approach remove all defaults or harmonize useful ones across browsers?",
-    "hint_he": "האם הגישה מסירה את כל ברירות המחדל או מתאימה שימושיות בין דפדפנים?",
-    "correctAnswer_en": "Normalize sets common defaults across browsers while preserving useful defaults. Reset removes most browser default styles entirely.",
-    "correctAnswer_he": "normalize קובע ברירות מחדל משותפות בין דפדפנים תוך שמירה על defaults שימושיים. reset מסיר את רוב סגנונות ברירת המחדל של הדפדפן לחלוטין."
+    "hint_en": "Does the goal wipe browser defaults completely, or make them consistent while keeping useful ones?",
+    "hint_he": "האם המטרה למחוק לגמרי את ברירות המחדל של הדפדפן, או ליישר אותן בין דפדפנים תוך שמירה על שימושיות?",
+    "correctAnswer_en": "A CSS reset strips most browser default styles so you start from a near-blank slate (margins, lists, headings, etc.). Normalize (e.g. Normalize.css / modern equivalents) preserves useful defaults while fixing cross-browser inconsistencies. Resets give total control but more restyling work; normalize is gentler and often preferred for maintainability.",
+    "correctAnswer_he": "CSS reset מסיר את רוב סגנונות ברירת המחדל של הדפדפן כדי להתחיל מלוח כמעט ריק (margins, lists, headings וכו'). Normalize (למשל Normalize.css / מקבילים מודרניים) שומר defaults שימושיים ומתקן חוסר עקביות בין דפדפנים. Reset נותן שליטה מלאה אבל יותר עבודת עיצוב מחדש; normalize עדין יותר ולעיתים מועדף לתחזוקה.",
+    "code_snippet": "/* Reset-style — aggressive blank slate */\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\n/* Normalize idea — keep useful defaults, fix inconsistencies */\n/* e.g. consistent font-size on headings, line-height, form controls */\nhtml {\n  line-height: 1.15;\n}\n"
   },
   {
     "id": 11,
     "category": "CSS / Best Practices",
     "question_en": "Challenge: Best practices for CSS",
     "question_he": "אתגר: שיטות עבודה מומלצות ל-CSS",
-    "hint_en": "Think consistency, maintainability, and avoiding overly specific selectors.",
-    "hint_he": "חשוב על עקביות, תחזוקה, והימנעות מ-selectors ספציפיים מדי.",
-    "correctAnswer_en": "Use a color theme and style guide, write clean consistent code, comment, split into files, minify, use preprocessors like SASS, reset or normalize, prefer classes over IDs, use fallbacks, and avoid !important and overly specific selectors.",
-    "correctAnswer_he": "השתמשו בערכת צבעים וב-style guide, כתבו קוד נקי ועקבי, הוסיפו הערות, פצלו לקבצים, בצעו minify, השתמשו ב-preprocessors כמו SASS, reset או normalize, העדיפו classes על IDs, השתמשו ב-fallbacks, והימנעו מ-!important ו-selectors ספציפיים מדי."
+    "hint_en": "Think maintainability: naming, specificity, organization, and what to avoid in long-lived stylesheets.",
+    "hint_he": "חשוב על תחזוקה: שמות, specificity, ארגון, ומה להימנע ממנו ב-stylesheets ארוכי חיים.",
+    "correctAnswer_en": "Solid CSS practice means consistent naming and a style guide, low specificity (prefer classes over IDs), modular files, comments where intent is unclear, and tooling (preprocessors, minify, lint). Prefer reset/normalize, design tokens/themes, fallbacks for older browsers, and avoid !important and overly deep selectors — so the cascade stays predictable as the team and codebase grow.",
+    "correctAnswer_he": "CSS טוב אומר שמות עקביים ו-style guide, specificity נמוכה (להעדיף classes על IDs), קבצים מודולריים, הערות כשהכוונה לא ברורה, וכלים (preprocessors, minify, lint). העדיפו reset/normalize, design tokens/themes, fallbacks לדפדפנים ישנים, והימנעו מ-!important ומ-selectors עמוקים מדי — כדי שה-cascade יישאר צפוי כשהצוות והקוד גדלים.",
+    "code_snippet": "/* Prefer classes, flat selectors, clear names */\n.btn { }\n.btn--primary { }\n.card__title { }\n\n/* Avoid */\n/* #app div.wrapper > ul li a span { color: red !important; } */\n\n:root {\n  --color-primary: #7c3aed;\n}\n.btn--primary {\n  background: var(--color-primary);\n}"
   },
   {
     "id": 12,
     "category": "CSS / Layout",
     "question_en": "In the CSS display property, what is the difference between block and inline?",
     "question_he": "במאפיין display ב-CSS, מה ההבדל בין block לבין inline?",
-    "hint_en": "Think about new lines, width/height properties, and content size.",
-    "hint_he": "חשוב על שורות חדשות, הגדרות רוחב/גובה, וגודל התוכן.",
-    "correctAnswer_en": "A 'block' element starts on a new line and takes up the full width available, and allows setting custom width and height (e.g., div, p). An 'inline' element does not start on a new line, takes up only as much width as its content, and ignores width and height properties (e.g., span, a).",
-    "correctAnswer_he": "אלמנט 'block' (בלוק) מתחיל תמיד בשורה חדשה ותופס את כל הרוחב הזמין, וניתן להגדיר לו רוחב וגובה מותאמים אישית (למשל div, p). אלמנט 'inline' (אינליין) אינו מתחיל בשורה חדשה, תופס רק את הרוחב של התוכן שלו, ומתעלם מהגדרות רוחב וגובה (למשל span, a).",
-    "code_snippet": "div { display: block; }\nspan { display: inline; }"
+    "hint_en": "Think about new lines, how much width is taken, and whether width/height apply.",
+    "hint_he": "חשוב על שורות חדשות, כמה רוחב נתפס, והאם width/height חלים.",
+    "correctAnswer_en": "A block element starts on a new line and stretches to the full available width; you can set width, height, margin, and padding freely (e.g. div, p, section). An inline element sits within the text flow, takes only as much width as its content, and ignores width/height (e.g. span, a, strong). Choosing the right display mode is basic layout literacy — and inline-block / flex / grid build on this foundation.",
+    "correctAnswer_he": "אלמנט block מתחיל בשורה חדשה ונמתח לכל הרוחב הזמין; אפשר להגדיר width, height, margin ו-padding בחופשיות (למשל div, p, section). אלמנט inline יושב בזרימת הטקסט, תופס רק את רוחב התוכן, ומתעלם מ-width/height (למשל span, a, strong). בחירת מצב display נכון היא אוריינות פריסה בסיסית — ו-inline-block / flex / grid נבנים על הבסיס הזה.",
+    "code_snippet": "div {\n  display: block;   /* new line, full width, width/height work */\n}\n\nspan {\n  display: inline;  /* same line, content width, width/height ignored */\n}\n\n/* Force either behavior when needed */\n.badge { display: inline-block; } /* inline flow + box model sizing */"
   }
 ]

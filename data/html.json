@@ -4,72 +4,76 @@
     "category": "HTML / Entities",
     "question_en": "Challenge: What are HTML Entities?",
     "question_he": "אתגר: מהם HTML Entities?",
-    "hint_en": "How do you safely display characters like <, &, or © in HTML?",
-    "hint_he": "איך מציגים בבטחה תווים כמו <, & או © ב-HTML?",
-    "correctAnswer_en": "HTML entities are used to output special characters safely in HTML, such as &lt;, &amp;, &copy;, and currency symbols.",
-    "correctAnswer_he": "HTML entities משמשים להצגה בטוחה של תווים מיוחדים ב-HTML, כמו &lt;, &amp;, &copy; וסמלי מטבע.",
-    "code_snippet": "<ul>\n  <li>&lt;Aha&gt;</li>\n  <li>Me &amp; You</li>\n  <li>&copy; &nbsp; &reg;</li>\n</ul>"
+    "hint_en": "How do you safely display reserved characters like <, &, or symbols like © without breaking the markup?",
+    "hint_he": "איך מציגים בבטחה תווים שמורים כמו <, & או סמלים כמו © בלי לשבור את ה-markup?",
+    "correctAnswer_en": "HTML entities are escape sequences that let you display special characters safely in markup — for example &lt; for <, &amp; for &, and &copy; for ©. Without them, the browser may treat those characters as HTML syntax, which breaks the page or creates security issues. They are essential whenever you show code, user text, or symbols in HTML.",
+    "correctAnswer_he": "HTML entities הן רצפי escape שמאפשרים להציג תווים מיוחדים בבטחה ב-markup — למשל &lt; עבור <, &amp; עבור &, ו-&copy; עבור ©. בלעדיהן הדפדפן עלול לפרש את התווים כתחביר HTML, מה ששובר את הדף או יוצר סיכוני אבטחה. הן חיוניות כשמציגים קוד, טקסט משתמש או סמלים ב-HTML.",
+    "code_snippet": "<ul>\n  <li>&lt;Aha&gt;</li>          <!-- shows: <Aha> -->\n  <li>Me &amp; You</li>       <!-- shows: Me & You -->\n  <li>&copy; 2026 &reg;</li>  <!-- © and ® -->\n</ul>"
   },
   {
     "id": 2,
     "category": "HTML / Document",
     "question_en": "Challenge: What is the doctype?",
     "question_he": "אתגר: מהו doctype?",
-    "hint_en": "What declaration tells the browser which HTML version to expect?",
-    "hint_he": "איזו הצהרה אומרת לדפדפן איזו גרסת HTML לצפות?",
-    "correctAnswer_en": "The doctype is a legacy browser compatibility declaration. HTML5 uses the simple <!DOCTYPE html>.",
-    "correctAnswer_he": "doctype הוא הצהרת תאימות לדפדפנים ישנים. ב-HTML5 משתמשים ב-<!DOCTYPE html> הפשוט.",
-    "code_snippet": "<!DOCTYPE html>"
+    "hint_en": "What short declaration at the top of a document puts the browser into standards mode for HTML5?",
+    "hint_he": "איזו הצהרה קצרה בראש המסמך מעבירה את הדפדפן ל-standards mode ב-HTML5?",
+    "correctAnswer_en": "The doctype tells the browser which document type / parsing mode to use. In HTML5 it is simply <!DOCTYPE html>, which triggers standards mode and avoids quirks mode layout bugs. It must be the first line of the document and is still required for consistent, modern rendering.",
+    "correctAnswer_he": "ה-doctype אומר לדפדפן באיזה סוג מסמך / מצב parsing להשתמש. ב-HTML5 הוא פשוט <!DOCTYPE html>, מה שמפעיל standards mode ונמנע מבאגי quirks mode. הוא חייב להיות השורה הראשונה במסמך ועדיין נדרש לרינדור מודרני ועקבי.",
+    "code_snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>My App</title>\n  </head>\n  <body>\n    <h1>Hello HTML5</h1>\n  </body>\n</html>"
   },
   {
     "id": 3,
     "category": "HTML / HTML5",
     "question_en": "Challenge: What are the building blocks of HTML5?",
     "question_he": "אתגר: מהם אבני הבניין של HTML5?",
-    "hint_en": "Think semantic tags, richer forms, storage, media, and APIs.",
-    "hint_he": "חשוב על תגיות סמנטיות, טפסים עשירים, storage, מדיה ו-APIs.",
-    "correctAnswer_en": "Semantic elements, richer form controls and validation, data- attributes, Web Storage, audio/video, geolocation, web sockets, web workers, and more.",
-    "correctAnswer_he": "אלמנטים סמנטיים, בקרות טופס ו-validation עשירים יותר, data- attributes, Web Storage, audio/video, geolocation, web sockets, web workers ועוד."
+    "hint_en": "Think beyond tags: semantics, forms, media, client storage, and browser APIs that arrived with HTML5.",
+    "hint_he": "חשוב מעבר לתגיות: semantics, טפסים, מדיה, אחסון בצד הלקוח, ו-APIs של הדפדפן שהגיעו עם HTML5.",
+    "correctAnswer_en": "HTML5 is a platform upgrade, not just new tags. Its building blocks include semantic elements (header, nav, article), richer forms and validation, data-* attributes, native audio/video, client storage, and powerful APIs like geolocation, WebSockets, and Web Workers. Together they reduce plugin dependency and let the browser own structure, media, and offline-capable behavior.",
+    "correctAnswer_he": "HTML5 הוא שדרוג פלטפורמה, לא רק תגיות חדשות. אבני הבניין כוללות אלמנטים סמנטיים (header, nav, article), טפסים ו-validation עשירים יותר, data-* attributes, audio/video מובנים, אחסון בצד הלקוח, ו-APIs חזקים כמו geolocation, WebSockets ו-Web Workers. יחד הם מפחיתים תלות בתוספים ומאפשרים לדפדפן לנהל מבנה, מדיה והתנהגות offline.",
+    "code_snippet": "<article data-id=\"42\">\n  <header><h1>HTML5 building blocks</h1></header>\n  <video controls src=\"demo.mp4\"></video>\n  <form>\n    <input type=\"email\" required placeholder=\"you@example.com\" />\n    <button type=\"submit\">Send</button>\n  </form>\n</article>\n\n<script>\n  localStorage.setItem('visited', 'true');\n</script>"
   },
   {
     "id": 4,
     "category": "HTML / HTML5",
     "question_en": "Challenge: What are Web Workers?",
     "question_he": "אתגר: מהם Web Workers?",
-    "hint_en": "How can heavy work run without blocking the main UI thread?",
-    "hint_he": "איך עבודה כבדה יכולה לרוץ בלי לחסום את ה-main UI thread?",
-    "correctAnswer_en": "Worker threads perform tasks without blocking the UI. Workers have no access to window or document.",
-    "correctAnswer_he": "worker threads מבצעים משימות בלי לחסום את ה-UI. ל-workers אין גישה ל-window או ל-document.",
-    "code_snippet": "const worker = new Worker(\"primesWorker.js\")\nworker.onmessage = (ev) => { /* use ev.data */ }"
+    "hint_en": "How can expensive JavaScript run in the background without freezing clicks, scrolls, and rendering?",
+    "hint_he": "איך JavaScript כבד יכול לרוץ ברקע בלי להקפיא לחיצות, גלילה ורינדור?",
+    "correctAnswer_en": "Web Workers run scripts on a background thread so heavy computation does not block the main UI thread. They communicate with the page via postMessage and cannot touch window or document directly — which protects responsiveness. Use them for parsing, crypto, image processing, or large filters while the UI stays interactive.",
+    "correctAnswer_he": "Web Workers מריצים scripts ב-thread ברקע כדי שחישוב כבד לא יחסום את ה-main UI thread. הם מתקשרים עם הדף דרך postMessage ולא יכולים לגעת ישירות ב-window או document — מה שמגן על הרספונסיביות. משתמשים בהם לפרסינג, הצפנה, עיבוד תמונה או פילטרים גדולים בזמן שה-UI נשאר אינטראקטיבי.",
+    "code_snippet": "// main.js\nconst worker = new Worker('primesWorker.js');\n\nworker.onmessage = (event) => {\n  console.log('result:', event.data);\n};\n\nworker.postMessage({ max: 100000 });\n\n// primesWorker.js\nself.onmessage = (event) => {\n  const { max } = event.data;\n  // ... heavy work ...\n  self.postMessage({ done: true, max });\n};"
   },
   {
     "id": 5,
     "category": "HTML / Storage",
     "question_en": "Challenge: What are the Different types of Browser storage?",
     "question_he": "אתגר: מהם סוגי האחסון השונים בדפדפן?",
-    "hint_en": "Name the main ways browsers can persist data on the client.",
-    "hint_he": "פרט את הדרכים העיקריות שבהן דפדפן שומר נתונים בצד הלקוח.",
-    "correctAnswer_en": "localStorage, sessionStorage, indexedDB, cookies, and the Cache API.",
-    "correctAnswer_he": "localStorage, sessionStorage, indexedDB, cookies ו-Cache API."
+    "hint_en": "Name the main client-side places a browser can keep data — from simple key/value to databases and caches.",
+    "hint_he": "פרט את המקומות העיקריים בצד הלקוח שבהם הדפדפן יכול לשמור נתונים — מ-key/value פשוט עד databases ו-caches.",
+    "correctAnswer_en": "Browsers offer several client storage options: localStorage and sessionStorage for simple key/value strings, cookies for small data sent with HTTP requests, IndexedDB for structured/offline databases, and the Cache API for request/response caching (often with service workers). Choosing the right one depends on size, lifetime, and whether the server needs the data.",
+    "correctAnswer_he": "לדפדפנים יש כמה אפשרויות אחסון בצד הלקוח: localStorage ו-sessionStorage למחרוזות key/value פשוטות, cookies לנתונים קטנים שנשלחים עם בקשות HTTP, IndexedDB למסדי נתונים מובנים/offline, ו-Cache API לשמירת request/response (לעיתים עם service workers). הבחירה תלויה בגודל, במשך החיים, ובשאלה אם השרת צריך את הנתונים.",
+    "code_snippet": "// Web Storage (key/value strings)\nlocalStorage.setItem('theme', 'dark');\nsessionStorage.setItem('step', '2');\n\n// Cookies (sent to the server automatically)\ndocument.cookie = 'sessionId=abc; Path=/; SameSite=Lax';\n\n// IndexedDB — for larger structured data (API sketch)\nconst request = indexedDB.open('AppDB', 1);"
   },
   {
     "id": 6,
     "category": "HTML / Storage",
     "question_en": "What is the difference between local storage and cookies?",
     "question_he": "מה ההבדל בין local storage ל-cookies?",
-    "hint_en": "Compare persistence and server communication.",
-    "hint_he": "השוו בין התמדה (persistence) לתקשורת עם השרת.",
-    "correctAnswer_en": "Both are browser storage. localStorage persists until manually cleared. sessionStorage is short term. Cookies are automatically sent by the browser to the server on subsequent requests.",
-    "correctAnswer_he": "שניהם אחסון בדפדפן. localStorage נשמר עד ניקוי ידני. sessionStorage לטווח קצר. cookies נשלחים אוטומטית על ידי הדפדפן לשרת בבקשות הבאות."
+    "hint_en": "Compare what gets sent to the server automatically, and how long each storage type lives.",
+    "hint_he": "השוו מה נשלח אוטומטית לשרת, וכמה זמן כל סוג אחסון נשמר.",
+    "correctAnswer_en": "localStorage stores key/value data in the browser until cleared (large quota, never auto-sent to the server). Cookies are small, can expire, and are attached to matching HTTP requests — useful for auth/session, but costly if overused. sessionStorage is per-tab and clears when the tab closes. Prefer localStorage for client-only prefs; cookies when the server must see the value.",
+    "correctAnswer_he": "localStorage שומר נתוני key/value בדפדפן עד ניקוי (מכסה גדולה, לא נשלח אוטומטית לשרת). cookies קטנים, יכולים לפוג, ומצורפים לבקשות HTTP תואמות — שימושיים ל-auth/session, אבל יקרים אם משתמשים בהם יתר על המידה. sessionStorage הוא per-tab ונמחק בסגירת הטאב. העדיפו localStorage להעדפות רק בצד הלקוח; cookies כשהשרת חייב לראות את הערך.",
+    "code_snippet": "// localStorage — client only, persists across sessions\nlocalStorage.setItem('lang', 'he');\nconsole.log(localStorage.getItem('lang')); // 'he'\n\n// cookie — browser sends it on later requests to the server\ndocument.cookie = 'token=xyz; Max-Age=3600; Path=/; Secure; SameSite=Strict';\n\n// sessionStorage — lives only for this tab\nsessionStorage.setItem('draft', 'hello');"
   },
   {
     "id": 7,
     "category": "HTML / Graphics",
     "question_en": "Challenge: Canvas vs. SVG",
     "question_he": "אתגר: Canvas לעומת SVG",
-    "hint_en": "Pixel-based scripting vs vector DOM graphics — what are the tradeoffs?",
-    "hint_he": "גרפיקה מבוססת פיקסלים מול וקטורית ב-DOM — מה היתרונות והחסרונות?",
-    "correctAnswer_en": "Canvas is pixel based and modified through script only. SVG is vector based, part of the DOM, supports CSS and accessibility, and is resolution independent with better animation support.",
-    "correctAnswer_he": "Canvas מבוסס פיקסלים ומשתנה רק דרך script. SVG מבוסס וקטורי, חלק מה-DOM, תומך ב-CSS ו-accessibility, בלתי תלוי ברזולוציה ועם תמיכה טובה יותר באנימציה."
+    "hint_en": "Pixel bitmap you draw with script vs vector shapes that live in the DOM — when would you pick each?",
+    "hint_he": "bitmap של פיקסלים שמציירים ב-script מול צורות וקטוריות שחיות ב-DOM — מתי תבחרו בכל אחד?",
+    "correctAnswer_en": "Canvas is a pixel-based drawing surface updated through JavaScript — great for games, charts, and high-frequency redraws, but individual shapes are not DOM nodes. SVG is vector markup in the DOM: resolution-independent, styleable with CSS, accessible, and easy to animate or attach listeners per shape. Pick Canvas for performance-heavy scenes; SVG when you need crisp scalable graphics and DOM integration.",
+    "correctAnswer_he": "Canvas הוא משטח ציור מבוסס פיקסלים שמתעדכן דרך JavaScript — מצוין למשחקים, גרפים ורינדורים תכופים, אבל צורות בודדות אינן DOM nodes. SVG הוא markup וקטורי ב-DOM: בלתי תלוי ברזולוציה, ניתן לעיצוב עם CSS, נגיש, וקל להנפשה או לחיבור listeners לכל צורה. בחרו Canvas לסצנות כבדות ביצועים; SVG כשצריך גרפיקה חדה שניתן להגדיל ולשלב ב-DOM.",
+    "code_snippet": "// Canvas — draw pixels with script\nconst canvas = document.querySelector('canvas');\nconst ctx = canvas.getContext('2d');\nctx.fillStyle = '#7c3aed';\nctx.fillRect(10, 10, 120, 80);\n\n// SVG — vector elements in the DOM\n// <svg width=\"200\" height=\"100\">\n//   <rect x=\"10\" y=\"10\" width=\"120\" height=\"80\" fill=\"#7c3aed\" />\n// </svg>"
   }
 ]
