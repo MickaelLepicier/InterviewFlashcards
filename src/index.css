@@ -84,6 +84,50 @@ body {
   color: #89ddff;
 }
 
+/* Answer face: centered text, clear of floating Copy */
+.flashcard-answer {
+  position: relative;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.flashcard-answer-text {
+  display: block;
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.flashcard-answer-copy {
+  position: absolute;
+  top: 0;
+  inset-inline-end: 0;
+  z-index: 1;
+}
+
+/* Code snippets: horizontal scroll on narrow screens */
+.code-block {
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden; /* keep rounded corners */
+}
+
+.code-block-pre {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.code-block-code {
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -283,10 +327,13 @@ body {
     justify-content: center;
   }
 
-  .code-block pre {
+  .code-block-pre {
     font-size: 12px;
     padding: 0.75rem;
-    -webkit-overflow-scrolling: touch;
+  }
+
+  .flashcard-answer {
+    padding: 40px 20px;
   }
 
   .exam-summary-grid {

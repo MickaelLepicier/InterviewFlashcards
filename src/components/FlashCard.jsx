@@ -50,15 +50,26 @@ function CardFace({
         </span>
       </div>
 
-      <div className="flex flex-1 flex-col overflow-y-auto">
-        <div className="mb-3 flex items-start justify-between gap-3">
-          <p className="select-text whitespace-pre-wrap text-lg font-medium leading-relaxed text-slate-800 sm:text-xl">
+      <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
+        <div
+          className={
+            isBack
+              ? 'flashcard-answer mb-3'
+              : 'mb-3 flex items-start justify-between gap-3'
+          }
+        >
+          <p
+            className={`select-text whitespace-pre-wrap text-lg font-medium leading-relaxed text-slate-800 sm:text-xl${
+              isBack ? ' flashcard-answer-text' : ''
+            }`}
+          >
             {displayContent}
           </p>
           <CopyButton
             text={displayContent}
             label={copyTextLabel}
             copiedLabel={copiedLabel}
+            className={isBack ? 'flashcard-answer-copy' : ''}
           />
         </div>
         <CodeBlock
