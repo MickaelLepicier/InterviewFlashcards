@@ -8,7 +8,8 @@
     "hint_he": "חשוב על משתנה שמעולם לא קיבל ערך, לעומת ערך שהצבת במכוון כדי לסמן ריק.",
     "correctAnswer_en": "undefined means a variable has been declared but has not yet been assigned a value — JavaScript's default empty state. null is an intentional assignment that represents the absence of a meaningful value. In real apps and APIs this distinction matters: use null to signal empty on purpose, while undefined usually means something was never set.",
     "correctAnswer_he": "undefined אומר שמשתנה הוגדר אך עדיין לא הוקצה לו ערך — ברירת המחדל של JavaScript. וה null הוא השמה מכוונת שמייצגת היעדר ערך משמעותי. באפליקציות וב-APIs ההבחנה חשובה: משתמשים ב-null כדי לסמן ריק בכוונה, בעוד undefined לרוב אומר שמשהו מעולם לא הוגדר.",
-    "code_snippet": "let pet;\nconsole.log(pet); // undefined — declared, not assigned\n\npet = null;\nconsole.log(pet); // null — intentional empty value\n\nconsole.log(typeof null);      // 'object' (historic quirk)\nconsole.log(typeof undefined); // 'undefined'"
+    "code_snippet": "let pet;\nconsole.log(pet); // undefined — declared, not assigned\n\npet = null;\nconsole.log(pet); // null — intentional empty value\n\nconsole.log(typeof null);      // 'object' (historic quirk)\nconsole.log(typeof undefined); // 'undefined'",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/null"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "hint_he": "שאל את עצמך: האם for...in עובר על הערכים, או על המפתחות/אינדקסים של המערך?",
     "correctAnswer_en": "The output is 0, 1, 2. for...in iterates over enumerable keys (array indices as strings), not the values. In practical development you almost always want for...of (or map/forEach) for array values — using for...in on arrays is a classic bug that returns indices instead of items.",
     "correctAnswer_he": "הפלט הוא 0, 1, 2. לולאת for...in עוברת על מפתחות enumerable (אינדקסים כמחרוזות), ולא על הערכים. בפיתוח מעשי כמעט תמיד נרצה for...of (או map/forEach) לערכי מערך — שימוש ב-for...in על arrays הוא באג קלאסי שמחזיר אינדקסים במקום איברים.",
-    "code_snippet": "const arr = ['a', 'b', 'c'];\n\n// for...in → keys (indices)\nfor (const key in arr) {\n  console.log(key); // '0', '1', '2'\n}\n\n// for...of → values\nfor (const value of arr) {\n  console.log(value); // 'a', 'b', 'c'\n}"
+    "code_snippet": "const arr = ['a', 'b', 'c'];\n\n// for...in → keys (indices)\nfor (const key in arr) {\n  console.log(key); // '0', '1', '2'\n}\n\n// for...of → values\nfor (const value of arr) {\n  console.log(value); // 'a', 'b', 'c'\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for...in"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "hint_he": "חשוב מה מנוע JS עושה עם declarations בשלב היצירה, לפני שהקוד רץ שורה-שורה.",
     "correctAnswer_en": "Hoisting is JavaScript processing declarations before execution so they exist in their scope. Function declarations are fully hoisted and callable early; var is hoisted as undefined; let/const are in the Temporal Dead Zone (TDZ) until initialized. Knowing this prevents surprise ReferenceErrors and explains safe initialization order in real codebases.",
     "correctAnswer_he": "hoisting הוא עיבוד declarations ב-JavaScript לפני הביצוע כך שהן קיימות ב-scope. וה function declarations מורמות במלואן וניתן לקרוא להן מוקדם; var מורם כ-undefined; let/const נמצאים ב-Temporal Dead Zone (TDZ) עד לאתחול. הידע הזה מונע ReferenceErrors מפתיעים ומסביר סדר אתחול בטוח בקוד אמיתי.",
-    "code_snippet": "// Function declaration — fully hoisted\ngreet(); // 'Hello'\nfunction greet() {\n  console.log('Hello');\n}\n\n// var — hoisted as undefined\nconsole.log(count); // undefined\nvar count = 5;\n\n// let — TDZ until this line\n// console.log(score); // ReferenceError\nlet score = 10;"
+    "code_snippet": "// Function declaration — fully hoisted\ngreet(); // 'Hello'\nfunction greet() {\n  console.log('Hello');\n}\n\n// var — hoisted as undefined\nconsole.log(count); // undefined\nvar count = 5;\n\n// let — TDZ until this line\n// console.log(score); // ReferenceError\nlet score = 10;",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/Hoisting"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "hint_he": "חשוב איך JavaScript משתף מתודות בין אובייקטים בלי להעתיק את אותה פונקציה לכל instance.",
     "correctAnswer_en": "A prototype is the object another object links to for inheritance. When a property is missing on an instance, JavaScript looks it up on the prototype chain. This is how built-ins share methods like toUpperCase and how we reuse behavior efficiently — the core of JavaScript’s object model, including under class syntax.",
     "correctAnswer_he": "prototype הוא האובייקט שאליו אובייקט אחר מקושר לצורך ירושה. כשחסר property ב-instance, JavaScript מחפש אותו ב-prototype chain. כך טיפוסים מובנים משתפים מתודות כמו toUpperCase, וכך משתפים התנהגות ביעילות — זה ליבת מודל האובייקטים ב-JavaScript, גם מתחת לתחביר class.",
-    "code_snippet": "function Person(name) {\n  this.name = name;\n}\n\n// Shared on the prototype — one function for all instances\nPerson.prototype.greet = function () {\n  return `Hi, I'm ${this.name}`;\n};\n\nconst a = new Person('Alex');\nconst b = new Person('Sam');\nconsole.log(a.greet()); // Hi, I'm Alex\nconsole.log(a.greet === b.greet); // true (same function)"
+    "code_snippet": "function Person(name) {\n  this.name = name;\n}\n\n// Shared on the prototype — one function for all instances\nPerson.prototype.greet = function () {\n  return `Hi, I'm ${this.name}`;\n};\n\nconst a = new Person('Alex');\nconst b = new Person('Sam');\nconsole.log(a.greet()); // Hi, I'm Alex\nconsole.log(a.greet === b.greet); // true (same function)",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object_prototypes"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "hint_he": "מה קורה כשפונקציה מוגדרת ורצה באותו ביטוי, ולמה זה עוזר להימנע ממשתנים גלובליים?",
     "correctAnswer_en": "An IIFE (Immediately Invoked Function Expression) is a function that runs as soon as it is defined. It creates a private scope so temporary variables do not leak into the global namespace — historically essential before ES modules, and still useful for one-off setup or isolating legacy scripts.",
     "correctAnswer_he": "IIFE (Immediately Invoked Function Expression) היא פונקציה שרצה מיד עם הגדרתה. היא יוצרת scope פרטי כדי שמשתנים זמניים לא יזלגו ל-global namespace — קריטי היסטורית לפני ES modules, ועדיין שימושי לאתחול חד-פעמי או לבידוד סקריפטים ישנים.",
-    "code_snippet": "// Runs immediately, keeps variables local\n(function init(appName) {\n  const version = '1.0';\n  console.log(`${appName} v${version}`); // MyApp v1.0\n})('MyApp');\n\n// console.log(version); // ReferenceError — not global"
+    "code_snippet": "// Runs immediately, keeps variables local\n(function init(appName) {\n  const version = '1.0';\n  console.log(`${appName} v${version}`); // MyApp v1.0\n})('MyApp');\n\n// console.log(version); // ReferenceError — not global",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/IIFE"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "hint_he": "השוו בין function scope ל-block scope — מה בורח מתוך בלוק if/for, ומה נשאר בפנים?",
     "correctAnswer_en": "var is function-scoped and can leak out of blocks like if/for, which causes subtle bugs. let is block-scoped and stays inside { }, matching how we reason about local variables. Modern code prefers let/const for predictable scoping and safer Temporal Dead Zone behavior versus var’s hoisted undefined.",
     "correctAnswer_he": "var הוא function-scoped ויכול לדלוף מחוץ לבלוקים כמו if/for, מה שיוצר באגים עדינים. let הוא block-scoped ונשאר בתוך { }, בהתאם לאופן שבו חושבים על משתנים מקומיים. בקוד מודרני מעדיפים let/const לסקופינג צפוי ולהתנהגות TDZ בטוחה יותר מול undefined המורם של var.",
-    "code_snippet": "if (true) {\n  var leaked = 'I escape the block';\n  let locked = 'I stay inside';\n}\n\nconsole.log(leaked); // 'I escape the block'\n// console.log(locked); // ReferenceError\n\nfor (let i = 0; i < 2; i++) {\n  /* each iteration gets its own i */\n}\n// console.log(i); // ReferenceError"
+    "code_snippet": "if (true) {\n  var leaked = 'I escape the block';\n  let locked = 'I stay inside';\n}\n\nconsole.log(leaked); // 'I escape the block'\n// console.log(locked); // ReferenceError\n\nfor (let i = 0; i < 2; i++) {\n  /* each iteration gets its own i */\n}\n// console.log(i); // ReferenceError",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let"
   },
   {
     "id": 7,
@@ -74,7 +80,8 @@
     "hint_he": "אותו תחביר ..., תפקידים הפוכים: אחד מרחיב אוסף החוצה, והשני אוסף שאריות למערך.",
     "correctAnswer_en": "Spread (...) expands an iterable or object into individual elements — ideal for immutable copies and merging. Rest (...) collects remaining arguments or elements into a real array. Together they replace verbose apply/slice patterns and support clean, immutable updates common in modern JavaScript and React.",
     "correctAnswer_he": "Spread (...) מרחיב iterable או object לפריטים בודדים — מושלם להעתקות immutable ולמיזוג. Rest (...) אוסף ארגומנטים או איברים נותרים למערך אמיתי. יחד הם מחליפים דפוסי apply/slice מסורבלים ותומכים בעדכונים immutable הנפוצים ב-JavaScript מודרני וב-React.",
-    "code_snippet": "// Spread — expand into a new array / object\nconst nums = [1, 2, 3];\nconst more = [...nums, 4, 5]; // [1, 2, 3, 4, 5]\nconst user = { name: 'Alex' };\nconst withAge = { ...user, age: 26 };\n\n// Rest — gather remaining values\nfunction sum(first, ...rest) {\n  return rest.reduce((acc, n) => acc + n, first);\n}\nconsole.log(sum(1, 2, 3, 4)); // 10"
+    "code_snippet": "// Spread — expand into a new array / object\nconst nums = [1, 2, 3];\nconst more = [...nums, 4, 5]; // [1, 2, 3, 4, 5]\nconst user = { name: 'Alex' };\nconst withAge = { ...user, age: 26 };\n\n// Rest — gather remaining values\nfunction sum(first, ...rest) {\n  return rest.reduce((acc, n) => acc + n, first);\n}\nconsole.log(sum(1, 2, 3, 4)); // 10",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax"
   },
   {
     "id": 8,
@@ -85,7 +92,8 @@
     "hint_he": "חשוב על דרך נקייה לחלץ מספר מאפיינים מתוך אובייקט או מערך בשורה אחת.",
     "correctAnswer_en": "Destructuring is an ES6 expression that allows us to unpack values from arrays or properties from objects directly into distinct variables. It eliminates the need for redundant, repetitive assignments (like const name = person.name), making the code cleaner, more readable, and easier to maintain when dealing with complex data structures or function options.",
     "correctAnswer_he": "Destructuring (פירוק מבנה) הוא סינטקס מ-ES6 המאפשר לחלץ ערכים מתוך מערכים או מאפיינים מתוך אובייקטים ישירות לתוך משתנים נפרדים. הוא חוסך כתיבה מרובת שורות של השמות ידניות (כמו const name = person.name), הופך את הקוד לנקי וקריא יותר, ומקל על העבודה עם מבני נתונים מורכבים או בקבלת אובייקטים כפרמטרים בפונקציות.",
-    "code_snippet": "// Object Destructuring\nconst user = { name: 'Alex', age: 26 };\nconst { name, age } = user;\nconsole.log(name, age); // 'Alex', 26\n\n// Array Destructuring\nconst RGB = [255, 0, 120];\nconst [red, green, blue] = RGB;\nconsole.log(red); // 255"
+    "code_snippet": "// Object Destructuring\nconst user = { name: 'Alex', age: 26 };\nconst { name, age } = user;\nconsole.log(name, age); // 'Alex', 26\n\n// Array Destructuring\nconst RGB = [255, 0, 120];\nconst [red, green, blue] = RGB;\nconsole.log(red); // 255",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment"
   },
   {
     "id": 9,
@@ -96,7 +104,8 @@
     "hint_he": "איך פונקציה פנימית ממשיכה להשתמש במשתנים של הפונקציה החיצונית גם אחרי שהחיצונית כבר החזירה ערך?",
     "correctAnswer_en": "A closure is a function bundled with its lexical environment — the variables from the scopes where it was created. Even after the outer function returns, the inner function retains access to those variables. Closures power private state, callbacks, and factory patterns, and are one of the most important tools for encapsulation in JavaScript.",
     "correctAnswer_he": "closure הוא פונקציה יחד עם הסביבה הלקסיקלית (lexical environment) שלה — המשתנים מה-scopes שבהם נוצרה. גם אחרי שהפונקציה החיצונית חוזרת, הפנימית שומרת גישה למשתנים האלה. Closures מפעילים state פרטי, callbacks ודפוסי factory, והם מכלי encapsulation החשובים ביותר ב-JavaScript.",
-    "code_snippet": "function createCounter() {\n  let count = 0; // private via closure\n  return function () {\n    count += 1;\n    return count;\n  };\n}\n\nconst counter = createCounter();\nconsole.log(counter()); // 1\nconsole.log(counter()); // 2\n// console.log(count); // ReferenceError — not accessible"
+    "code_snippet": "function createCounter() {\n  let count = 0; // private via closure\n  return function () {\n    count += 1;\n    return count;\n  };\n}\n\nconst counter = createCounter();\nconsole.log(counter()); // 1\nconsole.log(counter()); // 2\n// console.log(count); // ReferenceError — not accessible",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures"
   },
   {
     "id": 10,
@@ -107,7 +116,8 @@
     "hint_he": "חשוב על encapsulation: closures, ES modules, או תחביר שדות פרטיים עם # במחלקות.",
     "correctAnswer_en": "True privacy comes from encapsulation boundaries: module scope (export only what you need), closures that hide data behind returned methods, or class private fields with #. Without them, consumers can mutate internal state. Private design protects invariants and keeps public APIs clear — a core theme in maintainable architecture.",
     "correctAnswer_he": "פרטיות אמיתית מגיעה מגבולות encapsulation: scope של module (מייצאים רק מה שצריך), closures שמסתירים נתונים מאחורי מתודות מוחזרות, או שדות פרטיים במחלקה עם #. בלעדיהם צרכנים יכולים לשנות state פנימי. תכנון פרטי מגן על invariants ושומר על public API ברור — נושא מרכזי בארכיטקטורה בת-תחזוקה.",
-    "code_snippet": "// Private field with #\nclass Account {\n  #balance = 0;\n  deposit(amount) {\n    this.#balance += amount;\n  }\n  getBalance() {\n    return this.#balance;\n  }\n}\n\nconst account = new Account();\naccount.deposit(50);\nconsole.log(account.getBalance()); // 50\n// console.log(account.#balance); // SyntaxError"
+    "code_snippet": "// Private field with #\nclass Account {\n  #balance = 0;\n  deposit(amount) {\n    this.#balance += amount;\n  }\n  getBalance() {\n    return this.#balance;\n  }\n}\n\nconst account = new Account();\naccount.deposit(50);\nconsole.log(account.getBalance()); // 50\n// console.log(account.#balance); // SyntaxError",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Private_properties"
   },
   {
     "id": 11,
@@ -118,7 +128,8 @@
     "hint_he": "מתי פונקציה נדרשת רק פעם אחת — למשל כ-callback ל-map או setTimeout?",
     "correctAnswer_en": "Anonymous functions are ideal when you need a function only once and do not need a reusable name. They keep call sites concise when passed to higher-order APIs like Array.map, filter, or setTimeout — common in event handling and data transforms.",
     "correctAnswer_he": "פונקציות אנונימיות אידיאליות כשצריך פונקציה פעם אחת בלבד ואין צורך בשם לשימוש חוזר. הן שומרות על קוד קצר כשמעבירים אותן ל-APIs מסדר גבוה כמו Array.map, filter או setTimeout — נפוץ בטיפול באירועים ובעיבוד נתונים.",
-    "code_snippet": "// One-off callbacks — no named function needed\nsetTimeout(() => {\n  console.log('Times up!');\n}, 1000);\n\nconst doubled = [1, 2, 3].map((n) => n * 2);\nconsole.log(doubled); // [2, 4, 6]"
+    "code_snippet": "// One-off callbacks — no named function needed\nsetTimeout(() => {\n  console.log('Times up!');\n}, 1000);\n\nconst doubled = [1, 2, 3].map((n) => n * 2);\nconsole.log(doubled); // [2, 4, 6]",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#anonymous_functions"
   },
   {
     "id": 12,
@@ -129,7 +140,8 @@
     "hint_he": "התמקד ב-this, באובייקט arguments, ובהקשר לקסיקלי מול דינמי.",
     "correctAnswer_en": "Arrow functions do not have their own this or arguments; they inherit this from the enclosing lexical scope. Regular functions get this from how they are called. That makes arrows perfect for callbacks inside methods (timers, promises) where you want the outer this, and regular functions better when you need dynamic this or the arguments object.",
     "correctAnswer_he": "ל-arrow functions אין this או arguments משלהן; הן יורשות this מה-scope הלקסיקלי החיצוני. לפונקציות רגילות this נקבע לפי אופן הקריאה. לכן arrows מושלמות ל-callbacks בתוך מתודות (timers, promises) כשרוצים את ה-this החיצוני, ופונקציות רגילות עדיפות כשצריך this דינמי או את אובייקט arguments.",
-    "code_snippet": "const person = {\n  name: 'Alex',\n  speak() {\n    // Arrow keeps lexical this → person\n    setTimeout(() => {\n      console.log(this.name); // 'Alex'\n    }, 100);\n\n    // Regular function would lose this (undefined / window)\n    // setTimeout(function () { console.log(this.name); }, 100);\n  },\n};\nperson.speak();"
+    "code_snippet": "const person = {\n  name: 'Alex',\n  speak() {\n    // Arrow keeps lexical this → person\n    setTimeout(() => {\n      console.log(this.name); // 'Alex'\n    }, 100);\n\n    // Regular function would lose this (undefined / window)\n    // setTimeout(function () { console.log(this.name); }, 100);\n  },\n};\nperson.speak();",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions"
   },
   {
     "id": 13,
@@ -140,7 +152,8 @@
     "hint_he": "איזו צורה ניתן לקרוא לה לפני שורת ההגדרה בזכות hoisting?",
     "correctAnswer_en": "A function declaration (function foo() {}) is fully hoisted, so you can call it before its line in the file. A function expression assigned to const/let (const foo = function() {}) is not callable before that line and lives in the TDZ. Choosing declarations vs expressions affects initialization order and whether the binding can be reassigned.",
     "correctAnswer_he": "function declaration (function foo() {}) מורמת במלואה, ולכן אפשר לקרוא לה לפני שורת ההגדרה. function expression שהוקצתה ל-const/let (const foo = function() {}) אינה ניתנת לקריאה לפני השורה ונמצאת ב-TDZ. הבחירה משפיעה על סדר האתחול ועל האפשרות להקצות מחדש.",
-    "code_snippet": "// Declaration — hoisted, callable early\nsayHi(); // 'Hi'\nfunction sayHi() {\n  console.log('Hi');\n}\n\n// Expression — not hoisted\n// sayBye(); // ReferenceError\nconst sayBye = function () {\n  console.log('Bye');\n};\nsayBye(); // 'Bye'"
+    "code_snippet": "// Declaration — hoisted, callable early\nsayHi(); // 'Hi'\nfunction sayHi() {\n  console.log('Hi');\n}\n\n// Expression — not hoisted\n// sayBye(); // ReferenceError\nconst sayBye = function () {\n  console.log('Bye');\n};\nsayBye(); // 'Bye'",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function"
   },
   {
     "id": 14,
@@ -151,7 +164,8 @@
     "hint_he": "מה קורה כשיוצרים callbacks אסינכרוניים בתוך לולאה עם var?",
     "correctAnswer_en": "The classic closure pitfall: with var, loop callbacks share one binding, so after the loop finishes they all see the final value. Using let gives each iteration its own binding, so async callbacks capture the correct value. This shows up constantly with setTimeout, event listeners, and promise chains inside loops.",
     "correctAnswer_he": "מלכודת ה-closure הקלאסית: עם var, כל ה-callbacks של הלולאה חולקים binding אחד, ואחרי שהלולאה מסתיימת כולם רואים את הערך האחרון. עם let לכל איטרציה יש binding משלה, ולכן callbacks אסינכרוניים תופסים את הערך הנכון. זה מופיע כל הזמן עם setTimeout, listeners ו-promises בתוך לולאות.",
-    "code_snippet": "// Broken with var — all log 3\nfor (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\n\n// Fixed with let — logs 0, 1, 2\nfor (let j = 0; j < 3; j++) {\n  setTimeout(() => console.log(j), 0);\n}"
+    "code_snippet": "// Broken with var — all log 3\nfor (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 0);\n}\n\n// Fixed with let — logs 0, 1, 2\nfor (let j = 0; j < 3; j++) {\n  setTimeout(() => console.log(j), 0);\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#creating_closures_in_loops_a_common_mistake"
   },
   {
     "id": 15,
@@ -162,7 +176,8 @@
     "hint_he": "לפני שהיה let, איך IIFE יכול לקבע את אינדקס הלולאה לכל callback?",
     "correctAnswer_en": "Before block-scoped let, developers fixed the closure pitfall with an IIFE: pass the current loop value into a factory that returns the real callback. That creates a new scope per iteration so each handler keeps its own copy. Today prefer let, but IIFE capture is still useful interview knowledge for legacy code.",
     "correctAnswer_he": "לפני block-scoped let, תיקנו את מלכודת ה-closure עם IIFE: מעבירים את ערך הלולאה הנוכחי ל-factory שמחזיר את ה-callback האמיתי. כך נוצר scope חדש לכל איטרציה וכל handler שומר עותק משלו. היום עדיף let, אבל לכידה עם IIFE עדיין חשובה בראיונות ובקוד ישן.",
-    "code_snippet": "// Legacy fix: IIFE captures i per iteration\nfor (var i = 0; i < 3; i++) {\n  setTimeout(\n    (function (num) {\n      return function () {\n        console.log(num); // 0, then 1, then 2\n      };\n    })(i),\n    0,\n  );\n}"
+    "code_snippet": "// Legacy fix: IIFE captures i per iteration\nfor (var i = 0; i < 3; i++) {\n  setTimeout(\n    (function (num) {\n      return function () {\n        console.log(num); // 0, then 1, then 2\n      };\n    })(i),\n    0,\n  );\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures#creating_closures_in_loops_a_common_mistake"
   },
   {
     "id": 16,
@@ -173,7 +188,8 @@
     "hint_he": "שניהם קובעים this ידנית — מה ההבדל כשמעבירים ארגומנטים נוספים?",
     "correctAnswer_en": "call and apply both invoke a function immediately while setting this. call takes extra arguments one by one; apply takes them as a single array. They are useful for borrowing methods or controlling context. With modern spread, Math.max(...nums) often replaces apply, but both remain important interview topics.",
     "correctAnswer_he": "call ו-apply שניהם מריצים פונקציה מיד תוך קביעת this. call מקבל ארגומנטים נוספים אחד-אחד; apply מקבל אותם כמערך אחד. שימושיים להשאלת מתודות או שליטה ב-context. עם spread מודרני, Math.max(...nums) לעיתים מחליף apply, אך שניהם נשארים נושאי ראיון חשובים.",
-    "code_snippet": "function greet(greeting, punctuation) {\n  console.log(`${greeting}, ${this.name}${punctuation}`);\n}\n\nconst user = { name: 'Alex' };\n\ngreet.call(user, 'Hello', '!');      // Hello, Alex!\ngreet.apply(user, ['Hi', '...']);    // Hi, Alex...\n\nconst nums = [5, 8, 17, 6];\nconsole.log(Math.max.apply(null, nums)); // 17\nconsole.log(Math.max(...nums));          // 17 (modern)"
+    "code_snippet": "function greet(greeting, punctuation) {\n  console.log(`${greeting}, ${this.name}${punctuation}`);\n}\n\nconst user = { name: 'Alex' };\n\ngreet.call(user, 'Hello', '!');      // Hello, Alex!\ngreet.apply(user, ['Hi', '...']);    // Hi, Alex...\n\nconst nums = [5, 8, 17, 6];\nconsole.log(Math.max.apply(null, nums)); // 17\nconsole.log(Math.max(...nums));          // 17 (modern)",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/call"
   },
   {
     "id": 17,
@@ -184,7 +200,8 @@
     "hint_he": "האם bind מריץ את הפונקציה מיד, או מחזיר פונקציה חדשה לשימוש מאוחר יותר?",
     "correctAnswer_en": "bind does not call the function right away. It returns a new function with this (and optionally preset arguments) permanently fixed. That is essential for event handlers and callbacks where you need a stable this without invoking the method immediately — unlike call/apply.",
     "correctAnswer_he": "bind לא קורא לפונקציה מיד. הוא מחזיר פונקציה חדשה עם this (ולעיתים ארגומנטים מוכנים מראש) מקובעים לתמיד. זה קריטי ל-event handlers ול-callbacks כשצריך this יציב בלי להריץ את המתודה מיד — בניגוד ל-call/apply.",
-    "code_snippet": "const user = {\n  name: 'Alex',\n  greet(prefix) {\n    console.log(`${prefix} ${this.name}`);\n  },\n};\n\nconst boundGreet = user.greet.bind(user, 'Hello');\nboundGreet(); // Hello Alex\n\n// Useful as a callback with correct this\nsetTimeout(user.greet.bind(user, 'Hi'), 0);"
+    "code_snippet": "const user = {\n  name: 'Alex',\n  greet(prefix) {\n    console.log(`${prefix} ${this.name}`);\n  },\n};\n\nconst boundGreet = user.greet.bind(user, 'Hello');\nboundGreet(); // Hello Alex\n\n// Useful as a callback with correct this\nsetTimeout(user.greet.bind(user, 'Hi'), 0);",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/bind"
   },
   {
     "id": 18,
@@ -195,7 +212,8 @@
     "hint_he": "האם הפונקציה מקבלת פונקציה כקלט, מחזירה אחת כפלט, או שניהם?",
     "correctAnswer_en": "A higher-order function either takes a function as an argument, returns a function, or both. This pattern enables composition and reuse — map/filter/reduce, middleware, and decorators are all built on it. It is central to functional style in everyday JavaScript.",
     "correctAnswer_he": "higher-order function מקבלת פונקציה כארגומנט, מחזירה פונקציה, או שניהם. הדפוס מאפשר composition ושימוש חוזר — map/filter/reduce, middleware ו-decorators כולם בנויים עליו. זה מרכזי בסגנון פונקציונלי ב-JavaScript היומיומי.",
-    "code_snippet": "// Takes a function as an argument\nconst nums = [1, 2, 3].map((n) => n * 10); // [10, 20, 30]\n\n// Returns a function (factory)\nfunction multiplyBy(factor) {\n  return (n) => n * factor;\n}\nconst double = multiplyBy(2);\nconsole.log(double(5)); // 10"
+    "code_snippet": "// Takes a function as an argument\nconst nums = [1, 2, 3].map((n) => n * 10); // [10, 20, 30]\n\n// Returns a function (factory)\nfunction multiplyBy(factor) {\n  return (n) => n * factor;\n}\nconst double = multiplyBy(2);\nconsole.log(double(5)); // 10",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function"
   },
   {
     "id": 19,
@@ -206,7 +224,8 @@
     "hint_he": "אילו ערכים ניתן לשנות במקום, ואילו תמיד מייצרים ערך חדש?",
     "correctAnswer_en": "Mutable values (objects, arrays) can be changed in place; immutable primitives (strings, numbers) cannot — operations return new values. In UI state (especially React), preferring immutable updates with spread avoids accidental shared mutations and makes changes predictable.",
     "correctAnswer_he": "ערכים mutable (objects, arrays) ניתנים לשינוי במקום; primitives immutable (strings, numbers) לא — פעולות מחזירות ערכים חדשים. ב-state של UI (במיוחד React), עדכונים immutable עם spread מונעים mutations משותפים מקריים והופכים שינויים לצפויים.",
-    "code_snippet": "// Strings are immutable\nlet word = 'papa';\nword[1] = 'u';\nconsole.log(word); // 'papa' — unchanged\n\n// Objects are mutable (in-place)\nconst pet = { name: 'Charli', score: 90 };\npet.score = 95;\n\n// Prefer immutable update (new object)\nconst updated = { ...pet, score: 100 };\nconsole.log(updated); // { name: 'Charli', score: 100 }"
+    "code_snippet": "// Strings are immutable\nlet word = 'papa';\nword[1] = 'u';\nconsole.log(word); // 'papa' — unchanged\n\n// Objects are mutable (in-place)\nconst pet = { name: 'Charli', score: 90 };\npet.score = 95;\n\n// Prefer immutable update (new object)\nconst updated = { ...pet, score: 100 };\nconsole.log(updated); // { name: 'Charli', score: 100 }",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/Mutable"
   },
   {
     "id": 20,
@@ -217,7 +236,8 @@
     "hint_he": "אילו מתודות מערך משנות את המקור, ואילו מחזירות מערך חדש לגמרי?",
     "correctAnswer_en": "Classic methods like sort(), reverse(), and splice() mutate the original array. When immutability matters, use copy-then-mutate or modern non-mutating methods: toSorted(), toReversed(), and toSpliced(), which return new arrays and leave the source untouched — safer for state and shared data.",
     "correctAnswer_he": "מתודות קלאסיות כמו sort(), reverse() ו-splice() משנות את המערך המקורי. כשחשובה immutability, השתמשו בהעתקה-ואז-שינוי או במתודות מודרניות שלא משנות: toSorted(), toReversed() ו-toSpliced(), שמחזירות מערכים חדשים ומשאירות את המקור — בטוח יותר ל-state ולנתונים משותפים.",
-    "code_snippet": "const original = [3, 1, 4];\n\n// Mutating — changes original\nconst mutating = [...original];\nmutating.sort((a, b) => a - b);\n\n// Immutable — original stays [3, 1, 4]\nconst sorted = original.toSorted((a, b) => a - b);\nconst spliced = original.toSpliced(1, 0, 2);\n\nconsole.log(original); // [3, 1, 4]\nconsole.log(sorted);   // [1, 3, 4]\nconsole.log(spliced);  // [3, 2, 1, 4]"
+    "code_snippet": "const original = [3, 1, 4];\n\n// Mutating — changes original\nconst mutating = [...original];\nmutating.sort((a, b) => a - b);\n\n// Immutable — original stays [3, 1, 4]\nconst sorted = original.toSorted((a, b) => a - b);\nconst spliced = original.toSpliced(1, 0, 2);\n\nconsole.log(original); // [3, 1, 4]\nconsole.log(sorted);   // [1, 3, 4]\nconsole.log(spliced);  // [3, 2, 1, 4]",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map"
   },
   {
     "id": 21,
@@ -228,7 +248,8 @@
     "hint_he": "מה תפקיד ה-accumulator כשמצמצמים את המערך לתוצאה אחת?",
     "correctAnswer_en": "reduce walks an array and builds one accumulated result by calling a callback on each item. You supply (or default to) an initial accumulator, then return the final value — perfect for sums, grouping objects, or implementing other transforms. Understanding reduce is core interview knowledge because so many data pipelines are “fold this list into one answer.”",
     "correctAnswer_he": "reduce עובר על מערך ובונה תוצאה מצטברת אחת על ידי קריאת callback לכל איבר. מספקים (או משתמשים בברירת מחדל של) accumulator התחלתי, ואז מחזירים את הערך הסופי — מושלם לסכומים, קיבוץ אובייקטים, או מימוש transforms אחרים. הבנת reduce היא ידע ראיון מרכזי כי הרבה pipelines הם בעצם \"צמצם את הרשימה לתשובה אחת\".",
-    "code_snippet": "function myReduce(items, fn, initial) {\n  let hasInitial = arguments.length >= 3;\n  let acc = hasInitial ? initial : items[0];\n  let start = hasInitial ? 0 : 1;\n\n  for (let i = start; i < items.length; i++) {\n    acc = fn(acc, items[i], i);\n  }\n  return acc;\n}\n\nconsole.log(myReduce([1, 2, 3], (a, b) => a + b, 0)); // 6\nconsole.log(myReduce([1, 2, 3], (a, b) => a + b));    // 6"
+    "code_snippet": "function myReduce(items, fn, initial) {\n  let hasInitial = arguments.length >= 3;\n  let acc = hasInitial ? initial : items[0];\n  let start = hasInitial ? 0 : 1;\n\n  for (let i = start; i < items.length; i++) {\n    acc = fn(acc, items[i], i);\n  }\n  return acc;\n}\n\nconsole.log(myReduce([1, 2, 3], (a, b) => a + b, 0)); // 6\nconsole.log(myReduce([1, 2, 3], (a, b) => a + b));    // 6",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce"
   },
   {
     "id": 22,
@@ -239,7 +260,8 @@
     "hint_he": "כשפוגשים מערך מקונן, האם לרדת ברקורסיה — ואיך ממזגים את התוצאה לרשימה שטוחה?",
     "correctAnswer_en": "Deep flatten walks nested arrays of unknown depth and returns one flat list. Recurse when an item is an array (Array.isArray), otherwise keep the value. Pairing recursion with reduce (or a stack) solves real API/data-shape messes without depending on a fixed depth like flat(2).",
     "correctAnswer_he": "deep flatten עובר על מערכים מקוננים בעומק לא ידוע ומחזיר רשימה שטוחה אחת. יורדים ברקורסיה כשאיבר הוא מערך (Array.isArray), אחרת שומרים את הערך. שילוב recursion עם reduce (או stack) פותר מבני נתונים מבולגנים מ-APIs בלי תלות בעומק קבוע כמו flat(2).",
-    "code_snippet": "function deepFlatten(arr) {\n  return arr.reduce((acc, item) => {\n    if (Array.isArray(item)) {\n      acc.push(...deepFlatten(item));\n    } else {\n      acc.push(item);\n    }\n    return acc;\n  }, []);\n}\n\nconsole.log(deepFlatten([1, [2, [3, 4]], 5])); // [1, 2, 3, 4, 5]"
+    "code_snippet": "function deepFlatten(arr) {\n  return arr.reduce((acc, item) => {\n    if (Array.isArray(item)) {\n      acc.push(...deepFlatten(item));\n    } else {\n      acc.push(item);\n    }\n    return acc;\n  }, []);\n}\n\nconsole.log(deepFlatten([1, [2, [3, 4]], 5])); // [1, 2, 3, 4, 5]",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/flat"
   },
   {
     "id": 23,
@@ -250,7 +272,8 @@
     "hint_he": "חשוב על circular references ועל טיפוסים ש-JSON פשוט לא יכול לייצג.",
     "correctAnswer_en": "You cannot JSON.stringify everything safely. Circular references throw TypeError, and values like functions, undefined, and Symbols are dropped or omitted. Knowing these limits matters when persisting state, logging, or sending payloads — you must sanitize or redesign the data shape first.",
     "correctAnswer_he": "אי אפשר להעביר הכל בבטחה דרך JSON.stringify. circular references זורקים TypeError, וערכים כמו functions, undefined ו-Symbols נמחקים או מושמטים. חשוב להכיר את המגבלות כששומרים state, מדפיסים logs או שולחים payloads — צריך לנקות או לעצב מחדש את מבנה הנתונים קודם.",
-    "code_snippet": "const user = {\n  name: 'Alex',\n  greet() {},\n  meta: undefined,\n};\n\nconsole.log(JSON.stringify(user)); // '{\"name\":\"Alex\"}'\n\nconst a = { name: 'A' };\nconst b = { name: 'B', friend: a };\na.friend = b;\n// JSON.stringify(a); // TypeError: circular structure"
+    "code_snippet": "const user = {\n  name: 'Alex',\n  greet() {},\n  meta: undefined,\n};\n\nconsole.log(JSON.stringify(user)); // '{\"name\":\"Alex\"}'\n\nconst a = { name: 'A' };\nconst b = { name: 'B', friend: a };\na.friend = b;\n// JSON.stringify(a); // TypeError: circular structure",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify"
   },
   {
     "id": 24,
@@ -261,7 +284,8 @@
     "hint_he": "אם המערך כבר ממוין, איזו אסטרטגיית חיפוש חוצה את המרחב בכל שלב?",
     "correctAnswer_en": "In a sorted array the optimal lookup is O(log N) via binary search: compare the middle element and discard half the range each step. A linear scan is O(N) and wastes the sorted structure. Interviewers expect you to name binary search and explain why sorted input changes complexity.",
     "correctAnswer_he": "במערך ממוין החיפוש האופטימלי הוא O(log N) באמצעות binary search: משווים לאמצע וזורקים חצי מהטווח בכל שלב. סריקה לינארית היא O(N) ומבזבזת את העובדה שהמערך ממוין. בראיון מצפים שתציינו binary search ותסבירו למה קלט ממוין משנה את הסיבוכיות.",
-    "code_snippet": "function binarySearch(arr, target) {\n  let left = 0;\n  let right = arr.length - 1;\n\n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}\n\nconsole.log(binarySearch([1, 3, 5, 7, 9], 7)); // 3"
+    "code_snippet": "function binarySearch(arr, target) {\n  let left = 0;\n  let right = arr.length - 1;\n\n  while (left <= right) {\n    const mid = Math.floor((left + right) / 2);\n    if (arr[mid] === target) return mid;\n    if (arr[mid] < target) left = mid + 1;\n    else right = mid - 1;\n  }\n  return -1;\n}\n\nconsole.log(binarySearch([1, 3, 5, 7, 9], 7)); // 3",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex"
   },
   {
     "id": 25,
@@ -272,7 +296,8 @@
     "hint_he": "השוו איברים סמוכים והחליפו עד שהרשימה ממוינת — מה סיבוכיות הזמן?",
     "correctAnswer_en": "Bubble sort repeatedly compares neighboring elements and swaps them when out of order, bubbling larger values toward the end. Its average/worst time is O(N²), so it is rarely used in production — but it is a great interview baseline for explaining comparison sorts and why better algorithms (like n log n) matter.",
     "correctAnswer_he": "bubble sort משווה שוב ושוב איברים שכנים ומחליף אותם כשהם לא בסדר, כך שערכים גדולים \"צפים\" לסוף. סיבוכיות ממוצעת/גרועה היא O(N²), ולכן כמעט לא משתמשים בו בפרודקשן — אבל הוא בסיס ראיון מצוין להסבר comparison sorts ולמה אלגוריתמים טובים יותר (כמו n log n) חשובים.",
-    "code_snippet": "function bubbleSort(arr) {\n  const a = [...arr];\n  for (let i = 0; i < a.length; i++) {\n    for (let j = 0; j < a.length - 1 - i; j++) {\n      if (a[j] > a[j + 1]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n      }\n    }\n  }\n  return a;\n}\n\nconsole.log(bubbleSort([5, 1, 4, 2])); // [1, 2, 4, 5]"
+    "code_snippet": "function bubbleSort(arr) {\n  const a = [...arr];\n  for (let i = 0; i < a.length; i++) {\n    for (let j = 0; j < a.length - 1 - i; j++) {\n      if (a[j] > a[j + 1]) {\n        [a[j], a[j + 1]] = [a[j + 1], a[j]];\n      }\n    }\n  }\n  return a;\n}\n\nconsole.log(bubbleSort([5, 1, 4, 2])); // [1, 2, 4, 5]",
+    "reference_url": "https://www.geeksforgeeks.org/bubble-sort/"
   },
   {
     "id": 26,
@@ -283,7 +308,8 @@
     "hint_he": "איזו קולקציה מובנית שומרת על ייחודיות ומאפשרת הסרת כפילויות בזמן לינארי?",
     "correctAnswer_en": "Filtering duplicates should be O(N). A Set (or a map of seen keys) tracks uniqueness in amortized constant time per insert, then you convert back to an array. Nested loops would be O(N²) and do not scale — Sets are the idiomatic, interview-friendly answer in JavaScript.",
     "correctAnswer_he": "סינון כפילויות צריך להיות O(N). Set (או map של מפתחות שנראו) שומר ייחודיות בזמן קבוע amortized לכל הכנסה, ואז ממירים חזרה למערך. לולאות מקוננות יהיו O(N²) ולא יסקיילו — Set הוא התשובה האידיומטית והראיונית ב-JavaScript.",
-    "code_snippet": "const votes = ['puk', 'muk', 'shuk', 'muk'];\n\n// O(N) unique values\nconst unique = [...new Set(votes)];\nconsole.log(unique); // ['puk', 'muk', 'shuk']\n\n// Same idea with a Map/object tracker\nfunction uniqueFilter(arr) {\n  const seen = new Set();\n  return arr.filter((item) => {\n    if (seen.has(item)) return false;\n    seen.add(item);\n    return true;\n  });\n}"
+    "code_snippet": "const votes = ['puk', 'muk', 'shuk', 'muk'];\n\n// O(N) unique values\nconst unique = [...new Set(votes)];\nconsole.log(unique); // ['puk', 'muk', 'shuk']\n\n// Same idea with a Map/object tracker\nfunction uniqueFilter(arr) {\n  const seen = new Set();\n  return arr.filter((item) => {\n    if (seen.has(item)) return false;\n    seen.add(item);\n    return true;\n  });\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set"
   },
   {
     "id": 27,
@@ -294,7 +320,8 @@
     "hint_he": "איך שמירת תוצאות Fibonacci קודמות ב-cache הופכת רקורסיה אקספוננציאלית לזמן לינארי?",
     "correctAnswer_en": "Naive recursive Fibonacci recomputes the same subproblems and runs in O(2^n). Memoization caches each index’s result so every value is computed once, dropping complexity to O(n). This is the classic interview example of trading memory for time and recognizing overlapping subproblems.",
     "correctAnswer_he": "Fibonacci רקורסיבי נאיבי מחשב מחדש את אותן תתי-בעיות ורץ ב-O(2^n). memoization שומר ב-cache את התוצאה של כל אינדקס כך שכל ערך מחושב פעם אחת, ומוריד את הסיבוכיות ל-O(n). זה הדוגמה הקלאסית בראיון להחלפת זיכרון בזמן ולזיהוי overlapping subproblems.",
-    "code_snippet": "function fibonacci(n, memo = {}) {\n  if (n in memo) return memo[n];\n  if (n <= 1) return n;\n\n  memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);\n  return memo[n];\n}\n\nconsole.log(fibonacci(7)); // 13\nconsole.log(fibonacci(10)); // 55"
+    "code_snippet": "function fibonacci(n, memo = {}) {\n  if (n in memo) return memo[n];\n  if (n <= 1) return n;\n\n  memo[n] = fibonacci(n - 1, memo) + fibonacci(n - 2, memo);\n  return memo[n];\n}\n\nconsole.log(fibonacci(7)); // 13\nconsole.log(fibonacci(10)); // 55",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Functions#recursion"
   },
   {
     "id": 28,
@@ -305,7 +332,8 @@
     "hint_he": "בקריאה חוזרת עם אותו מפתח — לפגוע שוב ברשת או להחזיר מה שכבר שמרת?",
     "correctAnswer_en": "A simple cache stores results keyed by input (for example username). The first call does the expensive work (fetch/compute); later calls with the same key return the stored value. Caching cuts latency and load — a practical pattern for APIs, expensive pure functions, and memoized lookups.",
     "correctAnswer_he": "cache פשוט שומר תוצאות לפי מפתח קלט (למשל username). הקריאה הראשונה מבצעת את העבודה היקרה (fetch/חישוב); קריאות הבאות עם אותו מפתח מחזירות את הערך השמור. Caching מוריד latency ועומס — דפוס מעשי ל-APIs, פונקציות טהורות יקרות, וחיפושים עם memoization.",
-    "code_snippet": "const userCache = {};\n\nasync function getUserDetails(username) {\n  if (userCache[username]) {\n    return userCache[username]; // cache hit\n  }\n\n  const res = await fetch(`/api/users/${username}`);\n  const user = await res.json();\n  userCache[username] = user; // cache miss → store\n  return user;\n}"
+    "code_snippet": "const userCache = {};\n\nasync function getUserDetails(username) {\n  if (userCache[username]) {\n    return userCache[username]; // cache hit\n  }\n\n  const res = await fetch(`/api/users/${username}`);\n  const user = await res.json();\n  userCache[username] = user; // cache miss → store\n  return user;\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Closures"
   },
   {
     "id": 29,
@@ -316,7 +344,8 @@
     "hint_he": "איזה מבנה נתונים עוזר להתאים את הסוגר הפותח האחרון לכל סוגר סוגר?",
     "correctAnswer_en": "Balanced brackets are a stack problem: push opening symbols, and on a closing symbol pop and verify it matches. Valid input empties the stack with every pair matched. This LIFO pattern appears in parsers, editors, and many interview warm-ups.",
     "correctAnswer_he": "סוגריים מאוזנים הם בעיית stack: דוחפים סמלים פותחים, ובסוגר מוציאים ומוודאים התאמה. קלט תקין מרוקן את ה-stack עם כל הזוגות מותאמים. דפוס LIFO הזה מופיע ב-parsers, בעורכים, ובהרבה חימומי ראיון.",
-    "code_snippet": "function isBalanced(str) {\n  const stack = [];\n  const pairs = { ')': '(', ']': '[', '}': '{' };\n\n  for (const ch of str) {\n    if (ch === '(' || ch === '[' || ch === '{') {\n      stack.push(ch);\n    } else if (pairs[ch]) {\n      if (stack.pop() !== pairs[ch]) return false;\n    }\n  }\n  return stack.length === 0;\n}\n\nconsole.log(isBalanced('([]){}')); // true\nconsole.log(isBalanced('(]'));     // false"
+    "code_snippet": "function isBalanced(str) {\n  const stack = [];\n  const pairs = { ')': '(', ']': '[', '}': '{' };\n\n  for (const ch of str) {\n    if (ch === '(' || ch === '[' || ch === '{') {\n      stack.push(ch);\n    } else if (pairs[ch]) {\n      if (stack.pop() !== pairs[ch]) return false;\n    }\n  }\n  return stack.length === 0;\n}\n\nconsole.log(isBalanced('([]){}')); // true\nconsole.log(isBalanced('(]'));     // false",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array"
   },
   {
     "id": 30,
@@ -327,7 +356,8 @@
     "hint_he": "אחרי שאירוע נורה על אלמנט ילד, לאן הוא ממשיך בעץ ה-DOM?",
     "correctAnswer_en": "Event bubbling means the event fires on the target first, then rises through parents up to the document. That upward path enables a single parent listener to observe child events. Use stopPropagation() when you must block that rise — an essential DOM behavior for UI architecture.",
     "correctAnswer_he": "event bubbling אומר שהאירוע נורה קודם על ה-target, ואז עולה דרך ההורים עד ה-document. המסלול כלפי מעלה מאפשר listener אחד על הורה לצפות באירועי ילדים. משתמשים ב-stopPropagation() כשצריך לחסום את העלייה — התנהגות DOM חיונית לארכיטקטורת UI.",
-    "code_snippet": "// Click on .child also triggers .parent (bubbling)\nparent.addEventListener('click', () => {\n  console.log('parent handler');\n});\n\nchild.addEventListener('click', (event) => {\n  console.log('child handler');\n  // event.stopPropagation(); // uncomment to stop the bubble\n});"
+    "code_snippet": "// Click on .child also triggers .parent (bubbling)\nparent.addEventListener('click', () => {\n  console.log('parent handler');\n});\n\nchild.addEventListener('click', (event) => {\n  console.log('child handler');\n  // event.stopPropagation(); // uncomment to stop the bubble\n});",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_bubbling"
   },
   {
     "id": 31,
@@ -338,7 +368,8 @@
     "hint_he": "למה לחבר listener אחד על הורה במקום listeners רבים על כל ילד?",
     "correctAnswer_en": "Event delegation puts one listener on a parent and uses event.target (or closest) to handle clicks from descendants. It scales better for dynamic lists, uses less memory than per-item handlers, and still works for elements added later — a standard pattern in large UIs.",
     "correctAnswer_he": "event delegation שם listener אחד על הורה ומשתמש ב-event.target (או closest) לטיפול בלחיצות מצאצאים. זה מסקייל טוב יותר לרשימות דינמיות, צורך פחות זיכרון מ-handlers לכל פריט, ועדיין עובד על אלמנטים שנוספים אחר כך — דפוס סטנדרטי ב-UIs גדולים.",
-    "code_snippet": "const list = document.querySelector('#todo-list');\n\nlist.addEventListener('click', (event) => {\n  const btn = event.target.closest('button.delete');\n  if (!btn) return;\n\n  btn.closest('li').remove(); // works for current + future items\n});"
+    "code_snippet": "const list = document.querySelector('#todo-list');\n\nlist.addEventListener('click', (event) => {\n  const btn = event.target.closest('button.delete');\n  if (!btn) return;\n\n  btn.closest('li').remove(); // works for current + future items\n});",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events#event_delegation"
   },
   {
     "id": 32,
@@ -349,7 +380,8 @@
     "hint_he": "איך אפשר להדגיש טקסט תואם בפסקה בזמן שהמשתמש מקליד ב-input?",
     "correctAnswer_en": "Listen to the input event, build a RegExp from the typed value, and wrap matches in highlight spans. Reading from textContent/innerText before writing HTML avoids stacking nested marks. This is a practical DOM + regex interview demo for live search UX.",
     "correctAnswer_he": "מאזינים לאירוע input, בונים RegExp מערך הקלט, ועוטפים התאמות ב-spans מודגשים. קריאה מ-textContent/innerText לפני כתיבת HTML מונעת סימונים מקוננים. זה דמו ראיון מעשי של DOM + regex ל-UX של חיפוש חי.",
-    "code_snippet": "const elInput = document.querySelector('#search');\nconst elTxt = document.querySelector('#text');\nconst original = elTxt.textContent;\n\nelInput.addEventListener('input', () => {\n  const q = elInput.value.trim();\n  if (!q) {\n    elTxt.textContent = original;\n    return;\n  }\n  const regex = new RegExp(q.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'), 'gi');\n  elTxt.innerHTML = original.replace(regex, (m) => `<mark>${m}</mark>`);\n});"
+    "code_snippet": "const elInput = document.querySelector('#search');\nconst elTxt = document.querySelector('#text');\nconst original = elTxt.textContent;\n\nelInput.addEventListener('input', () => {\n  const q = elInput.value.trim();\n  if (!q) {\n    elTxt.textContent = original;\n    return;\n  }\n  const regex = new RegExp(q.replace(/[.*+?^${}()|[\\]\\\\]/g, '\\\\$&'), 'gi');\n  elTxt.innerHTML = original.replace(regex, (m) => `<mark>${m}</mark>`);\n});",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/innerText"
   },
   {
     "id": 33,
@@ -360,7 +392,8 @@
     "hint_he": "איזה סגנון חוסם את ה-main thread עד הסיום, ואיזה מתזמן עבודה למועד מאוחר יותר?",
     "correctAnswer_en": "Synchronous code runs to completion on the call stack and blocks further work until it finishes. Asynchronous code schedules later work (timers, network, promises) so the UI thread stays responsive. Real apps mix both: sync for quick logic, async for I/O — a foundational interview distinction.",
     "correctAnswer_he": "קוד synchronous רץ עד הסוף ב-call stack וחוסם עבודה נוספת עד שיסיים. קוד asynchronous מתזמן עבודה מאוחרת (timers, רשת, promises) כדי שה-UI יישאר מגיב. אפליקציות אמיתיות מערבבות את שניהם: sync ללוגיקה מהירה, async ל-I/O — הבחנה בסיסית בראיון.",
-    "code_snippet": "// Synchronous — returns immediately, blocks until done\nfunction sum(a, b) {\n  return a + b;\n}\nconsole.log(sum(2, 3)); // 5\n\n// Asynchronous — schedules work, does not block\nfunction asyncSum(a, b, cb) {\n  setTimeout(() => cb(a + b), 500);\n}\nasyncSum(2, 3, (result) => console.log(result)); // 5 (later)\nconsole.log('still responsive');"
+    "code_snippet": "// Synchronous — returns immediately, blocks until done\nfunction sum(a, b) {\n  return a + b;\n}\nconsole.log(sum(2, 3)); // 5\n\n// Asynchronous — schedules work, does not block\nfunction asyncSum(a, b, cb) {\n  setTimeout(() => cb(a + b), 500);\n}\nasyncSum(2, 3, (result) => console.log(result)); // 5 (later)\nconsole.log('still responsive');",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous"
   },
   {
     "id": 34,
@@ -371,7 +404,8 @@
     "hint_he": "איך רושמים listeners לאירוע בשם מסוים ומודיעים לכולם כשהוא נורה?",
     "correctAnswer_en": "An event emitter keeps a map from event name to listener arrays. on() registers a callback (often returning unsubscribe), and emit() invokes every listener for that event. This pub/sub pattern decouples producers from consumers — the same idea behind Node’s EventEmitter and many frontend buses.",
     "correctAnswer_he": "event emitter שומר map משם אירוע למערכי listeners. on() רושם callback (ולעיתים מחזיר unsubscribe), ו-emit() קורא לכל ה-listeners של האירוע. דפוס pub/sub הזה מנתק producers מ-consumers — אותה רעיון מאחורי EventEmitter של Node והרבה buses בפרונט.",
-    "code_snippet": "function createEventEmitter() {\n  const listeners = {};\n\n  return {\n    on(event, listener) {\n      (listeners[event] ??= []).push(listener);\n      return () => {\n        listeners[event] = listeners[event].filter((l) => l !== listener);\n      };\n    },\n    emit(event, data) {\n      (listeners[event] || []).forEach((listener) => listener(data));\n    },\n  };\n}\n\nconst bus = createEventEmitter();\nconst off = bus.on('login', (user) => console.log(user.name));\nbus.emit('login', { name: 'Alex' }); // Alex\noff();"
+    "code_snippet": "function createEventEmitter() {\n  const listeners = {};\n\n  return {\n    on(event, listener) {\n      (listeners[event] ??= []).push(listener);\n      return () => {\n        listeners[event] = listeners[event].filter((l) => l !== listener);\n      };\n    },\n    emit(event, data) {\n      (listeners[event] || []).forEach((listener) => listener(data));\n    },\n  };\n}\n\nconst bus = createEventEmitter();\nconst off = bus.on('login', (user) => console.log(user.name));\nbus.emit('login', { name: 'Alex' }); // Alex\noff();",
+    "reference_url": "https://nodejs.org/api/events.html"
   },
   {
     "id": 35,
@@ -382,7 +416,8 @@
     "hint_he": "איך עוטפים API בסגנון err-first callback כך שהקוראים יקבלו Promise?",
     "correctAnswer_en": "promisify wraps a Node-style (err, data) callback function and returns a Promise: reject on err, resolve on data. That lets legacy APIs join modern async/await flows without rewriting them — a common bridge in real codebases and interviews.",
     "correctAnswer_he": "promisify עוטף פונקציית callback בסגנון Node (err, data) ומחזיר Promise: reject על err, resolve על data. כך APIs ישנים נכנסים לזרימות async/await מודרניות בלי לשכתב אותם — גשר נפוץ בקוד אמיתי ובראיונות.",
-    "code_snippet": "function promisify(fn) {\n  return (...args) =>\n    new Promise((resolve, reject) => {\n      fn(...args, (err, data) => (err ? reject(err) : resolve(data)));\n    });\n}\n\n// Example: callback API → Promise\nfunction readFake(path, cb) {\n  setTimeout(() => cb(null, `content of ${path}`), 0);\n}\n\nconst readFakeAsync = promisify(readFake);\nreadFakeAsync('notes.txt').then(console.log);"
+    "code_snippet": "function promisify(fn) {\n  return (...args) =>\n    new Promise((resolve, reject) => {\n      fn(...args, (err, data) => (err ? reject(err) : resolve(data)));\n    });\n}\n\n// Example: callback API → Promise\nfunction readFake(path, cb) {\n  setTimeout(() => cb(null, `content of ${path}`), 0);\n}\n\nconst readFakeAsync = promisify(readFake);\nreadFakeAsync('notes.txt').then(console.log);",
+    "reference_url": "https://nodejs.org/api/util.html#utilpromisifyoriginal"
   },
   {
     "id": 36,
@@ -393,7 +428,8 @@
     "hint_he": "איזה סגנון משרשר כמה שלבי async תלויים בצורה נקייה יותר בלי קינון עמוק?",
     "correctAnswer_en": "Callbacks nest quickly (“callback hell”) as dependent async steps grow. Promises chain with .then/.catch (or async/await) and compose with helpers like Promise.all, so error handling and sequencing stay flat and readable — preferred in modern JavaScript.",
     "correctAnswer_he": "Callbacks מתקננים מהר (\"callback hell\") כשגדלים שלבי async תלויים. Promises משרשרות עם .then/.catch (או async/await) ומתחברות עם כלים כמו Promise.all, כך שטיפול בשגיאות ורצף נשארים שטוחים וקריאים — המועדף ב-JavaScript מודרני.",
-    "code_snippet": "// Promise chain — flat and composable\ngetData()\n  .then(cleanup)\n  .then(save)\n  .then(render)\n  .catch(handleError);\n\n// Same idea with async/await\nasync function run() {\n  try {\n    const data = await getData();\n    const clean = await cleanup(data);\n    await save(clean);\n    render(clean);\n  } catch (err) {\n    handleError(err);\n  }\n}"
+    "code_snippet": "// Promise chain — flat and composable\ngetData()\n  .then(cleanup)\n  .then(save)\n  .then(render)\n  .catch(handleError);\n\n// Same idea with async/await\nasync function run() {\n  try {\n    const data = await getData();\n    const clean = await cleanup(data);\n    await save(clean);\n    render(clean);\n  } catch (err) {\n    handleError(err);\n  }\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises"
   },
   {
     "id": 37,
@@ -404,7 +440,8 @@
     "hint_he": "מתי ה-Promise המשולב צריך להתממש, ומה אם אחד מ-Promises הקלט נדחה?",
     "correctAnswer_en": "Promise.all waits for every input to fulfill, then resolves with an array of results in the same order. If any promise rejects, all rejects immediately with that error. It is the go-to tool for parallel independent requests when you need every result.",
     "correctAnswer_he": "Promise.all מחכה שכל הקלטים יתממשו, ואז resolve עם מערך תוצאות באותו סדר. אם promise כלשהו נדחה, all נדחה מיד עם אותה שגיאה. זה הכלי המוביל לבקשות מקבילות עצמאיות כשצריך את כל התוצאות.",
-    "code_snippet": "function promiseAll(promises) {\n  return new Promise((resolve, reject) => {\n    const results = [];\n    let remaining = promises.length;\n    if (remaining === 0) return resolve([]);\n\n    promises.forEach((p, i) => {\n      Promise.resolve(p).then(\n        (value) => {\n          results[i] = value;\n          remaining -= 1;\n          if (remaining === 0) resolve(results);\n        },\n        reject,\n      );\n    });\n  });\n}\n\npromiseAll([Promise.resolve(1), Promise.resolve(2)]).then(console.log); // [1, 2]"
+    "code_snippet": "function promiseAll(promises) {\n  return new Promise((resolve, reject) => {\n    const results = [];\n    let remaining = promises.length;\n    if (remaining === 0) return resolve([]);\n\n    promises.forEach((p, i) => {\n      Promise.resolve(p).then(\n        (value) => {\n          results[i] = value;\n          remaining -= 1;\n          if (remaining === 0) resolve(results);\n        },\n        reject,\n      );\n    });\n  });\n}\n\npromiseAll([Promise.resolve(1), Promise.resolve(2)]).then(console.log); // [1, 2]",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all"
   },
   {
     "id": 38,
@@ -415,7 +452,8 @@
     "hint_he": "אחרי שה-call stack מתרוקן: microtasks (Promises) רצות לפני macrotasks (setTimeout).",
     "correctAnswer_en": "Output order is: start, end, resolve, setTimeout. Sync logs run first on the call stack; Promise.then is a microtask and runs next; setTimeout is a macrotask and runs after. This ordering is a classic event-loop interview question.",
     "correctAnswer_he": "סדר הפלט: start, end, resolve, setTimeout. לוגים סנכרוניים רצים קודם ב-call stack; Promise.then הוא microtask ורץ אחר כך; setTimeout הוא macrotask ורץ בסוף. הסדר הזה הוא שאלת event-loop קלאסית בראיון.",
-    "code_snippet": "console.log('start');\nsetTimeout(() => console.log('setTimeout'), 0);\nPromise.resolve().then(() => console.log('resolve'));\nconsole.log('end');\n\n// Prints:\n// start\n// end\n// resolve\n// setTimeout"
+    "code_snippet": "console.log('start');\nsetTimeout(() => console.log('setTimeout'), 0);\nPromise.resolve().then(() => console.log('resolve'));\nconsole.log('end');\n\n// Prints:\n// start\n// end\n// resolve\n// setTimeout",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/setTimeout"
   },
   {
     "id": 39,
@@ -426,7 +464,8 @@
     "hint_he": "מה ה-runtime עושה כשה-call stack ריק אבל יש callbacks ממתינים בתור?",
     "correctAnswer_en": "The event loop is the runtime mechanism that, when the call stack is empty, pulls the next task from the queue (respecting microtasks vs macrotasks) and pushes it onto the stack. That is how JavaScript stays single-threaded yet non-blocking for timers, I/O, and UI events.",
     "correctAnswer_he": "ה-event loop הוא מנגנון ה-runtime שבזמן שה-call stack ריק שולף את המשימה הבאה מהתור (תוך הבחנה בין microtasks ל-macrotasks) ודוחף אותה ל-stack. כך JavaScript נשאר single-threaded ועדיין non-blocking לטיימרים, I/O ואירועי UI.",
-    "code_snippet": "console.log('A'); // call stack now\n\nsetTimeout(() => {\n  console.log('C'); // macrotask — later via event loop\n}, 0);\n\nPromise.resolve().then(() => {\n  console.log('B'); // microtask — before macrotasks\n});\n\n// Order: A → B → C"
+    "code_snippet": "console.log('A'); // call stack now\n\nsetTimeout(() => {\n  console.log('C'); // macrotask — later via event loop\n}, 0);\n\nPromise.resolve().then(() => {\n  console.log('B'); // microtask — before macrotasks\n});\n\n// Order: A → B → C",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Event_loop"
   },
   {
     "id": 40,
@@ -437,7 +476,8 @@
     "hint_he": "מתי משאב נטען במלואו ובטוח לקרוא ממדים, להריץ סקריפטים תלויים, או להציג תוכן?",
     "correctAnswer_en": "The load event fires when a resource has finished loading successfully — images, scripts, iframes, stylesheets, or the full window. You use it when code must wait until assets are ready (naturalWidth, dependent init). For DOM-only work, DOMContentLoaded is often enough; load waits for subresources too.",
     "correctAnswer_he": "אירוע load נורה כשמשאב סיים להיטען בהצלחה — תמונות, scripts, iframes, stylesheets, או כל ה-window. משתמשים בו כשהקוד חייב לחכות עד שנכסים מוכנים (naturalWidth, אתחול תלוי). לעבודת DOM בלבד, DOMContentLoaded לרוב מספיק; load מחכה גם ל-subresources.",
-    "code_snippet": "const img = document.querySelector('img.hero');\n\nimg.addEventListener('load', () => {\n  console.log(img.naturalWidth, img.naturalHeight);\n});\n\nwindow.addEventListener('load', () => {\n  console.log('page + resources ready');\n});"
+    "code_snippet": "const img = document.querySelector('img.hero');\n\nimg.addEventListener('load', () => {\n  console.log(img.naturalWidth, img.naturalHeight);\n});\n\nwindow.addEventListener('load', () => {\n  console.log('page + resources ready');\n});",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event"
   },
   {
     "id": 41,
@@ -448,6 +488,7 @@
     "hint_he": "מהו התקן המודרני לייצוא ולייבוא קוד בין קבצי JavaScript?",
     "correctAnswer_en": "Share code with ES modules: export values from one file and import them in another. Modules give real file-level scope, static analysis, and tree-shaking in bundlers. Older Node code used CommonJS require/module.exports; browsers and modern toolchains standardize on import/export.",
     "correctAnswer_he": "משתפים קוד עם ES modules: export מערכים מקובץ אחד ו-import באחר. Modules נותנים scope אמיתי ברמת קובץ, ניתוח סטטי, ו-tree-shaking בבאנדלרים. קוד Node ישן השתמש ב-CommonJS require/module.exports; דפדפנים וכלים מודרניים מתקננים על import/export.",
-    "code_snippet": "// math.js\nexport function add(a, b) {\n  return a + b;\n}\nexport const PI = 3.14;\n\n// app.js\nimport { add, PI } from './math.js';\nconsole.log(add(2, PI)); // 5.14\n\n// CommonJS (older Node):\n// const { add } = require('./math');"
+    "code_snippet": "// math.js\nexport function add(a, b) {\n  return a + b;\n}\nexport const PI = 3.14;\n\n// app.js\nimport { add, PI } from './math.js';\nconsole.log(add(2, PI)); // 5.14\n\n// CommonJS (older Node):\n// const { add } = require('./math');",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules"
   }
 ]

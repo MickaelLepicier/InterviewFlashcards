@@ -14,6 +14,7 @@ import ExamScoreBoard from './ExamScoreBoard';
 import ExamSummary from './ExamSummary';
 import Navigation from './Navigation';
 import ProgressBar from './ProgressBar';
+import ReferenceLink from './ReferenceLink';
 
 function getQuestionText(content, code) {
   if (!content) return '';
@@ -304,6 +305,12 @@ export default function AiExamMode({
                   >
                     {officialAnswer}
                   </p>
+                  {card.reference_url ? (
+                    <ReferenceLink
+                      url={card.reference_url}
+                      label={t.learnMore}
+                    />
+                  ) : null}
                 </div>
               </div>
             ) : null}

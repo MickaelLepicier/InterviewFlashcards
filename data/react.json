@@ -8,7 +8,8 @@
     "hint_he": "למה React משווה עץ קל לפני שנוגע ב-DOM האמיתי?",
     "correctAnswer_en": "The Virtual DOM is a lightweight JavaScript representation of the UI tree. When state changes, React builds a new virtual tree, diffs it (reconciliation) against the previous one, and commits only the necessary updates to the real DOM. That keeps UI updates predictable and reduces expensive DOM work — which is why React can feel fast even when many components re-render in memory.",
     "correctAnswer_he": "Virtual DOM הוא ייצוג JavaScript קל של עץ ה-UI. כש-state משתנה, React בונה עץ וירטואלי חדש, משווה אותו (reconciliation) לקודם, ומחיל על ה-DOM האמיתי רק את העדכונים הנחוצים. זה שומר על עדכוני UI צפויים ומפחית עבודת DOM יקרה — ולכן React יכול להרגיש מהיר גם כשקומפוננטות רבות עוברות re-render בזיכרון.",
-    "code_snippet": "// Conceptual flow (not React internals API)\n// 1) state changes → React re-renders components in memory (VDOM)\n// 2) reconcile: find what changed vs previous tree\nsetCount(c => c + 1);\n// 3) commit: update only affected DOM nodes (text, attrs, etc.)"
+    "code_snippet": "// Conceptual flow (not React internals API)\n// 1) state changes → React re-renders components in memory (VDOM)\n// 2) reconcile: find what changed vs previous tree\nsetCount(c => c + 1);\n// 3) commit: update only affected DOM nodes (text, attrs, etc.)",
+    "reference_url": "https://react.dev/learn/understanding-ui-as-a-tree"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "hint_he": "מה מתקמפל מ-markup דמוי HTML ב-JS לקריאות createElement / React elements?",
     "correctAnswer_en": "JSX is a syntax extension that lets you write HTML-like markup inside JavaScript. Tools like Babel compile it to React.createElement (or the automatic runtime), producing React elements that describe the UI. It is not HTML in the browser — it is sugar for creating the element tree React renders, which makes component UIs readable and composable.",
     "correctAnswer_he": "JSX הוא הרחבת תחביר שמאפשרת לכתוב markup דמוי HTML בתוך JavaScript. כלים כמו Babel מתקמלים אותו ל-React.createElement (או automatic runtime), ומייצרים React elements שמתארים את ה-UI. זה לא HTML בדפדפן — זה סוכר ליצירת עץ האלמנטים ש-React מרנדר, מה שהופך UIs של קומפוננטות לקריאים וניתנים להרכבה.",
-    "code_snippet": "const heading = <h1 className=\"title\">Hello JSX</h1>;\n\n// Roughly compiles to:\n// React.createElement('h1', { className: 'title' }, 'Hello JSX')"
+    "code_snippet": "const heading = <h1 className=\"title\">Hello JSX</h1>;\n\n// Roughly compiles to:\n// React.createElement('h1', { className: 'title' }, 'Hello JSX')",
+    "reference_url": "https://react.dev/learn/writing-markup-with-jsx"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "hint_he": "Mount → update → unmount: איפה רצים effects ו-cleanup ב-hooks מול classes?",
     "correctAnswer_en": "A component mounts, may update when props/state change, then unmounts. With hooks, useEffect (and similar) runs after paint for side effects; returning a function handles cleanup (subscriptions, timers). Class components map roughly to componentDidMount, componentDidUpdate, and componentWillUnmount. Interviews expect you to place fetches, listeners, and teardown in the right phase so you avoid leaks and stale work.",
     "correctAnswer_he": "קומפוננטה עוברת mount, עשויה להתעדכן כש-props/state משתנים, ואז unmount. עם hooks, useEffect (ודומים) רץ אחרי paint ל-side effects; החזרת פונקציה מטפלת ב-cleanup (subscriptions, timers). ב-class components זה מקביל בערך ל-componentDidMount, componentDidUpdate ו-componentWillUnmount. בראיון מצפים שתשימו fetches, listeners ו-teardown בשלב הנכון כדי למנוע דליפות ועבודה מיושנת.",
-    "code_snippet": "useEffect(() => {\n  const id = setInterval(tick, 1000); // after mount / when deps change\n  return () => clearInterval(id);     // cleanup before next run / unmount\n}, []);\n\n// Classes: componentDidMount / DidUpdate / WillUnmount"
+    "code_snippet": "useEffect(() => {\n  const id = setInterval(tick, 1000); // after mount / when deps change\n  return () => clearInterval(id);     // cleanup before next run / unmount\n}, []);\n\n// Classes: componentDidMount / DidUpdate / WillUnmount",
+    "reference_url": "https://react.dev/learn/lifecycle-of-reactive-effects"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "hint_he": "מתי צריך ערך mutable או DOM handle שלא אמור לגרום ל-re-render?",
     "correctAnswer_en": "Use refs when you need a mutable box that survives renders without causing re-renders — typically DOM nodes (focus, measure, play video) or imperative values (timer IDs, previous values, third-party widget instances). Prefer state for anything that should appear in the UI. Refs bridge React’s declarative model to imperative browser/library APIs.",
     "correctAnswer_he": "משתמשים ב-refs כשצריך קופסה mutable ששורדת renders בלי לגרום ל-re-renders — בדרך כלל DOM nodes (focus, measure, ניגון וידאו) או ערכים אימפרטיביים (timer IDs, ערכים קודמים, מופעי ספריות צד שלישי). מעדיפים state לכל מה שצריך להופיע ב-UI. Refs מגשרים בין המודל הדקלרטיבי של React ל-APIs אימפרטיביים של הדפדפן/ספריות.",
-    "code_snippet": "const inputRef = useRef(null);\nconst timerId = useRef(null);\n\nfunction focusInput() {\n  inputRef.current?.focus(); // imperative DOM access\n}\n\n<input ref={inputRef} />"
+    "code_snippet": "const inputRef = useRef(null);\nconst timerId = useRef(null);\n\nfunction focusInput() {\n  inputRef.current?.focus(); // imperative DOM access\n}\n\n<input ref={inputRef} />",
+    "reference_url": "https://react.dev/reference/react/useRef"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "hint_he": "איך theme, locale או auth מגיעים לילדים עמוקים בלי prop drilling?",
     "correctAnswer_en": "React Context lets a provider publish a value that any descendant can read without passing props through every intermediate component. It fits cross-cutting data like theme, locale, or the authenticated user. Overusing Context for rapidly changing data can cause broad re-renders — so keep values stable or split providers, and use a dedicated store when updates are frequent and granular.",
     "correctAnswer_he": "React Context מאפשר ל-provider לפרסם ערך שכל צאצא יכול לקרוא בלי להעביר props דרך כל קומפוננטה באמצע. הוא מתאים לנתונים חוצי-עץ כמו theme, locale או משתמש מאומת. שימוש יתר ב-Context לנתונים שמשתנים מהר עלול לגרום ל-re-renders רחבים — לכן שומרים על ערכים יציבים או מפצלים providers, ומשתמשים ב-store ייעודי כשעדכונים תכופים ומפורטים.",
-    "code_snippet": "const ThemeContext = createContext('light');\n\nfunction App() {\n  return (\n    <ThemeContext.Provider value=\"dark\">\n      <Toolbar />\n    </ThemeContext.Provider>\n  );\n}\n\nfunction Button() {\n  const theme = useContext(ThemeContext);\n  return <button className={theme}>OK</button>;\n}"
+    "code_snippet": "const ThemeContext = createContext('light');\n\nfunction App() {\n  return (\n    <ThemeContext.Provider value=\"dark\">\n      <Toolbar />\n    </ThemeContext.Provider>\n  );\n}\n\nfunction Button() {\n  const theme = useContext(ThemeContext);\n  return <button className={theme}>OK</button>;\n}",
+    "reference_url": "https://react.dev/learn/passing-data-deeply-with-context"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "hint_he": "מתי ילד צריך לדלג על re-render גם אם ההורה עשה re-render?",
     "correctAnswer_en": "React.memo wraps a component so React skips re-rendering it when its props are shallowly equal to the previous ones. It helps when a parent re-renders often but a heavy child often receives the same props. It is not free — measure first — and unstable prop identities (new objects/functions each render) defeat memo unless you stabilize them.",
     "correctAnswer_he": "React.memo עוטף קומפוננטה כדי ש-React ידלג על re-render כשה-props שווים בשטחיות לקודמים. זה עוזר כשהורה מתרנדר לעיתים קרובות אבל ילד כבד מקבל לעיתים קרובות את אותם props. זה לא בחינם — מדדו קודם — וזהות props לא יציבה (objects/functions חדשים בכל render) מבטלת את memo אלא אם מייצבים אותם.",
-    "code_snippet": "const Greeting = memo(function Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>;\n});\n\n// Re-renders only when `name` changes (shallow compare)"
+    "code_snippet": "const Greeting = memo(function Greeting({ name }) {\n  return <h1>Hello, {name}!</h1>;\n});\n\n// Re-renders only when `name` changes (shallow compare)",
+    "reference_url": "https://react.dev/reference/react/memo"
   },
   {
     "id": 7,
@@ -74,7 +80,8 @@
     "hint_he": "איזה ערך נגזר יקר צריך להישאר ב-cache עד שה-dependencies משתנים?",
     "correctAnswer_en": "useMemo memoizes a computed value and recomputes it only when listed dependencies change. Use it for expensive derivations (filtering/sorting large lists) or to keep a referentially stable object/array passed to memoized children. Do not sprinkle it everywhere — React Compiler / profiling should guide you; premature memoization adds complexity without gain.",
     "correctAnswer_he": "useMemo שומר ערך מחושב ב-memo ומחשב מחדש רק כש-dependencies ברשימה משתנים. משתמשים בו לנגזרות יקרות (סינון/מיון רשימות גדולות) או לשמירת object/array יציב בזהות שמועבר לילדים עם memo. אל תפזרו אותו בכל מקום — React Compiler / profiling אמורים להנחות; memoization מוקדמת מוסיפה מורכבות בלי תועלת.",
-    "code_snippet": "const visibleTodos = useMemo(\n  () => filterTodos(todos, tab),\n  [todos, tab],\n);\n\n// Recomputes only when todos or tab change"
+    "code_snippet": "const visibleTodos = useMemo(\n  () => filterTodos(todos, tab),\n  [todos, tab],\n);\n\n// Recomputes only when todos or tab change",
+    "reference_url": "https://react.dev/reference/react/useMemo"
   },
   {
     "id": 8,
@@ -85,7 +92,8 @@
     "hint_he": "למה לשמור על אותה זהות פונקציה בין renders לילדים עם memo או ל-deps של effects?",
     "correctAnswer_en": "useCallback returns a memoized function that keeps the same reference until its dependencies change. That matters when passing callbacks into memoized children or listing functions in effect dependency arrays — a new function each render would break memoization or re-run effects. Like useMemo, use it where identity stability is proven to help, not by default on every handler.",
     "correctAnswer_he": "useCallback מחזיר פונקציה ב-memo ששומרת על אותו reference עד שה-dependencies משתנים. זה חשוב כשמעבירים callbacks לילדים עם memo או כשמציינים פונקציות במערכי dependency של effects — פונקציה חדשה בכל render תשבור memoization או תריץ effects מחדש. כמו useMemo, משתמשים בזה כשיציבות זהות מוכחת כמועילה, לא כברירת מחדל על כל handler.",
-    "code_snippet": "const handleSubmit = useCallback(\n  (orderDetails) => {\n    post('/orders', { ...orderDetails, productId });\n  },\n  [productId],\n);\n\n<MemoChild onSubmit={handleSubmit} />"
+    "code_snippet": "const handleSubmit = useCallback(\n  (orderDetails) => {\n    post('/orders', { ...orderDetails, productId });\n  },\n  [productId],\n);\n\n<MemoChild onSubmit={handleSubmit} />",
+    "reference_url": "https://react.dev/reference/react/useCallback"
   },
   {
     "id": 9,
@@ -96,7 +104,8 @@
     "hint_he": "איך מתעדים ותופסים צורות props שגויות בזמן פיתוח?",
     "correctAnswer_en": "Props validation documents and checks the shape of data a component expects from its parent. Historically PropTypes (and defaultProps) warned in development; modern TypeScript / JSDoc types catch mismatches at compile time. Validation improves DX and prevents silent UI bugs when APIs or parent usage drift — especially in shared component libraries.",
     "correctAnswer_he": "ולידציית props מתעדת ובודקת את צורת הנתונים שקומפוננטה מצפה לקבל מההורה. היסטורית PropTypes (ו-defaultProps) הזהירו בפיתוח; TypeScript / JSDoc מודרניים תופסים חוסר התאמה בזמן קומפילציה. ולידציה משפרת DX ומונעת באגי UI שקטים כש-APIs או שימוש בהורה משתנים — במיוחד בספריות קומפוננטות משותפות.",
-    "code_snippet": "import PropTypes from 'prop-types';\n\nfunction MyCmp({ name, count }) {\n  return <p>{name}: {count}</p>;\n}\n\nMyCmp.propTypes = {\n  name: PropTypes.string.isRequired,\n  count: PropTypes.number,\n};\nMyCmp.defaultProps = { count: 0 };\n\n// Prefer TypeScript in new code:\n// type Props = { name: string; count?: number };"
+    "code_snippet": "import PropTypes from 'prop-types';\n\nfunction MyCmp({ name, count }) {\n  return <p>{name}: {count}</p>;\n}\n\nMyCmp.propTypes = {\n  name: PropTypes.string.isRequired,\n  count: PropTypes.number,\n};\nMyCmp.defaultProps = { count: 0 };\n\n// Prefer TypeScript in new code:\n// type Props = { name: string; count?: number };",
+    "reference_url": "https://react.dev/learn/typescript#typing-component-props"
   },
   {
     "id": 10,
@@ -107,7 +116,8 @@
     "hint_he": "מתי אותה לוגיקה stateful (effects + state) משוכפלת בין קומפוננטות?",
     "correctAnswer_en": "Write a custom hook when several components share the same stateful logic — fetching, subscriptions, form sync, media queries — so you extract useSomething() instead of copy-pasting useState/useEffect. Hooks compose React’s rules (call order, deps) into a reusable API while keeping UI in the components. Name them use* and return only what callers need.",
     "correctAnswer_he": "כותבים custom hook כשכמה קומפוננטות חולקות אותה לוגיקה stateful — fetching, subscriptions, סנכרון טפסים, media queries — כדי לחלץ useSomething() במקום להעתיק useState/useEffect. Hooks מרכיבים את כללי React (סדר קריאות, deps) ל-API לשימוש חוזר תוך השארת ה-UI בקומפוננטות. קוראים להם use* ומחזירים רק מה שקוראים צריכים.",
-    "code_snippet": "export function useOnlineStatus() {\n  const [isOnline, setIsOnline] = useState(true);\n\n  useEffect(() => {\n    const on = () => setIsOnline(true);\n    const off = () => setIsOnline(false);\n    window.addEventListener('online', on);\n    window.addEventListener('offline', off);\n    return () => {\n      window.removeEventListener('online', on);\n      window.removeEventListener('offline', off);\n    };\n  }, []);\n\n  return isOnline;\n}"
+    "code_snippet": "export function useOnlineStatus() {\n  const [isOnline, setIsOnline] = useState(true);\n\n  useEffect(() => {\n    const on = () => setIsOnline(true);\n    const off = () => setIsOnline(false);\n    window.addEventListener('online', on);\n    window.addEventListener('offline', off);\n    return () => {\n      window.removeEventListener('online', on);\n      window.removeEventListener('offline', off);\n    };\n  }, []);\n\n  return isOnline;\n}",
+    "reference_url": "https://react.dev/learn/reusing-logic-with-custom-hooks"
   },
   {
     "id": 11,
@@ -118,7 +128,8 @@
     "hint_he": "עקבו אחרי הלולאה החד-כיוונית: מי יוצר אירועים, מי מעדכן state, מי מחזיק אותו, מי קורא אותו?",
     "correctAnswer_en": "Classic Redux centers on a unidirectional data flow: Actions describe events, Reducers are pure functions that compute the next state, the Store holds state and dispatches actions, and the View (React) reads state and dispatches. Middleware sits between dispatch and reducers for async/logging. Knowing this loop explains why Redux scales predictable global state — and how RTK simplifies the same pieces today.",
     "correctAnswer_he": "Redux הקלאסי מבוסס על זרימת נתונים חד-כיוונית: Actions מתארים אירועים, Reducers הם פונקציות טהורות שמחשבות את ה-state הבא, ה-Store מחזיק state ומבצע dispatch, וה-View (React) קורא state ומבצע dispatch. Middleware יושב בין dispatch ל-reducers ל-async/logging. הבנת הלולאה מסבירה למה Redux נותן state גלובלי צפוי — ואיך RTK מפשט את אותם חלקים היום.",
-    "code_snippet": "// Action → dispatch → (middleware) → reducer → store → view\nconst increment = () => ({ type: 'counter/increment' });\n\nfunction counterReducer(state = { value: 0 }, action) {\n  if (action.type === 'counter/increment') {\n    return { value: state.value + 1 };\n  }\n  return state;\n}\n\nstore.dispatch(increment());\nconst value = store.getState().value;"
+    "code_snippet": "// Action → dispatch → (middleware) → reducer → store → view\nconst increment = () => ({ type: 'counter/increment' });\n\nfunction counterReducer(state = { value: 0 }, action) {\n  if (action.type === 'counter/increment') {\n    return { value: state.value + 1 };\n  }\n  return state;\n}\n\nstore.dispatch(increment());\nconst value = store.getState().value;",
+    "reference_url": "https://redux.js.org/tutorials/fundamentals/part-2-concepts-data-flow"
   },
   {
     "id": 12,
@@ -129,7 +140,8 @@
     "hint_he": "איזו פונקציה מקבלת קומפוננטה ומחזירה קומפוננטה עטופה עם התנהגות נוספת?",
     "correctAnswer_en": "A Higher-Order Component (HOC) is a function that takes a component and returns a new component with added behavior or props — classic examples include connect (React-Redux) and older withRouter. HOCs reuse cross-cutting logic without inheritance. Today custom hooks often replace HOCs for shared logic, but the pattern still appears in libraries and legacy codebases.",
     "correctAnswer_he": "Higher-Order Component (HOC) היא פונקציה שמקבלת קומפוננטה ומחזירה קומפוננטה חדשה עם התנהגות או props נוספים — דוגמאות קלאסיות: connect (React-Redux) ו-withRouter ישן. HOCs מאפשרים שימוש חוזר בלוגיקה חוצה בלי inheritance. היום custom hooks לעיתים מחליפים HOCs ללוגיקה משותפת, אבל הדפוס עדיין מופיע בספריות ובקוד לגסי.",
-    "code_snippet": "function withLoading(Wrapped) {\n  return function WithLoading({ isLoading, ...props }) {\n    if (isLoading) return <p>Loading…</p>;\n    return <Wrapped {...props} />;\n  };\n}\n\nconst UserListWithLoading = withLoading(UserList);"
+    "code_snippet": "function withLoading(Wrapped) {\n  return function WithLoading({ isLoading, ...props }) {\n    if (isLoading) return <p>Loading…</p>;\n    return <Wrapped {...props} />;\n  };\n}\n\nconst UserListWithLoading = withLoading(UserList);",
+    "reference_url": "https://legacy.reactjs.org/docs/higher-order-components.html"
   },
   {
     "id": 13,
@@ -140,7 +152,8 @@
     "hint_he": "איך ההורה מחזיק את ה-state הפתוח ומעביר isOpen / onToggle לכל פריט?",
     "correctAnswer_en": "An accordion keeps which panel is open in parent state (index or id), then each item receives whether it is active and a toggle callback. Clicking an item updates that shared state so only one panel (or controlled multiples) stays open. Composition — children or mapped items — keeps presentation reusable while the container owns the interaction model.",
     "correctAnswer_he": "accordion שומר איזה פאנל פתוח ב-state של ההורה (אינדקס או id), ואז כל פריט מקבל האם הוא פעיל ו-callback ל-toggle. לחיצה מעדכנת את ה-state המשותף כך שרק פאנל אחד (או כמה מבוקרים) נשאר פתוח. Composition — children או פריטים ממופים — שומרת על presentation לשימוש חוזר בזמן שה-container מחזיק את מודל האינטראקציה.",
-    "code_snippet": "function Accordion({ items }) {\n  const [openId, setOpenId] = useState(items[0]?.id ?? null);\n\n  return items.map((item) => (\n    <div key={item.id}>\n      <button onClick={() => setOpenId(item.id)}>{item.title}</button>\n      {openId === item.id && <div>{item.content}</div>}\n    </div>\n  ));\n}"
+    "code_snippet": "function Accordion({ items }) {\n  const [openId, setOpenId] = useState(items[0]?.id ?? null);\n\n  return items.map((item) => (\n    <div key={item.id}>\n      <button onClick={() => setOpenId(item.id)}>{item.title}</button>\n      {openId === item.id && <div>{item.content}</div>}\n    </div>\n  ));\n}",
+    "reference_url": "https://react.dev/learn/managing-state"
   },
   {
     "id": 14,
@@ -151,7 +164,8 @@
     "hint_he": "איך קוראים ערך מ-Context.Provider בלי prop drilling בכל רמה?",
     "correctAnswer_en": "useContext reads the nearest Context.Provider value above the component, so you consume shared data without prop drilling. Use it for themes, auth session, locale, and other tree-wide configuration. Pair createContext + Provider at a high level with useContext in consumers; for high-frequency updates prefer narrower contexts or external stores to limit re-renders.",
     "correctAnswer_he": "useContext קורא את ערך ה-Context.Provider הקרוב מעל הקומפוננטה, כך שצורכים נתונים משותפים בלי prop drilling. משתמשים בו ל-themes, session auth, locale והגדרות אחרות ברמת העץ. משלבים createContext + Provider ברמה גבוהה עם useContext בצרכנים; לעדכונים בתדירות גבוהה מעדיפים contexts צרים יותר או stores חיצוניים כדי להגביל re-renders.",
-    "code_snippet": "const AuthContext = createContext(null);\n\nfunction Profile() {\n  const user = useContext(AuthContext);\n  if (!user) return <p>Signed out</p>;\n  return <p>Hello, {user.name}</p>;\n}\n\n// Wrap tree: <AuthContext.Provider value={user}>…"
+    "code_snippet": "const AuthContext = createContext(null);\n\nfunction Profile() {\n  const user = useContext(AuthContext);\n  if (!user) return <p>Signed out</p>;\n  return <p>Hello, {user.name}</p>;\n}\n\n// Wrap tree: <AuthContext.Provider value={user}>…",
+    "reference_url": "https://react.dev/reference/react/useContext"
   },
   {
     "id": 15,
@@ -162,6 +176,7 @@
     "hint_he": "מתי צריך .current ששורד בין renders אבל לא אמור לעדכן את ה-UI בעצמו?",
     "correctAnswer_en": "useRef returns a mutable object whose .current persists for the component’s lifetime and does not trigger re-renders when changed. Use it to hold DOM nodes (focus, scroll, measure) or to keep imperative values (interval IDs, previous props, instance flags). If the UI must react to a change, use state instead — refs are for escapes from the render cycle.",
     "correctAnswer_he": "useRef מחזיר אובייקט mutable ש-.current שלו שורד לכל חיי הקומפוננטה ואינו גורם ל-re-render כשמשנים אותו. משתמשים בו להחזיק DOM nodes (focus, scroll, measure) או ערכים אימפרטיביים (interval IDs, props קודמים, דגלים). אם ה-UI חייב להגיב לשינוי — השתמשו ב-state; refs הם יציאה ממחזור ה-render.",
-    "code_snippet": "const inputRef = useRef(null);\nconst renders = useRef(0);\nrenders.current += 1; // no re-render from this alone\n\nuseEffect(() => {\n  inputRef.current?.focus();\n}, []);\n\n<input ref={inputRef} />"
+    "code_snippet": "const inputRef = useRef(null);\nconst renders = useRef(0);\nrenders.current += 1; // no re-render from this alone\n\nuseEffect(() => {\n  inputRef.current?.focus();\n}, []);\n\n<input ref={inputRef} />",
+    "reference_url": "https://react.dev/reference/react/useRef"
   }
 ]

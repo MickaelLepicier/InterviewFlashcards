@@ -67,6 +67,7 @@ export default function FlashcardsMode({ cards, lang, t, isRtl }) {
           showHintLabel={t.showHint}
           hideHintLabel={t.hideHint}
           hintTitle={t.hintTitle}
+          learnMoreLabel={t.learnMore}
         />
       </main>
 

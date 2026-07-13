@@ -8,7 +8,8 @@
     "hint_he": "איך מציגים בבטחה תווים שמורים כמו <, & או סמלים כמו © בלי לשבור את ה-markup?",
     "correctAnswer_en": "HTML entities are escape sequences that let you display special characters safely in markup — for example &lt; for <, &amp; for &, and &copy; for ©. Without them, the browser may treat those characters as HTML syntax, which breaks the page or creates security issues. They are essential whenever you show code, user text, or symbols in HTML.",
     "correctAnswer_he": "HTML entities הן רצפי escape שמאפשרים להציג תווים מיוחדים בבטחה ב-markup — למשל &lt; עבור <, &amp; עבור &, ו-&copy; עבור ©. בלעדיהן הדפדפן עלול לפרש את התווים כתחביר HTML, מה ששובר את הדף או יוצר סיכוני אבטחה. הן חיוניות כשמציגים קוד, טקסט משתמש או סמלים ב-HTML.",
-    "code_snippet": "<ul>\n  <li>&lt;Aha&gt;</li>          <!-- shows: <Aha> -->\n  <li>Me &amp; You</li>       <!-- shows: Me & You -->\n  <li>&copy; 2026 &reg;</li>  <!-- © and ® -->\n</ul>"
+    "code_snippet": "<ul>\n  <li>&lt;Aha&gt;</li>          <!-- shows: <Aha> -->\n  <li>Me &amp; You</li>       <!-- shows: Me & You -->\n  <li>&copy; 2026 &reg;</li>  <!-- © and ® -->\n</ul>",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/Entity"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "hint_he": "איזו הצהרה קצרה בראש המסמך מעבירה את הדפדפן ל-standards mode ב-HTML5?",
     "correctAnswer_en": "The doctype tells the browser which document type / parsing mode to use. In HTML5 it is simply <!DOCTYPE html>, which triggers standards mode and avoids quirks mode layout bugs. It must be the first line of the document and is still required for consistent, modern rendering.",
     "correctAnswer_he": "ה-doctype אומר לדפדפן באיזה סוג מסמך / מצב parsing להשתמש. ב-HTML5 הוא פשוט <!DOCTYPE html>, מה שמפעיל standards mode ונמנע מבאגי quirks mode. הוא חייב להיות השורה הראשונה במסמך ועדיין נדרש לרינדור מודרני ועקבי.",
-    "code_snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>My App</title>\n  </head>\n  <body>\n    <h1>Hello HTML5</h1>\n  </body>\n</html>"
+    "code_snippet": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"UTF-8\" />\n    <title>My App</title>\n  </head>\n  <body>\n    <h1>Hello HTML5</h1>\n  </body>\n</html>",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/Doctype"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "hint_he": "חשוב מעבר לתגיות: semantics, טפסים, מדיה, אחסון בצד הלקוח, ו-APIs של הדפדפן שהגיעו עם HTML5.",
     "correctAnswer_en": "HTML5 is a platform upgrade, not just new tags. Its building blocks include semantic elements (header, nav, article), richer forms and validation, data-* attributes, native audio/video, client storage, and powerful APIs like geolocation, WebSockets, and Web Workers. Together they reduce plugin dependency and let the browser own structure, media, and offline-capable behavior.",
     "correctAnswer_he": "HTML5 הוא שדרוג פלטפורמה, לא רק תגיות חדשות. אבני הבניין כוללות אלמנטים סמנטיים (header, nav, article), טפסים ו-validation עשירים יותר, data-* attributes, audio/video מובנים, אחסון בצד הלקוח, ו-APIs חזקים כמו geolocation, WebSockets ו-Web Workers. יחד הם מפחיתים תלות בתוספים ומאפשרים לדפדפן לנהל מבנה, מדיה והתנהגות offline.",
-    "code_snippet": "<article data-id=\"42\">\n  <header><h1>HTML5 building blocks</h1></header>\n  <video controls src=\"demo.mp4\"></video>\n  <form>\n    <input type=\"email\" required placeholder=\"you@example.com\" />\n    <button type=\"submit\">Send</button>\n  </form>\n</article>\n\n<script>\n  localStorage.setItem('visited', 'true');\n</script>"
+    "code_snippet": "<article data-id=\"42\">\n  <header><h1>HTML5 building blocks</h1></header>\n  <video controls src=\"demo.mp4\"></video>\n  <form>\n    <input type=\"email\" required placeholder=\"you@example.com\" />\n    <button type=\"submit\">Send</button>\n  </form>\n</article>\n\n<script>\n  localStorage.setItem('visited', 'true');\n</script>",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "hint_he": "איך JavaScript כבד יכול לרוץ ברקע בלי להקפיא לחיצות, גלילה ורינדור?",
     "correctAnswer_en": "Web Workers run scripts on a background thread so heavy computation does not block the main UI thread. They communicate with the page via postMessage and cannot touch window or document directly — which protects responsiveness. Use them for parsing, crypto, image processing, or large filters while the UI stays interactive.",
     "correctAnswer_he": "Web Workers מריצים scripts ב-thread ברקע כדי שחישוב כבד לא יחסום את ה-main UI thread. הם מתקשרים עם הדף דרך postMessage ולא יכולים לגעת ישירות ב-window או document — מה שמגן על הרספונסיביות. משתמשים בהם לפרסינג, הצפנה, עיבוד תמונה או פילטרים גדולים בזמן שה-UI נשאר אינטראקטיבי.",
-    "code_snippet": "// main.js\nconst worker = new Worker('primesWorker.js');\n\nworker.onmessage = (event) => {\n  console.log('result:', event.data);\n};\n\nworker.postMessage({ max: 100000 });\n\n// primesWorker.js\nself.onmessage = (event) => {\n  const { max } = event.data;\n  // ... heavy work ...\n  self.postMessage({ done: true, max });\n};"
+    "code_snippet": "// main.js\nconst worker = new Worker('primesWorker.js');\n\nworker.onmessage = (event) => {\n  console.log('result:', event.data);\n};\n\nworker.postMessage({ max: 100000 });\n\n// primesWorker.js\nself.onmessage = (event) => {\n  const { max } = event.data;\n  // ... heavy work ...\n  self.postMessage({ done: true, max });\n};",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "hint_he": "פרט את המקומות העיקריים בצד הלקוח שבהם הדפדפן יכול לשמור נתונים — מ-key/value פשוט עד databases ו-caches.",
     "correctAnswer_en": "Browsers offer several client storage options: localStorage and sessionStorage for simple key/value strings, cookies for small data sent with HTTP requests, IndexedDB for structured/offline databases, and the Cache API for request/response caching (often with service workers). Choosing the right one depends on size, lifetime, and whether the server needs the data.",
     "correctAnswer_he": "לדפדפנים יש כמה אפשרויות אחסון בצד הלקוח: localStorage ו-sessionStorage למחרוזות key/value פשוטות, cookies לנתונים קטנים שנשלחים עם בקשות HTTP, IndexedDB למסדי נתונים מובנים/offline, ו-Cache API לשמירת request/response (לעיתים עם service workers). הבחירה תלויה בגודל, במשך החיים, ובשאלה אם השרת צריך את הנתונים.",
-    "code_snippet": "// Web Storage (key/value strings)\nlocalStorage.setItem('theme', 'dark');\nsessionStorage.setItem('step', '2');\n\n// Cookies (sent to the server automatically)\ndocument.cookie = 'sessionId=abc; Path=/; SameSite=Lax';\n\n// IndexedDB — for larger structured data (API sketch)\nconst request = indexedDB.open('AppDB', 1);"
+    "code_snippet": "// Web Storage (key/value strings)\nlocalStorage.setItem('theme', 'dark');\nsessionStorage.setItem('step', '2');\n\n// Cookies (sent to the server automatically)\ndocument.cookie = 'sessionId=abc; Path=/; SameSite=Lax';\n\n// IndexedDB — for larger structured data (API sketch)\nconst request = indexedDB.open('AppDB', 1);",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/Storage_API"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "hint_he": "השוו מה נשלח אוטומטית לשרת, וכמה זמן כל סוג אחסון נשמר.",
     "correctAnswer_en": "localStorage stores key/value data in the browser until cleared (large quota, never auto-sent to the server). Cookies are small, can expire, and are attached to matching HTTP requests — useful for auth/session, but costly if overused. sessionStorage is per-tab and clears when the tab closes. Prefer localStorage for client-only prefs; cookies when the server must see the value.",
     "correctAnswer_he": "localStorage שומר נתוני key/value בדפדפן עד ניקוי (מכסה גדולה, לא נשלח אוטומטית לשרת). cookies קטנים, יכולים לפוג, ומצורפים לבקשות HTTP תואמות — שימושיים ל-auth/session, אבל יקרים אם משתמשים בהם יתר על המידה. sessionStorage הוא per-tab ונמחק בסגירת הטאב. העדיפו localStorage להעדפות רק בצד הלקוח; cookies כשהשרת חייב לראות את הערך.",
-    "code_snippet": "// localStorage — client only, persists across sessions\nlocalStorage.setItem('lang', 'he');\nconsole.log(localStorage.getItem('lang')); // 'he'\n\n// cookie — browser sends it on later requests to the server\ndocument.cookie = 'token=xyz; Max-Age=3600; Path=/; Secure; SameSite=Strict';\n\n// sessionStorage — lives only for this tab\nsessionStorage.setItem('draft', 'hello');"
+    "code_snippet": "// localStorage — client only, persists across sessions\nlocalStorage.setItem('lang', 'he');\nconsole.log(localStorage.getItem('lang')); // 'he'\n\n// cookie — browser sends it on later requests to the server\ndocument.cookie = 'token=xyz; Max-Age=3600; Path=/; Secure; SameSite=Strict';\n\n// sessionStorage — lives only for this tab\nsessionStorage.setItem('draft', 'hello');",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage"
   },
   {
     "id": 7,
@@ -74,6 +80,7 @@
     "hint_he": "bitmap של פיקסלים שמציירים ב-script מול צורות וקטוריות שחיות ב-DOM — מתי תבחרו בכל אחד?",
     "correctAnswer_en": "Canvas is a pixel-based drawing surface updated through JavaScript — great for games, charts, and high-frequency redraws, but individual shapes are not DOM nodes. SVG is vector markup in the DOM: resolution-independent, styleable with CSS, accessible, and easy to animate or attach listeners per shape. Pick Canvas for performance-heavy scenes; SVG when you need crisp scalable graphics and DOM integration.",
     "correctAnswer_he": "Canvas הוא משטח ציור מבוסס פיקסלים שמתעדכן דרך JavaScript — מצוין למשחקים, גרפים ורינדורים תכופים, אבל צורות בודדות אינן DOM nodes. SVG הוא markup וקטורי ב-DOM: בלתי תלוי ברזולוציה, ניתן לעיצוב עם CSS, נגיש, וקל להנפשה או לחיבור listeners לכל צורה. בחרו Canvas לסצנות כבדות ביצועים; SVG כשצריך גרפיקה חדה שניתן להגדיל ולשלב ב-DOM.",
-    "code_snippet": "// Canvas — draw pixels with script\nconst canvas = document.querySelector('canvas');\nconst ctx = canvas.getContext('2d');\nctx.fillStyle = '#7c3aed';\nctx.fillRect(10, 10, 120, 80);\n\n// SVG — vector elements in the DOM\n// <svg width=\"200\" height=\"100\">\n//   <rect x=\"10\" y=\"10\" width=\"120\" height=\"80\" fill=\"#7c3aed\" />\n// </svg>"
+    "code_snippet": "// Canvas — draw pixels with script\nconst canvas = document.querySelector('canvas');\nconst ctx = canvas.getContext('2d');\nctx.fillStyle = '#7c3aed';\nctx.fillRect(10, 10, 120, 80);\n\n// SVG — vector elements in the DOM\n// <svg width=\"200\" height=\"100\">\n//   <rect x=\"10\" y=\"10\" width=\"120\" height=\"80\" fill=\"#7c3aed\" />\n// </svg>",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API"
   }
 ]

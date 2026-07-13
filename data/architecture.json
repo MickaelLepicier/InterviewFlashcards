@@ -8,7 +8,8 @@
     "hint_he": "מה workflow מודרני מבוסס Vite נותן לפיתוח מקומי ול-production builds?",
     "correctAnswer_en": "Vite is a fast frontend tooling layer: native ESM in development, an instant dev server with HMR, and an optimized production bundle (via Rollup). It simplifies compiling JS/TS, CSS/SCSS, assets, and framework apps so teams iterate quickly and ship performant builds without a heavy legacy bundler setup.",
     "correctAnswer_he": "Vite הוא שכבת tooling מהירה ל-frontend: ESM טבעי בפיתוח, dev server מיידי עם HMR, ו-bundle מאופטימז ל-production (דרך Rollup). הוא מפשט קומפילציה של JS/TS, CSS/SCSS, assets ואפליקציות frameworks כדי שהצוות יעבוד מהר וישלח builds ביצועיים בלי באנדלר כבד וישן.",
-    "code_snippet": "// package.json scripts (typical Vite app)\n{\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"vite build\",\n    \"preview\": \"vite preview\"\n  }\n}\n\n// vite.config.js\nimport { defineConfig } from 'vite';\nimport react from '@vitejs/plugin-react';\n\nexport default defineConfig({\n  plugins: [react()],\n});"
+    "code_snippet": "// package.json scripts (typical Vite app)\n{\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"vite build\",\n    \"preview\": \"vite preview\"\n  }\n}\n\n// vite.config.js\nimport { defineConfig } from 'vite';\nimport react from '@vitejs/plugin-react';\n\nexport default defineConfig({\n  plugins: [react()],\n});",
+    "reference_url": "https://vite.dev/guide/why.html"
   },
   {
     "id": 2,
@@ -19,7 +20,8 @@
     "hint_he": "האם נתונים זורמים רק למטה אל ה-UI, או שה-UI גם כותב חזרה למודל אוטומטית?",
     "correctAnswer_en": "One-way data flow sends state downward (props/store → UI); updates go back through explicit actions. Two-way data binding keeps a form control and model field synchronized in both directions. One-way is easier to reason about and debug at scale (React-style); two-way is convenient for forms but can hide where changes originate.",
     "correctAnswer_he": "one-way data flow שולח state כלפי מטה (props/store → UI); עדכונים חוזרים דרך actions מפורשים. two-way data binding מסנכרן בקרת טופס ושדה מודל בשני הכיוונים. one-way קל יותר להבנה ולדיבוג בקנה מידה (סגנון React); two-way נוח לטפסים אך עלול להסתיר מאיפה מגיעים שינויים.",
-    "code_snippet": "// One-way (React-style): state down, events up\nfunction NameField({ value, onChange }) {\n  return <input value={value} onChange={(e) => onChange(e.target.value)} />;\n}\n\n// Two-way idea: UI and model stay in sync automatically\n// e.g. Angular: [(ngModel)]=\"user.name\"\n// Changing the input updates user.name and vice versa"
+    "code_snippet": "// One-way (React-style): state down, events up\nfunction NameField({ value, onChange }) {\n  return <input value={value} onChange={(e) => onChange(e.target.value)} />;\n}\n\n// Two-way idea: UI and model stay in sync automatically\n// e.g. Angular: [(ngModel)]=\"user.name\"\n// Changing the input updates user.name and vice versa",
+    "reference_url": "https://react.dev/learn/sharing-state-between-components"
   },
   {
     "id": 3,
@@ -30,7 +32,8 @@
     "hint_he": "איזו בעיה store מרכזי עם עדכונים חד-כיווניים פותר ב-SPA שגדל?",
     "correctAnswer_en": "Flux/Redux/Vuex centralize app state in a store with a single source of truth and unidirectional updates (action → dispatcher/reducer → new state → UI). That makes shared data predictable, simplifies debugging/time-travel, and prevents messy prop-drilling and conflicting local state as the app grows.",
     "correctAnswer_he": "Flux/Redux/Vuex מרכזים את ה-state ב-store עם single source of truth ועדכונים חד-כיווניים (action → dispatcher/reducer → state חדש → UI). זה הופך נתונים משותפים לצפויים, מפשט debugging/time-travel, ומונע prop-drilling מבולגן ו-state מקומי מתנגש כשהאפליקציה גדלה.",
-    "code_snippet": "// Redux-style unidirectional loop\n// UI --dispatch--> action --> reducer --> store --> UI\n\nconst initial = { count: 0 };\n\nfunction reducer(state = initial, action) {\n  if (action.type === 'increment') {\n    return { count: state.count + 1 };\n  }\n  return state;\n}"
+    "code_snippet": "// Redux-style unidirectional loop\n// UI --dispatch--> action --> reducer --> store --> UI\n\nconst initial = { count: 0 };\n\nfunction reducer(state = initial, action) {\n  if (action.type === 'increment') {\n    return { count: state.count + 1 };\n  }\n  return state;\n}",
+    "reference_url": "https://redux.js.org/understanding/thinking-in-redux/three-principles"
   },
   {
     "id": 4,
@@ -41,7 +44,8 @@
     "hint_he": "ברגע שה-state מרוכז, אילו תכונות מוצר נהיות קלות בהרבה למימוש?",
     "correctAnswer_en": "Centralized state unlocks features that need a full picture of the app: undo/redo, optimistic UI, collaborative editing, analytics/session replay, consistent error handling, and offline sync. Because every change flows through one place, you can observe, replay, or roll back transitions instead of hunting through scattered component state.",
     "correctAnswer_he": "state מרוכז פותח תכונות שצריכות תמונה מלאה של האפליקציה: undo/redo, optimistic UI, עריכה שיתופית, analytics/session replay, טיפול עקבי בשגיאות, וסנכרון offline. כי כל שינוי עובר במקום אחד, אפשר לצפות, לנגן מחדש או לבטל מעברים במקום לחפש ב-state מפוזר בקומפוננטות.",
-    "code_snippet": "// Example: undo becomes natural with a history of store snapshots\nconst history = [];\n\nfunction commit(nextState) {\n  history.push(store.getState());\n  store.setState(nextState);\n}\n\nfunction undo() {\n  const previous = history.pop();\n  if (previous) store.setState(previous);\n}"
+    "code_snippet": "// Example: undo becomes natural with a history of store snapshots\nconst history = [];\n\nfunction commit(nextState) {\n  history.push(store.getState());\n  store.setState(nextState);\n}\n\nfunction undo() {\n  const previous = history.pop();\n  if (previous) store.setState(previous);\n}",
+    "reference_url": "https://redux.js.org/tutorials/essentials/part-1-overview-concepts"
   },
   {
     "id": 5,
@@ -52,7 +56,8 @@
     "hint_he": "איזה מבנה LIFO מאפשר לדחוף snapshots בשינוי ולהוציא אותם לשחזור?",
     "correctAnswer_en": "Undo is typically a stack (LIFO): push a snapshot (or inverse command) before each change, then pop to restore. Command pattern or history arrays in a store work the same way. This is how editors and complex UIs support reliable undo without reinventing state from scratch.",
     "correctAnswer_he": "Undo הוא בדרך כלל stack (LIFO): דוחפים snapshot (או פקודה הפוכה) לפני כל שינוי, ואז מוציאים (pop) לשחזור. דפוס Command או מערכי history ב-store עובדים באותו אופן. כך עורכים ו-UIs מורכבים תומכים ב-undo אמין בלי לבנות state מאפס.",
-    "code_snippet": "function createUndoStack() {\n  const past = [];\n  let present = null;\n\n  return {\n    set(state) {\n      if (present !== null) past.push(present);\n      present = structuredClone(state);\n    },\n    undo() {\n      if (!past.length) return present;\n      present = past.pop();\n      return present;\n    },\n  };\n}"
+    "code_snippet": "function createUndoStack() {\n  const past = [];\n  let present = null;\n\n  return {\n    set(state) {\n      if (present !== null) past.push(present);\n      present = structuredClone(state);\n    },\n    undo() {\n      if (!past.length) return present;\n      present = past.pop();\n      return present;\n    },\n  };\n}",
+    "reference_url": "https://redux.js.org/usage/implementing-undo-history"
   },
   {
     "id": 6,
@@ -63,7 +68,8 @@
     "hint_he": "איך בודקים בזמן ריצה אם דפדפן תומך ב-API, במקום sniffing של user-agent?",
     "correctAnswer_en": "Feature detection tests whether a capability exists at runtime (e.g. \"geolocation\" in navigator) and branches to a fallback if not. It is more reliable than user-agent sniffing because support varies by version and flags. This enables progressive enhancement and graceful degradation across browsers.",
     "correctAnswer_he": "feature detection בודק בזמן ריצה האם יכולת קיימת (למשל \"geolocation\" in navigator) ועובר ל-fallback אם לא. זה אמין יותר מ-user-agent sniffing כי התמיכה משתנה לפי גרסה ו-flags. כך משיגים progressive enhancement ו-graceful degradation בין דפדפנים.",
-    "code_snippet": "if ('geolocation' in navigator) {\n  navigator.geolocation.getCurrentPosition(console.log);\n} else {\n  console.warn('Geolocation not supported — show manual address form');\n}\n\nif (window.IntersectionObserver) {\n  // use modern lazy-loading observer\n}"
+    "code_snippet": "if ('geolocation' in navigator) {\n  navigator.geolocation.getCurrentPosition(console.log);\n} else {\n  console.warn('Geolocation not supported — show manual address form');\n}\n\nif (window.IntersectionObserver) {\n  // use modern lazy-loading observer\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Cross_browser_testing/Feature_detection"
   },
   {
     "id": 7,
@@ -74,7 +80,8 @@
     "hint_he": "איך הדף יכול לשלוף או לשלוח נתונים בלי רענון מלא של הדפדפן?",
     "correctAnswer_en": "AJAX means updating parts of a page by sending HTTP requests from JavaScript without reloading the whole document. Today that is usually fetch/XHR + JSON, powering SPAs and dynamic UIs. It improves UX and performance by transferring only the needed data instead of re-downloading the entire page.",
     "correctAnswer_he": "AJAX אומר לעדכן חלקים בדף על ידי שליחת בקשות HTTP מ-JavaScript בלי לרענן את כל המסמך. היום זה לרוב fetch/XHR + JSON, ומניע SPAs ו-UIs דינמיים. זה משפר UX וביצועים כי מעבירים רק את הנתונים הדרושים במקום להוריד מחדש את כל הדף.",
-    "code_snippet": "async function loadUsers() {\n  const res = await fetch('/api/users');\n  if (!res.ok) throw new Error('Request failed');\n  const users = await res.json();\n  renderUserList(users); // update DOM without full reload\n}"
+    "code_snippet": "async function loadUsers() {\n  const res = await fetch('/api/users');\n  if (!res.ok) throw new Error('Request failed');\n  const users = await res.json();\n  renderUserList(users); // update DOM without full reload\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/Guide/AJAX"
   },
   {
     "id": 8,
@@ -85,7 +92,8 @@
     "hint_he": "מתי script מאתר A נחסם מקריאת API באתר B, ואיזו כותרת פותחת את זה?",
     "correctAnswer_en": "The same-origin policy blocks a page’s JavaScript from reading responses from a different origin (scheme + host + port) unless the server opts in with CORS. It is a core browser security boundary against data theft via malicious scripts. Cross-origin calls need proper Access-Control-* headers (and credentials rules) from the API.",
     "correctAnswer_he": "same-origin policy חוסם מ-JavaScript של דף לקרוא תגובות מ-origin אחר (scheme + host + port) אלא אם השרת מאשר עם CORS. זה גבול אבטחה מרכזי בדפדפן נגד גניבת נתונים דרך scripts זדוניים. קריאות cross-origin דורשות כותרות Access-Control-* מתאימות (וכללי credentials) מה-API.",
-    "code_snippet": "// Browser blocks reading this response without CORS\nfetch('https://api.other-site.com/data');\n\n// Server must allow the web app origin, e.g.:\n// Access-Control-Allow-Origin: https://myapp.com\n// Access-Control-Allow-Methods: GET, POST"
+    "code_snippet": "// Browser blocks reading this response without CORS\nfetch('https://api.other-site.com/data');\n\n// Server must allow the web app origin, e.g.:\n// Access-Control-Allow-Origin: https://myapp.com\n// Access-Control-Allow-Methods: GET, POST",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy"
   },
   {
     "id": 9,
@@ -96,7 +104,8 @@
     "hint_he": "אילו הרגלים וכלים שיטתיים משתמשים בהם מ\"משהו שבור\" עד שורש הבעיה?",
     "correctAnswer_en": "Effective debugging combines reproduction, isolation, and tools: browser/IDE breakpoints, network and performance panels, targeted logs, failing unit tests, reading docs/source, and searching known issues. The skill is narrowing hypotheses quickly — not random console.log spam — so you fix the root cause, not just the symptom.",
     "correctAnswer_he": "debugging יעיל משלב שחזור, בידוד וכלים: breakpoints בדפדפן/IDE, לוחות network ו-performance, לוגים ממוקדים, unit tests שנכשלים, קריאת docs/קוד מקור, וחיפוש בעיות ידועות. המיומנות היא לצמצם השערות מהר — לא spam של console.log — כדי לתקן את שורש הבעיה ולא רק את הסימפטום.",
-    "code_snippet": "// Reproduce → isolate → assert\nconsole.assert(user?.id, 'user id missing before save');\n\n// Breakpoint-friendly check\ndebugger;\n\n// Automated safety net\nit('formats price', () => {\n  expect(formatPrice(10)).toBe('$10.00');\n});"
+    "code_snippet": "// Reproduce → isolate → assert\nconsole.assert(user?.id, 'user id missing before save');\n\n// Breakpoint-friendly check\ndebugger;\n\n// Automated safety net\nit('formats price', () => {\n  expect(formatPrice(10)).toBe('$10.00');\n});",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Tools_and_setup/What_are_browser_developer_tools"
   },
   {
     "id": 10,
@@ -107,7 +116,8 @@
     "hint_he": "איך בדיקות אוטומטיות מוכיחות שיחידה עדיין מתנהגת נכון אחרי שינוי קוד?",
     "correctAnswer_en": "Yes — automated testing (unit, integration, e2e) verifies behavior and prevents regressions. Unit tests with Jest/Vitest assert pure functions and components in isolation; broader tests cover API contracts and user flows. Good tests document intent and give confidence to refactor architecture safely.",
     "correctAnswer_he": "כן — testing אוטומטי (unit, integration, e2e) מאמת התנהגות ומונע regressions. unit tests עם Jest/Vitest בודקים פונקציות טהורות וקומפוננטות בבידוד; בדיקות רחבות יותר מכסות חוזי API וזרימות משתמש. בדיקות טובות מתעדות כוונה ונותנות ביטחון לרפקטור ארכיטקטורה בבטחה.",
-    "code_snippet": "import { sum } from './sum';\n\nit('adds 1 + 2 to equal 3', () => {\n  expect(sum(1, 2)).toBe(3);\n});\n\nit('handles zero', () => {\n  expect(sum(0, 5)).toBe(5);\n});"
+    "code_snippet": "import { sum } from './sum';\n\nit('adds 1 + 2 to equal 3', () => {\n  expect(sum(1, 2)).toBe(3);\n});\n\nit('handles zero', () => {\n  expect(sum(0, 5)).toBe(5);\n});",
+    "reference_url": "https://jestjs.io/docs/getting-started"
   },
   {
     "id": 11,
@@ -118,7 +128,8 @@
     "hint_he": "מה ה-Model מחזיק, מה ה-View מרנדר, ומה ה-Controller מתאם?",
     "correctAnswer_en": "MVC separates concerns: the Model owns data and business rules, the View presents UI, and the Controller handles input and coordinates updates between them. That separation improves testability and teamwork — backend/domain logic is not tangled with rendering. Many modern frameworks are MVC-inspired variants (MVP, MVVM, unidirectional stores).",
     "correctAnswer_he": "MVC מפריד אחריות: ה-Model מחזיק נתונים וכללי עסק, ה-View מציג UI, וה-Controller מטפל בקלט ומתאם עדכונים ביניהם. ההפרדה משפרת testability ועבודת צוות — לוגיקת backend/domain לא מסתבכת עם רינדור. הרבה frameworks מודרניים הם וריאציות בהשראת MVC (MVP, MVVM, stores חד-כיווניים).",
-    "code_snippet": "// Conceptual MVC flow\n// View --user action--> Controller\n// Controller --updates--> Model\n// Model --change--> View re-render\n\nclass UserModel {\n  constructor() { this.name = ''; }\n}\nclass UserController {\n  constructor(model, view) {\n    this.model = model;\n    this.view = view;\n  }\n  setName(name) {\n    this.model.name = name;\n    this.view.render(this.model);\n  }\n}"
+    "code_snippet": "// Conceptual MVC flow\n// View --user action--> Controller\n// Controller --updates--> Model\n// Model --change--> View re-render\n\nclass UserModel {\n  constructor() { this.name = ''; }\n}\nclass UserController {\n  constructor(model, view) {\n    this.model = model;\n    this.view = view;\n  }\n  setName(name) {\n    this.model.name = name;\n    this.view.render(this.model);\n  }\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/MVC"
   },
   {
     "id": 12,
@@ -129,7 +140,8 @@
     "hint_he": "מעבר לתרגום מחרוזות — אילו פורמטים של locale וכיווני פריסה חייבים לתמוך?",
     "correctAnswer_en": "Multilingual sites need more than translated copy: locale-aware numbers, currencies, dates/times, timezones, pluralization, units, and text direction (LTR/RTL). You also plan font fallbacks, content length expansion, and i18n-friendly layout. Ignoring these creates broken UX even when translations exist.",
     "correctAnswer_he": "אתרים רב-לשוניים צריכים יותר מתרגום טקסט: מספרים, מטבעות, תאריכים/שעות, timezones, רבים, יחידות, וכיוון טקסט (LTR/RTL) לפי locale. גם מתכננים fallbacks לגופנים, התרחבות תוכן, ופריסה ידידותית ל-i18n. התעלמות מאלה יוצרת UX שבור גם כשיש תרגומים.",
-    "code_snippet": "const price = new Intl.NumberFormat('he-IL', {\n  style: 'currency',\n  currency: 'ILS',\n}).format(19.9);\n\nconst date = new Intl.DateTimeFormat('en-US').format(new Date());\n\ndocument.documentElement.dir = 'rtl'; // Hebrew / Arabic layout"
+    "code_snippet": "const price = new Intl.NumberFormat('he-IL', {\n  style: 'currency',\n  currency: 'ILS',\n}).format(19.9);\n\nconst date = new Intl.DateTimeFormat('en-US').format(new Date());\n\ndocument.documentElement.dir = 'rtl'; // Hebrew / Arabic layout",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/lang"
   },
   {
     "id": 13,
@@ -140,7 +152,8 @@
     "hint_he": "איך OOP מקבץ נתונים עם התנהגות, ואילו שלושה עמודים בדרך כלל עולים בראיון?",
     "correctAnswer_en": "OOP models software as objects that encapsulate state and behavior. Core pillars are encapsulation (hide internals), inheritance (reuse/extend types), and polymorphism (same interface, different implementations). Used well, it clarifies domain boundaries; used poorly, it creates deep fragile hierarchies — interviews expect both the definition and judgment.",
     "correctAnswer_he": "OOP ממדל תוכנה כאובייקטים שעוטפים state והתנהגות. העמודים המרכזיים הם encapsulation (הסתרת פנים), inheritance (שימוש חוזר/הרחבת טיפוסים), ו-polymorphism (אותו ממשק, מימושים שונים). בשימוש נכון זה מבהיר גבולות domain; בשימוש גרוע זה יוצר היררכיות שבירות — בראיון מצפים להגדרה ולשיקול דעת.",
-    "code_snippet": "class Animal {\n  speak() { return '...'; }\n}\n\nclass Dog extends Animal {\n  speak() { return 'woof'; } // polymorphism\n}\n\nconst pet = new Dog();\nconsole.log(pet.speak()); // 'woof'"
+    "code_snippet": "class Animal {\n  speak() { return '...'; }\n}\n\nclass Dog extends Animal {\n  speak() { return 'woof'; } // polymorphism\n}\n\nconst pet = new Dog();\nconsole.log(pet.speak()); // 'woof'",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Object-oriented_programming"
   },
   {
     "id": 14,
@@ -151,7 +164,8 @@
     "hint_he": "מתחת למכסה, לאילו מנגנונים ישנים ב-JavaScript תחביר class מתכנס?",
     "correctAnswer_en": "In JavaScript, class is mainly syntactic sugar over constructor functions and prototypes: methods live on ClassName.prototype, and instances link via the prototype chain. Understanding that helps debug this-binding, inheritance, and instanceof — classes are nicer syntax, not a separate object model.",
     "correctAnswer_he": "ב-JavaScript, class הוא בעיקר syntactic sugar מעל constructor functions ו-prototypes: מתודות חיות על ClassName.prototype, ו-instances מקושרים דרך ה-prototype chain. ההבנה הזו עוזרת לדבג this, ירושה ו-instanceof — classes הם תחביר נוח, לא מודל אובייקטים נפרד.",
-    "code_snippet": "class Person {\n  constructor(name) { this.name = name; }\n  greet() { return `Hi ${this.name}`; }\n}\n\n// Roughly equivalent idea:\nfunction PersonFn(name) { this.name = name; }\nPersonFn.prototype.greet = function () {\n  return `Hi ${this.name}`;\n};"
+    "code_snippet": "class Person {\n  constructor(name) { this.name = name; }\n  greet() { return `Hi ${this.name}`; }\n}\n\n// Roughly equivalent idea:\nfunction PersonFn(name) { this.name = name; }\nPersonFn.prototype.greet = function () {\n  return `Hi ${this.name}`;\n};",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes"
   },
   {
     "id": 15,
@@ -162,7 +176,8 @@
     "hint_he": "בתוך static method, האם this הוא instance — או משהו אחר?",
     "correctAnswer_en": "Static methods belong to the class/constructor itself, not to instances. Therefore this inside a static method refers to the class (function), not an instance — you cannot read instance fields via this unless you pass an instance in. Use static for utilities and factories; use instance methods for per-object state.",
     "correctAnswer_he": "static methods שייכים למחלקה/constructor עצמה, לא ל-instances. לכן this בתוך static method מתייחס למחלקה (לפונקציה), לא ל-instance — אי אפשר לקרוא שדות instance דרך this אלא אם מעבירים instance. השתמשו ב-static ל-utilities ו-factories; במתודות instance ל-state פר-אובייקט.",
-    "code_snippet": "class User {\n  constructor(name) { this.name = name; }\n\n  static createGuest() {\n    // this === User (the class), not an instance\n    return new this('Guest');\n  }\n\n  greet() {\n    return this.name; // instance method — this is the object\n  }\n}\n\nconsole.log(User.createGuest().greet()); // 'Guest'"
+    "code_snippet": "class User {\n  constructor(name) { this.name = name; }\n\n  static createGuest() {\n    // this === User (the class), not an instance\n    return new this('Guest');\n  }\n\n  greet() {\n    return this.name; // instance method — this is the object\n  }\n}\n\nconsole.log(User.createGuest().greet()); // 'Guest'",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static"
   },
   {
     "id": 16,
@@ -173,7 +188,8 @@
     "hint_he": "אחרי שהשרת שולח HTML, מה ה-JS בצד הלקוח חייב לעשות לפני שהדף נהיה אינטראקטיבי?",
     "correctAnswer_en": "Hydration is when client-side JavaScript attaches to server-rendered HTML: reconnecting components, state, and event handlers so the static markup becomes an interactive app. Done well, users see content fast (SSR) then gain interactivity; mismatches between server and client HTML cause hydration errors and UI bugs.",
     "correctAnswer_he": "hydration הוא השלב שבו JavaScript בצד הלקוח מתחבר ל-HTML שרונדר בשרת: מחבר מחדש קומפוננטות, state ו-event handlers כדי שה-markup הסטטי יהפוך לאפליקציה אינטראקטיבית. כשזה נעשה טוב, משתמשים רואים תוכן מהר (SSR) ואז מקבלים אינטראקטיביות; חוסר התאמה בין HTML שרת ללקוח גורם לשגיאות hydration ובאגי UI.",
-    "code_snippet": "// SSR: server sends HTML for <div id=\"root\">...</div>\n// Client: hydrate instead of rendering from scratch\nimport { hydrateRoot } from 'react-dom/client';\nimport App from './App';\n\nhydrateRoot(document.getElementById('root'), <App />);\n// Attaches listeners to existing DOM from the server"
+    "code_snippet": "// SSR: server sends HTML for <div id=\"root\">...</div>\n// Client: hydrate instead of rendering from scratch\nimport { hydrateRoot } from 'react-dom/client';\nimport App from './App';\n\nhydrateRoot(document.getElementById('root'), <App />);\n// Attaches listeners to existing DOM from the server",
+    "reference_url": "https://react.dev/reference/react-dom/client/hydrateRoot"
   },
   {
     "id": 17,
@@ -184,7 +200,8 @@
     "hint_he": "למה לרנדר HTML בשרת קודם — במיוחד ל-SEO ול-first contentful paint?",
     "correctAnswer_en": "SSR (Server-Side Rendering) generates HTML on the server so crawlers and users receive real content immediately — better SEO and faster first paint than an empty JS shell. Modern options include Next.js/Nuxt, classic templates/PHP, and prerendering for bots. Teams adopt SSR when discoverability and perceived performance matter as much as SPA interactivity.",
     "correctAnswer_he": "SSR (Server-Side Rendering) מייצר HTML בשרת כדי ש-crawlers ומשתמשים יקבלו תוכן אמיתי מיד — SEO טוב יותר ו-first paint מהיר יותר ממעטפת JS ריקה. אפשרויות מודרניות כוללות Next.js/Nuxt, templates/PHP קלאסיים, ו-prerendering לבוטים. צוותים בוחרים SSR כשגילוי וביצועים נתפסים חשובים כמו אינטראקטיביות של SPA.",
-    "code_snippet": "// Conceptual Next.js-style server render\nexport async function getServerSideProps() {\n  const product = await db.products.find(1);\n  return { props: { product } };\n}\n\nexport default function Page({ product }) {\n  return <h1>{product.title}</h1>; // HTML exists on first response\n}"
+    "code_snippet": "// Conceptual Next.js-style server render\nexport async function getServerSideProps() {\n  const product = await db.products.find(1);\n  return { props: { product } };\n}\n\nexport default function Page({ product }) {\n  return <h1>{product.title}</h1>; // HTML exists on first response\n}",
+    "reference_url": "https://nextjs.org/docs/pages/building-your-application/rendering/server-side-rendering"
   },
   {
     "id": 18,
@@ -195,7 +212,8 @@
     "hint_he": "למה לפצל מונולית לשירותים שניתן לפרוס ולהגדיל באופן עצמאי?",
     "correctAnswer_en": "Microservices split a large backend into independently deployable services owned by teams, so you can scale, release, and fail in isolation. That speeds delivery for complex domains, but adds distributed complexity (network, data consistency, observability). Choose them when organizational scale and deployment autonomy outweigh monolith simplicity.",
     "correctAnswer_he": "microservices מפצלים backend גדול לשירותים שניתן לפרוס בנפרד בבעלות צוותים, כדי להגדיל, לשחרר ולכשל בבידוד. זה מאיץ אספקה לדומיינים מורכבים, אבל מוסיף מורכבות מבוזרת (רשת, עקביות נתונים, observability). בוחרים בהם כשקנה מידה ארגוני ואוטונומיית deployment גוברים על פשטות המונולית.",
-    "code_snippet": "// Instead of one monolith deploy:\n// shop-api   → catalog + cart\n// pay-api    → payments\n// notify-api → email/SMS\n\n// Each service has its own deploy pipeline & scale rules\n// pay-api can scale independently during checkout spikes"
+    "code_snippet": "// Instead of one monolith deploy:\n// shop-api   → catalog + cart\n// pay-api    → payments\n// notify-api → email/SMS\n\n// Each service has its own deploy pipeline & scale rules\n// pay-api can scale independently during checkout spikes",
+    "reference_url": "https://microservices.io/patterns/microservices.html"
   },
   {
     "id": 19,
@@ -206,7 +224,8 @@
     "hint_he": "איך שירותים שפורסו בנפרד מחליפים נתונים — HTTP סינכרוני מול messaging אסינכרוני?",
     "correctAnswer_en": "Microservices usually talk via synchronous HTTP/gRPC APIs or asynchronous messaging (queues/brokers like Kafka/RabbitMQ). Sync is simple for request/response; async decouples producers/consumers and improves resilience under load. Good architecture documents contracts, retries, idempotency, and failure modes for whichever style you choose.",
     "correctAnswer_he": "microservices בדרך כלל מתקשרים דרך HTTP/gRPC סינכרוני או messaging אסינכרוני (queues/brokers כמו Kafka/RabbitMQ). Sync פשוט ל-request/response; async מנתק producers/consumers ומשפר עמידות תחת עומס. ארכיטקטורה טובה מתעדת חוזים, retries, idempotency ומצבי כשל לכל סגנון שתבחרו.",
-    "code_snippet": "// Sync: HTTP between services\nawait fetch('http://pay-api/charges', {\n  method: 'POST',\n  body: JSON.stringify({ orderId: '42' }),\n});\n\n// Async: publish event to a broker\nbus.publish('order.created', { orderId: '42' });\n// notify-api consumes and sends email"
+    "code_snippet": "// Sync: HTTP between services\nawait fetch('http://pay-api/charges', {\n  method: 'POST',\n  body: JSON.stringify({ orderId: '42' }),\n});\n\n// Async: publish event to a broker\nbus.publish('order.created', { orderId: '42' });\n// notify-api consumes and sends email",
+    "reference_url": "https://microservices.io/patterns/communication-style/messaging.html"
   },
   {
     "id": 20,
@@ -217,7 +236,8 @@
     "hint_he": "פרטו נושאי אבטחת web נפוצים מ-auth ועד injection והתקפות דפדפן.",
     "correctAnswer_en": "Key web security themes include authentication/authorization, encryption in transit and at rest, preventing XSS/CSRF, SQL/NoSQL injection, data leakage, bot abuse, and denial-of-service. Frontend and backend share responsibility: validate input, use secure cookies/tokens, sanitize output, and follow least privilege. Interviews expect awareness of threats and mitigations, not just buzzwords.",
     "correctAnswer_he": "נושאי אבטחת web מרכזיים כוללים authentication/authorization, הצפנה בתעבורה ובמנוחה, מניעת XSS/CSRF, SQL/NoSQL injection, דליפת מידע, bots ו-denial-of-service. Frontend ו-backend חולקים אחריות: ולידציית קלט, cookies/tokens מאובטחים, sanitization של פלט, ו-least privilege. בראיון מצפים למודעות לאיומים ולהגנות, לא רק למילות באז.",
-    "code_snippet": "// Mitigations (examples)\n// XSS: escape/sanitize user HTML before insert\n// CSRF: SameSite cookies + anti-CSRF tokens\n// Injection: parameterized queries, never string-concat SQL\n// AuthZ: check permissions on every sensitive API route\n\nres.setHeader('Content-Security-Policy', \"default-src 'self'\");"
+    "code_snippet": "// Mitigations (examples)\n// XSS: escape/sanitize user HTML before insert\n// CSRF: SameSite cookies + anti-CSRF tokens\n// Injection: parameterized queries, never string-concat SQL\n// AuthZ: check permissions on every sensitive API route\n\nres.setHeader('Content-Security-Policy', \"default-src 'self'\");",
+    "reference_url": "https://owasp.org/www-project-top-ten/"
   },
   {
     "id": 21,
@@ -228,7 +248,8 @@
     "hint_he": "איך משאבי REST ופעלי HTTP ממופים לפעולות בסגנון create/read/update/delete?",
     "correctAnswer_en": "REST is an architectural style for HTTP APIs organized around resources and standard verbs: GET read, POST create, PUT/PATCH update, DELETE remove (CRUD-like). It favors stateless requests, clear URLs, and cache-friendly semantics. Good REST design keeps contracts predictable for any client — web, mobile, or other services.",
     "correctAnswer_he": "REST הוא סגנון ארכיטקטוני ל-HTTP APIs סביב resources ופעלים סטנדרטיים: GET קריאה, POST יצירה, PUT/PATCH עדכון, DELETE מחיקה (דמוי CRUD). הוא מעדיף בקשות stateless, URLs ברורים וסמנטיקה ידידותית ל-cache. עיצוב REST טוב שומר על חוזים צפויים לכל client — web, mobile או שירותים אחרים.",
-    "code_snippet": "// Resource: /api/users\nGET    /api/users       // list\nPOST   /api/users       // create\nGET    /api/users/42    // read one\nPUT    /api/users/42    // replace/update\nDELETE /api/users/42    // delete"
+    "code_snippet": "// Resource: /api/users\nGET    /api/users       // list\nPOST   /api/users       // create\nGET    /api/users/42    // read one\nPUT    /api/users/42    // replace/update\nDELETE /api/users/42    // delete",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Glossary/REST"
   },
   {
     "id": 22,
@@ -239,7 +260,8 @@
     "hint_he": "תגובות קבועות מרובות endpoints מול endpoint אחד שבו הלקוח מבקש שדות מדויקים — מה ה-tradeoffs?",
     "correctAnswer_en": "REST typically exposes many endpoints with server-defined response shapes (easy caching/HTTP semantics, possible over/under-fetching). GraphQL usually offers one endpoint where clients query exactly the fields they need (flexible for nested UI data, more complex tooling/caching). Choose based on client diversity, caching needs, and team expertise.",
     "correctAnswer_he": "REST בדרך כלל חושף endpoints רבים עם צורות תגובה שמוגדרות בשרת (caching/סמנטיקת HTTP קלים, אפשרי over/under-fetching). GraphQL לרוב מציע endpoint אחד שבו clients שואלים בדיוק את השדות שצריך (גמיש לנתוני UI מקוננים, tooling/caching מורכבים יותר). בוחרים לפי גיוון clients, צורכי caching ומומחיות הצוות.",
-    "code_snippet": "// REST: multiple endpoints / fixed shapes\nGET /api/users/1\nGET /api/users/1/posts\n\n// GraphQL: single endpoint, client-shaped query\nquery {\n  user(id: 1) {\n    name\n    posts { title }\n  }\n}"
+    "code_snippet": "// REST: multiple endpoints / fixed shapes\nGET /api/users/1\nGET /api/users/1/posts\n\n// GraphQL: single endpoint, client-shaped query\nquery {\n  user(id: 1) {\n    name\n    posts { title }\n  }\n}",
+    "reference_url": "https://graphql.org/learn/"
   },
   {
     "id": 23,
@@ -250,7 +272,8 @@
     "hint_he": "יחסים מובנים ו-ACID מול מסמכים גמישים ו-scale אופקי — מתי כל אחד מתאים?",
     "correctAnswer_en": "Relational SQL databases use schemas, joins, and strong ACID transactions — ideal for structured, relational data and consistency. NoSQL favors flexible documents/key-value/wide-column models and horizontal scaling for high volume or rapidly evolving shapes. Architecture interviews expect you to match data model and consistency needs to the store, not pick a fashion.",
     "correctAnswer_he": "מסדי SQL רלציוניים משתמשים בסכמות, joins וטרנזקציות ACID חזקות — אידיאליים לנתונים מובנים ויחסים ולעקביות. NoSQL מעדיף מודלים גמישים (documents/key-value/wide-column) ו-scaling אופקי לנפח גבוה או צורות שמשתנות מהר. בראיון ארכיטקטורה מצפים שתתאימו מודל נתונים וצרכי consistency לחנות, לא לבחור לפי אופנה.",
-    "code_snippet": "-- SQL: structured relations\nSELECT u.name, o.total\nFROM users u\nJOIN orders o ON o.user_id = u.id;\n\n// NoSQL document idea (Mongo-like)\n{\n  \"_id\": \"u1\",\n  \"name\": \"Alex\",\n  \"orders\": [{ \"total\": 40 }, { \"total\": 12 }]\n}"
+    "code_snippet": "-- SQL: structured relations\nSELECT u.name, o.total\nFROM users u\nJOIN orders o ON o.user_id = u.id;\n\n// NoSQL document idea (Mongo-like)\n{\n  \"_id\": \"u1\",\n  \"name\": \"Alex\",\n  \"orders\": [{ \"total\": 40 }, { \"total\": 12 }]\n}",
+    "reference_url": "https://www.mongodb.com/resources/basics/databases/nosql-explained/nosql-vs-sql"
   },
   {
     "id": 24,
@@ -261,7 +284,8 @@
     "hint_he": "איך containers אורזים אפליקציה עם התלויות שלה כדי שתרוץ אותו דבר מהמחשב עד production?",
     "correctAnswer_en": "Docker containers package an application with its runtime and dependencies into a portable, isolated unit that runs consistently across machines. That shrinks “works on my machine” gaps, speeds CI/CD, and simplifies scaling in orchestration platforms. Containers virtualize at the OS process level — lighter than full VMs while still isolating apps.",
     "correctAnswer_he": "Docker containers אורזים אפליקציה עם ה-runtime והתלויות ליחידה ניידת ומבודדת שרצה בעקביות בין מכונות. זה מצמצם פערי \"works on my machine\", מאיץ CI/CD ומפשט scaling בפלטפורמות orchestration. Containers עושים וירטואליזציה ברמת תהליכי OS — קלים יותר מ-VMs מלאים ועדיין מבודדים אפליקציות.",
-    "code_snippet": "# Dockerfile (sketch)\nFROM node:20-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nCMD [\"npm\", \"start\"]\n\n# Build & run\n# docker build -t my-api .\n# docker run -p 3000:3000 my-api"
+    "code_snippet": "# Dockerfile (sketch)\nFROM node:20-alpine\nWORKDIR /app\nCOPY package*.json ./\nRUN npm ci\nCOPY . .\nCMD [\"npm\", \"start\"]\n\n# Build & run\n# docker build -t my-api .\n# docker run -p 3000:3000 my-api",
+    "reference_url": "https://docs.docker.com/get-started/docker-overview/"
   },
   {
     "id": 25,
@@ -272,7 +296,8 @@
     "hint_he": "כמהנדס frontend, האם שפת ה-backend חשובה אם חוזה ה-API ברור?",
     "correctAnswer_en": "No — a frontend developer should collaborate with any backend through well-defined API contracts (REST/GraphQL, auth, errors, versioning). The implementation language behind the API is secondary to clear interfaces, documentation, and joint ownership of the contract. Strong teams align on schemas and SLAs, not on sharing the same runtime.",
     "correctAnswer_he": "לא — מפתח frontend צריך לשתף פעולה עם כל backend דרך חוזי API מוגדרים היטב (REST/GraphQL, auth, שגיאות, גרסאות). שפת המימוש מאחורי ה-API משנית לממשקים ברורים, תיעוד ובעלות משותפת על החוזה. צוותים חזקים מיישרים schemas ו-SLAs, לא את אותו runtime.",
-    "code_snippet": "// Frontend depends on the contract, not Java/Go/Node internals\nconst res = await fetch('/api/orders', {\n  headers: { Authorization: `Bearer ${token}` },\n});\nconst orders = await res.json(); // same client for any backend stack"
+    "code_snippet": "// Frontend depends on the contract, not Java/Go/Node internals\nconst res = await fetch('/api/orders', {\n  headers: { Authorization: `Bearer ${token}` },\n});\nconst orders = await res.json(); // same client for any backend stack",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Learn/Common_questions/Web_mechanics/What_is_a_web_server"
   },
   {
     "id": 26,
@@ -283,7 +308,8 @@
     "hint_he": "מה typeof [] מחזיר, ואיזה helper מזהה מערכים נכון?",
     "correctAnswer_en": "In JavaScript arrays are objects: typeof [] === \"object\". The correct check is Array.isArray(value). Knowing this avoids bugs when validating API payloads or branching on data shapes — a small detail that shows solid language fundamentals in architecture/JS interviews.",
     "correctAnswer_he": "ב-JavaScript מערכים הם objects: typeof [] === \"object\". הבדיקה הנכונה היא Array.isArray(value). הידע הזה מונע באגים בולידציית payloads של API או בפיצול לפי צורת נתונים — פרט קטן שמראה יסודות שפה חזקים בראיונות architecture/JS.",
-    "code_snippet": "console.log(typeof []);           // 'object'\nconsole.log(Array.isArray([]));   // true\nconsole.log(Array.isArray({}));   // false\n\nfunction assertArray(value) {\n  if (!Array.isArray(value)) throw new TypeError('Expected array');\n}"
+    "code_snippet": "console.log(typeof []);           // 'object'\nconsole.log(Array.isArray([]));   // true\nconsole.log(Array.isArray({}));   // false\n\nfunction assertArray(value) {\n  if (!Array.isArray(value)) throw new TypeError('Expected array');\n}",
+    "reference_url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/typeof"
   },
   {
     "id": 27,
@@ -294,7 +320,8 @@
     "hint_he": "אילו יכולות מובנות ב-Angular מכסות DI, reactivity, routing וטפסים?",
     "correctAnswer_en": "Angular is a full framework: TypeScript-first, dependency injection, components, templates, RxJS (and signals), router, reactive/template-driven forms, directives, pipes (including async), and modular/standalone organization. It optimizes for structured enterprise apps with conventions and tooling out of the box.",
     "correctAnswer_he": "Angular הוא framework מלא: TypeScript-first, dependency injection, components, templates, RxJS (ו-signals), router, טפסים reactive/template-driven, directives, pipes (כולל async), וארגון modular/standalone. הוא מותאם לאפליקציות enterprise מובנות עם מוסכמות וכלים מהקופסה.",
-    "code_snippet": "// Angular mental model (sketch)\n@Component({\n  selector: 'app-hello',\n  template: `<h1>{{ title }}</h1>`,\n  standalone: true,\n})\nexport class HelloComponent {\n  title = 'Angular';\n}\n\n// + DI services, Router, ReactiveFormsModule, async pipe, etc."
+    "code_snippet": "// Angular mental model (sketch)\n@Component({\n  selector: 'app-hello',\n  template: `<h1>{{ title }}</h1>`,\n  standalone: true,\n})\nexport class HelloComponent {\n  title = 'Angular';\n}\n\n// + DI services, Router, ReactiveFormsModule, async pipe, etc.",
+    "reference_url": "https://angular.dev/overview"
   },
   {
     "id": 28,
@@ -305,7 +332,8 @@
     "hint_he": "בנו תשובה בסגנון STAR: מצב, גישה, tradeoffs, ותוצאה מדידה.",
     "correctAnswer_en": "Pick a real challenge (complex state, payments/booking flows, performance, device APIs, design systems). Explain constraints, the options you considered, the solution you shipped, and the result (metrics, reliability, DX). Interviewers care about ownership and engineering judgment more than a perfect story — be specific and honest about tradeoffs.",
     "correctAnswer_he": "בחרו אתגר אמיתי (state מורכב, תשלומים/הזמנות, ביצועים, device APIs, design systems). הסבירו מגבלות, חלופות ששקלתם, הפתרון ששחררתם, והתוצאה (מדדים, אמינות, DX). מראיינים מחפשים בעלות ושיקול הנדסי יותר מסיפור מושלם — היו ספציפיים וכנים לגבי tradeoffs.",
-    "code_snippet": "// Answer outline (not code to run)\n// 1) Context: marketplace checkout flaked under concurrency\n// 2) Options: client retries vs idempotent pay-api keys\n// 3) Decision: idempotency keys + optimistic UI + monitoring\n// 4) Outcome: -40% failed charges, clearer support logs"
+    "code_snippet": "// Answer outline (not code to run)\n// 1) Context: marketplace checkout flaked under concurrency\n// 2) Options: client retries vs idempotent pay-api keys\n// 3) Decision: idempotency keys + optimistic UI + monitoring\n// 4) Outcome: -40% failed charges, clearer support logs",
+    "reference_url": "https://www.techinterviewhandbook.org/behavioral-questions/"
   },
   {
     "id": 29,
@@ -316,7 +344,8 @@
     "hint_he": "ציינו אופטימיזציות frontend ו-backend שמקצרות זמן טעינה, jank ועלות שרת.",
     "correctAnswer_en": "Web optimization spans the stack: compress/cache assets, optimize images, code-split, remove unused JS/listeners, fix memory leaks, paginate data, add CDN/HTTP caching, and index hot database queries. Measure with Lighthouse/profilers/APM first — then optimize the real bottleneck. Performance is an architecture concern, not only micro-tweaks.",
     "correctAnswer_he": "אופטימיזציית web חוצה את כל השכבות: דחיסה/cache לנכסים, אופטימיזציית תמונות, code-split, הסרת JS/listeners מיותרים, תיקון memory leaks, pagination, CDN/HTTP caching, ואינדוקס שאילתות חמות. מדדו קודם עם Lighthouse/profilers/APM — ואז אופטימזו את צוואר הבקבוק האמיתי. ביצועים הם עניין ארכיטקטוני, לא רק מיקרו-טיובים.",
-    "code_snippet": "// Frontend: lazy route + image sizing\nconst Admin = lazy(() => import('./Admin'));\n\n<img src=\"hero.webp\" width=\"800\" height=\"400\" loading=\"lazy\" />\n\n// Backend: index for a frequent filter\n// CREATE INDEX idx_orders_user ON orders(user_id);"
+    "code_snippet": "// Frontend: lazy route + image sizing\nconst Admin = lazy(() => import('./Admin'));\n\n<img src=\"hero.webp\" width=\"800\" height=\"400\" loading=\"lazy\" />\n\n// Backend: index for a frequent filter\n// CREATE INDEX idx_orders_user ON orders(user_id);",
+    "reference_url": "https://web.dev/articles/fast"
   },
   {
     "id": 30,
@@ -327,6 +356,7 @@
     "hint_he": "ממסכי ה-UI, איך גוזרים ישויות, בעלות על state, וזרימת נתונים?",
     "correctAnswer_en": "Start from screens and user actions: identify entities, fields, and events; define model/state shape; decide ownership (local UI state vs lifted vs global store/server cache); then map reads/writes through components and services/APIs. Good data-flow design prevents prop-drilling chaos and duplicated sources of truth before coding begins.",
     "correctAnswer_he": "מתחילים ממסכים ומפעולות משתמש: מזהים ישויות, שדות ואירועים; מגדירים צורת model/state; מחליטים על בעלות (state מקומי ב-UI מול lifted מול store גלובלי/server cache); ואז ממפים קריאות/כתיבות דרך קומפוננטות ו-services/APIs. תכנון data-flow טוב מונע כאוס prop-drilling ומקורות אמת כפולים לפני שמתחילים לקודד.",
-    "code_snippet": "// UI-driven modeling sketch\n// Screen: Cart\n// Entities: Cart, CartItem, Product, User\n// Local UI: isDrawerOpen\n// Server/global: cart items, prices, auth user\n// Flow: UI event -> api.updateCart -> cache/store -> re-render\n\nconst stateShape = {\n  ui: { isDrawerOpen: false },\n  cart: { items: [], total: 0 },\n  session: { user: null },\n};"
+    "code_snippet": "// UI-driven modeling sketch\n// Screen: Cart\n// Entities: Cart, CartItem, Product, User\n// Local UI: isDrawerOpen\n// Server/global: cart items, prices, auth user\n// Flow: UI event -> api.updateCart -> cache/store -> re-render\n\nconst stateShape = {\n  ui: { isDrawerOpen: false },\n  cart: { items: [], total: 0 },\n  session: { user: null },\n};",
+    "reference_url": "https://react.dev/learn/thinking-in-react"
   }
 ]

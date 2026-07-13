@@ -68,6 +68,7 @@ export const UI = {
     backToSubjects: 'Back to subjects',
     achievementUnlockedToast: (title) => `🏆 New achievement unlocked: ${title}!`,
     closeToast: 'Close',
+    learnMore: '🔗 Read more on W3Schools / MDN',
   },
   he: {
     title: 'כרטיסיות ראיון טכני',
@@ -138,5 +139,6 @@ export const UI = {
     backToSubjects: 'חזרה לנושאים',
     achievementUnlockedToast: (title) => `🏆 הישג חדש נפתח: ${title}!`,
     closeToast: 'סגור',
+    learnMore: '🔗 לקריאה נוספת ב-W3Schools / MDN',
   },
 };

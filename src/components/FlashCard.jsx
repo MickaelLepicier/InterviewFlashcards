@@ -1,5 +1,6 @@
 import CodeBlock from './CodeBlock';
 import CopyButton from './CopyButton';
+import ReferenceLink from './ReferenceLink';
 import { useState } from 'react';
 import { getCorrectAnswer, getHint, getQuestion } from '../utils/cardContent';
 
@@ -25,6 +26,8 @@ function CardFace({
   showHintLabel,
   hideHintLabel,
   hintTitle,
+  referenceUrl,
+  learnMoreLabel,
 }) {
   const displayContent = isBack ? content : getQuestionText(content, code);
   const [isHintOpen, setIsHintOpen] = useState(false);
@@ -77,6 +80,9 @@ function CardFace({
           copyLabel={copyCodeLabel}
           copiedLabel={copiedLabel}
         />
+        {isBack && referenceUrl ? (
+          <ReferenceLink url={referenceUrl} label={learnMoreLabel} />
+        ) : null}
       </div>
 
       <div className="mt-4 space-y-2">
@@ -123,10 +129,12 @@ export default function FlashCard({
   showHintLabel,
   hideHintLabel,
   hintTitle,
+  learnMoreLabel,
 }) {
   const question = getQuestion(card, lang);
   const answer = getCorrectAnswer(card, lang);
   const hintText = getHint(card, lang);
+  const referenceUrl = card.reference_url ?? null;
 
   const handleFlip = () => {
     const selection = window.getSelection();
@@ -164,6 +172,8 @@ export default function FlashCard({
             showHintLabel={showHintLabel}
             hideHintLabel={hideHintLabel}
             hintTitle={hintTitle}
+            referenceUrl={referenceUrl}
+            learnMoreLabel={learnMoreLabel}
           />
           <CardFace
             label={answerLabel}
@@ -175,6 +185,8 @@ export default function FlashCard({
             copyTextLabel={copyTextLabel}
             copiedLabel={copiedLabel}
             copyCodeLabel={copyCodeLabel}
+            referenceUrl={referenceUrl}
+            learnMoreLabel={learnMoreLabel}
           />
         </div>
       </div>
