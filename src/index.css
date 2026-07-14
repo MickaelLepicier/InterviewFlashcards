@@ -158,6 +158,28 @@ body {
   animation: achievement-toast-in 0.35s ease-out both;
 }
 
+.achievement-card--unlocked {
+  opacity: 1;
+}
+
+.achievement-card--locked {
+  opacity: 0.92;
+}
+
+.achievement-badge-icon {
+  filter: grayscale(100%);
+}
+
+.achievement-lock-overlay {
+  pointer-events: none;
+}
+
+@media (max-width: 639px) {
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* ── Mobile layout (phones) ───────────────────────────────────────── */
 
 .app-shell {

@@ -65,9 +65,16 @@ export const UI = {
     achievementsLabel: 'Medals & Badges',
     achievementsTitle: 'My Achievements',
     achievementsButton: 'My Achievements',
+    achievementsIntro:
+      '🏆 The Anime Hall of Fame! Complete quizzes to unlock badges of your favorite heroes from DBZ, Naruto, and Yu-Gi-Oh. Can you collect them all?',
     achievementsProgress: (unlocked, total) => `${unlocked} of ${total} unlocked`,
+    achievementsProgressDetail: (unlocked, total) =>
+      `You have unlocked ${unlocked} out of ${total} achievements`,
+    achievementHowToUnlock: 'How to unlock',
     achievementUnlocked: 'Unlocked',
     achievementLocked: 'Locked',
+    achievementUnlockedBadge: '🔓 Unlocked',
+    achievementLockedBadge: '🔒 Locked',
     backToSubjects: 'Back to subjects',
     achievementUnlockedToast: (title) => `🏆 New achievement unlocked: ${title}!`,
     closeToast: 'Close',
@@ -139,9 +146,16 @@ export const UI = {
     achievementsLabel: 'הישגים ומדליות',
     achievementsTitle: 'ההישגים שלי',
     achievementsButton: 'ההישגים שלי',
+    achievementsIntro:
+      '🏆 היכל התהילה של האנימה! השלם מבחנים בהצלחה כדי לפתוח מדליות של הגיבורים האהובים עליך מדרגון בול, נארוטו ויוגיהו. האם תצליח לאסוף את כולם?',
     achievementsProgress: (unlocked, total) => `${unlocked} מתוך ${total} נפתחו`,
+    achievementsProgressDetail: (unlocked, total) =>
+      `פתחת ${unlocked} מתוך ${total} הישגים`,
+    achievementHowToUnlock: 'איך לפתוח',
     achievementUnlocked: 'נפתח',
     achievementLocked: 'נעול',
+    achievementUnlockedBadge: '🔓 פתוח',
+    achievementLockedBadge: '🔒 נעול',
     backToSubjects: 'חזרה לנושאים',
     achievementUnlockedToast: (title) => `🏆 הישג חדש נפתח: ${title}!`,
     closeToast: 'סגור',
