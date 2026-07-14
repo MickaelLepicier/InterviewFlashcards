@@ -22,6 +22,7 @@ export const UI = {
     nextQuestion: 'Next Question',
     feedbackTitle: 'Feedback',
     correct: 'Correct',
+    partial: 'Partially correct',
     incorrect: 'Needs improvement',
     emptyAnswer: 'Please type an answer before submitting.',
     tapToFlip: 'Click card to reveal answer',
@@ -53,6 +54,8 @@ export const UI = {
     loadingSubject: 'Loading questions...',
     feedbackSuccess: (rate) =>
       `Great job! Your answer is correct. (Match rate: ${rate}%)`,
+    feedbackPartial: (rate) =>
+      `Nice — partially correct, and it still counts! (Match rate: ${rate}%)`,
     feedbackFailure: (rate) =>
       `Not quite, try again in the next question! (Match rate: ${rate}%)`,
     officialAnswerLabel: 'Official answer',
@@ -93,6 +96,7 @@ export const UI = {
     nextQuestion: 'שאלה הבאה',
     feedbackTitle: 'משוב',
     correct: 'נכון',
+    partial: 'חלקית',
     incorrect: 'דורש שיפור',
     emptyAnswer: 'אנא הקלד תשובה לפני השליחה.',
     tapToFlip: 'לחץ על הכרטיס לחשיפת התשובה',
@@ -124,6 +128,8 @@ export const UI = {
     loadingSubject: 'טוען שאלות...',
     feedbackSuccess: (rate) =>
       `כל הכבוד! התשובה שלך נכונה. (אחוז התאמה: ${rate}%)`,
+    feedbackPartial: (rate) =>
+      `יפה — התשובה חלקית, ועדיין נספרת כנכונה! (אחוז התאמה: ${rate}%)`,
     feedbackFailure: (rate) =>
       `לא נורא, נסה שוב בשאלה הבאה! (אחוז התאמה: ${rate}%)`,
     officialAnswerLabel: 'תשובה רשמית',

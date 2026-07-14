@@ -54,7 +54,9 @@ export default function AiExamMode({
   const hasFeedback = feedback !== null;
   const feedbackMessage = feedback
     ? feedback.isCorrect
-      ? t.feedbackSuccess(feedback.averageMatchRate)
+      ? feedback.isPartial
+        ? t.feedbackPartial(feedback.averageMatchRate)
+        : t.feedbackSuccess(feedback.averageMatchRate)
       : t.feedbackFailure(feedback.averageMatchRate)
     : '';
 
@@ -146,13 +148,18 @@ export default function AiExamMode({
       subjectId,
       cardId: card.id,
       studentAnswer: answer.trim(),
+      correctAnswerEn: card.correctAnswer_en ?? card.answer_en ?? '',
+      correctAnswerHe: card.correctAnswer_he ?? card.answer_he ?? '',
     });
 
     const wasCorrect = result.isCorrect;
     const previousResult = results[currentIndex];
     const nextResults = {
       ...results,
-      [currentIndex]: { isCorrect: wasCorrect },
+      [currentIndex]: {
+        isCorrect: wasCorrect,
+        isPartial: Boolean(result.isPartial),
+      },
     };
 
     setResults(nextResults);
@@ -277,11 +284,17 @@ export default function AiExamMode({
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
                       feedback.isCorrect
-                        ? 'bg-emerald-200 text-emerald-800'
+                        ? feedback.isPartial
+                          ? 'bg-amber-200 text-amber-900'
+                          : 'bg-emerald-200 text-emerald-800'
                         : 'bg-orange-200 text-orange-800'
                     }`}
                   >
-                    {feedback.isCorrect ? t.correct : t.incorrect}
+                    {feedback.isCorrect
+                      ? feedback.isPartial
+                        ? t.partial
+                        : t.correct
+                      : t.incorrect}
                   </span>
                   {feedback.isCorrect ? (
                     <span className="text-xs font-semibold text-emerald-700">
