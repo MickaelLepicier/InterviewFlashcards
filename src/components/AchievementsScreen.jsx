@@ -87,7 +87,7 @@ export default function AchievementsScreen({ lang, t, achievementsVersion, onBac
                 >
                   <span
                     className={
-                      unlocked ? '' : 'achievement-badge-icon opacity-55 grayscale'
+                      unlocked ? '' : 'achievement-badge-icon opacity-80'
                     }
                   >
                     {achievement.badge_icon}
