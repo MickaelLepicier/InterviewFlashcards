@@ -1,6 +1,14 @@
+/**
+ * Keyword & Semantic Concept Counter
+ * Rewards concept coverage / synonyms; penalizes incomplete cut-off answers.
+ * Does NOT rely on raw full-string Levenshtein distance for pass/fail.
+ */
+
 export const PASS_THRESHOLD = 55;
 export const PARTIAL_THRESHOLD = 45;
 export const STRONG_THRESHOLD = 70;
+/** Cap when fewer than 2 of 3 conceptual pillars are present. */
+export const INCOMPLETE_SCORE_CAP = 40;
 
 const STOP_WORDS = new Set([
   'a', 'an', 'the', 'is', 'are', 'was', 'were', 'of', 'in', 'to', 'for',
@@ -13,15 +21,85 @@ const STOP_WORDS = new Set([
   'via', 'like', 'may', 'should', 'would', 'could', 'between', 'both',
   'each', 'other', 'same', 'very', 'much', 'many', 'some', 'any', 'all',
   'one', 'two', 'so', 'no', 'yes', 'new', 'make', 'makes', 'made',
-  'allow', 'allows', 'let', 'lets', 'get', 'gets', 'set', 'sets',
-  'כל', 'הוא', 'היא', 'הם', 'הן', 'של', 'על', 'את', 'זה', 'זו', 'אך',
-  'או', 'גם', 'לא', 'כי', 'אם', 'עם', 'יש', 'אין', 'כדי', 'בין', 'אשר',
-  'כך', 'עוד', 'רק', 'יותר', 'פחות', 'ניתן', 'אפשר', 'צריך', 'כאשר',
-  'מאפשר', 'מאפשרת', 'מאפשרים', 'משתמשים', 'שימוש', 'דרך', 'כמו',
-  'הוא', 'היא',
+  'allow', 'allows', 'allowed', 'let', 'lets', 'get', 'gets', 'set',
+  'sets', 'still', 'must', 'required', 'simply', 'tells', 'tell',
+  'puts', 'put', 'keeps', 'keep', 'know', 'knows', 'need', 'needs',
+  'needed', 'without', 'while', 'during', 'before', 'after', 'because',
+  'through', 'across', 'under', 'above', 'being', 'been', 'having',
+  'ה', 'ב', 'ל', 'מ', 'ו', 'כ', 'ש', 'את', 'של', 'על', 'עם', 'או',
+  'גם', 'לא', 'כי', 'אם', 'יש', 'אין', 'כל', 'זה', 'זו', 'הוא', 'היא',
+  'הם', 'הן', 'אך', 'כך', 'עוד', 'רק', 'בין', 'אשר', 'כדי', 'יותר',
+  'פחות', 'ניתן', 'אפשר', 'צריך', 'כאשר', 'עבור', 'בלי', 'בלעדיהן',
+  'בלעדיו', 'מה', 'מי', 'איזה', 'איזו', 'דרך', 'כמו', 'שימוש',
+  'משתמשים', 'מאפשר', 'מאפשרת', 'מאפשרים', 'אומר', 'אומרת', 'פשוט',
+  'עדיין', 'נדרש', 'חייב', 'חיבת', 'להיות', 'השורה',
 ]);
 
 const HEBREW_PREFIXES = ['ה', 'ב', 'ל', 'מ', 'ו', 'כ', 'ש'];
+
+/** Synonym / related-term groups (any member can satisfy a concept). */
+const SYNONYM_GROUPS = [
+  ['doctype', 'documenttype', 'document', 'סוגמסמך', 'מסמך'],
+  ['html5', 'html', 'htm'],
+  ['browser', 'browsers', 'דפדפן', 'דפדפנים'],
+  ['standards', 'standard', 'סטנדרט', 'סטנדרטים'],
+  ['quirks', 'quirk', 'קוורקס'],
+  ['mode', 'modes', 'מצב', 'מצבים'],
+  ['rendering', 'render', 'רינדור', 'רינדורים'],
+  ['first', 'ראשונה', 'ראשון', 'בראש'],
+  ['line', 'שורה'],
+  ['parsing', 'parse', 'parser'],
+  ['declaration', 'declare', 'הצהרה'],
+  ['syntax', 'תחביר'],
+  ['undefined', 'לאמוגדר'],
+  ['null', 'נאל'],
+  ['hoisting', 'העמסה', 'הרמה'],
+  ['closure', 'closures', 'סגירה', 'סגור'],
+  ['prototype', 'prototypes'],
+  ['spread', 'מפרק', 'מפזר', 'unpack', 'unpacks'],
+  ['rest', 'אוסף'],
+  ['promise', 'promises'],
+  ['callback', 'callbacks'],
+  ['async', 'asynchronous', 'אסינכרוני'],
+  ['sync', 'synchronous', 'סינכרוני'],
+  ['mutable', 'immutable'],
+  ['virtual', 'vdom'],
+  ['jsx'],
+  ['hook', 'hooks'],
+  ['context'],
+  ['memo', 'usememo', 'usecallback'],
+  ['ref', 'refs', 'useref'],
+  ['hydration', 'hydrate'],
+  ['ssr', 'serverside'],
+  ['restapi', 'restful'],
+  ['graphql'],
+  ['docker', 'container', 'containers'],
+  ['flexbox', 'flex'],
+  ['grid'],
+  ['padding', 'margin'],
+  ['canvas', 'svg'],
+  ['localstorage', 'sessionstorage', 'cookies', 'cookie'],
+  ['entity', 'entities', 'escape'],
+  ['worker', 'workers'],
+  ['storage'],
+];
+
+const MULTI_WORD_PHRASES = [
+  'standards mode',
+  'quirks mode',
+  'doctype html',
+  'document type',
+  'first line',
+  'server side',
+  'virtual dom',
+  'event loop',
+  'higher order',
+  'one way',
+  'two way',
+  'סוג מסמך',
+  'מצב סטנדרטי',
+  'שורה ראשונה',
+];
 
 /** Strip punctuation, lowercase, collapse whitespace. */
 export function normalizeAnswer(text) {
@@ -38,16 +116,18 @@ function isHebrewToken(token) {
   return /[\u0590-\u05FF]/.test(token);
 }
 
-/** Soft-strip common Hebrew grammar prefixes before technical keywords. */
 export function stripHebrewPrefix(token) {
   if (!isHebrewToken(token) || token.length < 4) return token;
-
   for (const prefix of HEBREW_PREFIXES) {
     if (token.startsWith(prefix) && token.length - prefix.length >= 3) {
       return token.slice(prefix.length);
     }
   }
   return token;
+}
+
+function compactToken(token) {
+  return stripHebrewPrefix(token).replace(/[^a-z0-9\u0590-\u05ff]/gi, '');
 }
 
 function tokenize(normalized) {
@@ -57,241 +137,295 @@ function tokenize(normalized) {
     .filter(Boolean);
 }
 
-function isKeyword(token) {
-  if (STOP_WORDS.has(token)) return false;
-  if (token.length <= 2) return false;
-  // Keep short technical tokens (JS APIs etc.)
-  if (/^[a-z0-9_$]+$/i.test(token) && token.length >= 2) {
-    if (token.length <= 3 && !/[0-9_$]/.test(token) && !STOP_WORDS.has(token)) {
-      // allow js-ish short words like map, var, dom, api, spa, ssr
-      return true;
-    }
+function isContentWord(token) {
+  const compact = compactToken(token);
+  if (!compact || STOP_WORDS.has(token) || STOP_WORDS.has(compact)) return false;
+  if (compact.length <= 1) return false;
+  if (compact.length <= 2 && !/^[a-z0-9]+$/i.test(compact)) return false;
+  // Keep short technical tokens (js, api, dom, html, ssr…)
+  if (compact.length <= 3) {
+    return /^[a-z0-9_$]+$/i.test(compact);
   }
-  return token.length >= 4 || isHebrewToken(token);
+  return true;
 }
 
+function synonymKey(token) {
+  const compact = compactToken(token);
+  if (!compact) return '';
+
+  for (const group of SYNONYM_GROUPS) {
+    if (group.some((alias) => compactToken(alias) === compact || compact.includes(compactToken(alias)))) {
+      return group[0];
+    }
+  }
+  return compact;
+}
+
+function expandWithSynonyms(token) {
+  const compact = compactToken(token);
+  const keys = new Set([compact, synonymKey(token)].filter(Boolean));
+
+  for (const group of SYNONYM_GROUPS) {
+    if (group.some((alias) => keys.has(compactToken(alias)))) {
+      group.forEach((alias) => keys.add(compactToken(alias)));
+    }
+  }
+  return keys;
+}
+
+/** Unique meaningful content words from text. */
 export function extractKeywords(text) {
   const tokens = tokenize(normalizeAnswer(text));
   const keywords = [];
   const seen = new Set();
 
   for (const token of tokens) {
-    if (!isKeyword(token) || seen.has(token)) continue;
-    seen.add(token);
+    if (!isContentWord(token)) continue;
+    const key = synonymKey(token);
+    if (!key || seen.has(key)) continue;
+    seen.add(key);
     keywords.push(token);
   }
 
   return keywords;
 }
 
-function levenshteinDistance(a, b) {
-  if (a === b) return 0;
-  if (!a.length) return b.length;
-  if (!b.length) return a.length;
-
-  // Prefer the shorter string as columns for memory
-  if (a.length > b.length) [a, b] = [b, a];
-
-  let previous = Array.from({ length: a.length + 1 }, (_, i) => i);
-
-  for (let j = 1; j <= b.length; j += 1) {
-    const current = [j];
-    for (let i = 1; i <= a.length; i += 1) {
-      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
-      current[i] = Math.min(
-        previous[i] + 1,
-        current[i - 1] + 1,
-        previous[i - 1] + cost,
-      );
-    }
-    previous = current;
-  }
-
-  return previous[a.length];
-}
-
-function tokenSimilarity(a, b) {
-  if (a === b) return 1;
-  if (!a || !b) return 0;
-
-  const maxLen = Math.max(a.length, b.length);
-  if (maxLen <= 2) return a === b ? 1 : 0;
-
-  const distance = levenshteinDistance(a, b);
-  const ratio = 1 - distance / maxLen;
-
-  // Prefix / contains soft match for stemmed-ish words
-  if (a.length >= 4 && b.length >= 4) {
-    if (a.startsWith(b) || b.startsWith(a)) {
-      return Math.max(ratio, 0.85);
+function extractMultiWordHits(normalizedText) {
+  const hits = [];
+  for (const phrase of MULTI_WORD_PHRASES) {
+    if (normalizedText.includes(phrase)) {
+      hits.push(phrase);
     }
   }
-
-  return ratio;
-}
-
-function tokensMatch(userToken, keyword) {
-  return tokenSimilarity(userToken, keyword) >= 0.78;
-}
-
-/** % of official keywords found (fuzzily) in the user answer. */
-export function keywordCoveragePercent(userAnswer, officialAnswer) {
-  const userTokens = tokenize(normalizeAnswer(userAnswer));
-  const userKeywords = extractKeywords(userAnswer);
-  const keywords = extractKeywords(officialAnswer);
-
-  const pool =
-    keywords.length > 0
-      ? keywords
-      : tokenize(normalizeAnswer(officialAnswer)).filter(
-          (token) => token.length >= 3 && !STOP_WORDS.has(token),
-        );
-
-  if (pool.length === 0) return 0;
-
-  // Fewer target keywords when the user writes a short paraphrase.
-  const targetCount = Math.min(
-    pool.length,
-    Math.max(4, Math.min(8, userKeywords.length + 2 || 5)),
-  );
-  const ranked = [...pool].sort((a, b) => b.length - a.length).slice(0, targetCount);
-
-  return keywordCoverageFromLists(userTokens, ranked);
+  return hits;
 }
 
 /**
- * What fraction of the user's own keywords appear in the official answer.
- * Critical for short, on-topic paraphrases.
+ * Build up to 3 conceptual pillars from the official answer.
+ * Prefer real sentence boundaries (before stripping periods); else keyword thirds.
+ * Terms are de-duplicated across pillars so each pillar stays distinct.
  */
-export function userKeywordPrecisionPercent(userAnswer, officialAnswer) {
-  const userKeywords = extractKeywords(userAnswer);
-  const officialTokens = tokenize(normalizeAnswer(officialAnswer));
-  const officialKeywords = extractKeywords(officialAnswer);
+export function buildConceptPillars(officialAnswer) {
+  const raw = String(officialAnswer ?? '').trim();
+  if (!raw) return [];
 
-  if (userKeywords.length === 0) return 0;
+  const sentenceChunks = raw
+    .split(/(?<=[.!?…])\s+|\n+/)
+    .map((part) => part.trim())
+    .filter((part) => extractKeywords(part).length >= 2);
 
-  let matched = 0;
-  for (const keyword of userKeywords) {
-    const inOfficial =
-      officialKeywords.some((token) => tokensMatch(token, keyword)) ||
-      officialTokens.some((token) => tokensMatch(token, keyword));
-    if (inOfficial) matched += 1;
+  let chunks = [];
+  if (sentenceChunks.length >= 3) {
+    chunks = [
+      sentenceChunks[0],
+      sentenceChunks[Math.floor((sentenceChunks.length - 1) / 2)],
+      sentenceChunks[sentenceChunks.length - 1],
+    ];
+  } else if (sentenceChunks.length === 2) {
+    const midKeywords = extractKeywords(sentenceChunks[0] + ' ' + sentenceChunks[1]);
+    const mid = midKeywords.slice(Math.floor(midKeywords.length / 3), Math.ceil((midKeywords.length * 2) / 3)).join(' ');
+    chunks = [sentenceChunks[0], mid || sentenceChunks[1], sentenceChunks[1]];
+  } else {
+    const keywords = extractKeywords(officialAnswer);
+    if (keywords.length === 0) return [];
+    const size = Math.max(1, Math.ceil(keywords.length / 3));
+    chunks = [0, 1, 2]
+      .map((index) => keywords.slice(index * size, index * size + size).join(' '))
+      .filter((chunk) => chunk.trim().length > 0);
   }
 
-  return Math.round((matched / userKeywords.length) * 100);
-}
-
-function keywordCoverageFromLists(userTokens, keywords) {
-  if (keywords.length === 0) return 0;
-
-  let matched = 0;
-  for (const keyword of keywords) {
-    if (userTokens.some((token) => tokensMatch(token, keyword))) {
-      matched += 1;
-    }
+  while (chunks.length < 3 && chunks.length > 0) {
+    chunks.push(chunks[chunks.length - 1]);
   }
+  chunks = chunks.slice(0, 3);
 
-  return Math.round((matched / keywords.length) * 100);
+  const usedTerms = new Set();
+  const usedPhrases = new Set();
+
+  return chunks
+    .map((chunk, index) => {
+      const keywords = extractKeywords(chunk);
+      const phrases = extractMultiWordHits(normalizeAnswer(chunk));
+
+      // Prefer phrases/terms unique to this pillar.
+      const uniquePhrases = phrases.filter((phrase) => !usedPhrases.has(phrase));
+      uniquePhrases.forEach((phrase) => usedPhrases.add(phrase));
+
+      const uniqueTerms = [];
+      for (const keyword of keywords) {
+        const key = synonymKey(keyword);
+        if (!key || usedTerms.has(key)) continue;
+        usedTerms.add(key);
+        uniqueTerms.push(key);
+      }
+
+      // Keep at least one signal even if overlap was heavy.
+      if (uniqueTerms.length === 0 && uniquePhrases.length === 0) {
+        for (const keyword of keywords) {
+          const key = synonymKey(keyword);
+          if (key) {
+            uniqueTerms.push(key);
+            break;
+          }
+        }
+      }
+
+      return {
+        id: index,
+        label: normalizeAnswer(chunk).slice(0, 48),
+        terms: uniqueTerms,
+        phrases: uniquePhrases,
+      };
+    })
+    .filter((pillar) => pillar.terms.length > 0 || pillar.phrases.length > 0);
 }
 
-/** Jaccard on keyword sets (user ∩ official) / (user ∪ official). */
-export function keywordJaccardPercent(userAnswer, officialAnswer) {
-  const userSet = new Set(extractKeywords(userAnswer));
-  const officialSet = new Set(extractKeywords(officialAnswer));
+function userContainsTerm(normalizedUser, userTokens, term) {
+  if (!term) return false;
+  if (normalizedUser.includes(term)) return true;
 
-  if (userSet.size === 0 && officialSet.size === 0) return 100;
-  if (userSet.size === 0 || officialSet.size === 0) return 0;
-
-  let intersection = 0;
-  for (const token of userSet) {
-    for (const official of officialSet) {
-      if (tokensMatch(token, official)) {
-        intersection += 1;
-        break;
+  const termKeys = expandWithSynonyms(term);
+  return userTokens.some((token) => {
+    const tokenKeys = expandWithSynonyms(token);
+    for (const key of termKeys) {
+      if (tokenKeys.has(key)) return true;
+      // Soft stem: standards/standard, browsers/browser
+      if (key.length >= 4 && [...tokenKeys].some((tk) => tk.startsWith(key) || key.startsWith(tk))) {
+        return true;
       }
     }
-  }
-
-  const union = userSet.size + officialSet.size - intersection;
-  return union === 0 ? 0 : Math.round((intersection / union) * 100);
+    return false;
+  });
 }
 
-/**
- * Character-level similarity against the official text, but also against a
- * keyword "essence" so short paraphrases aren't crushed by paragraph length.
- */
-export function calculateSimilarityPercent(userAnswer, officialAnswer) {
+export function pillarIsMatched(userAnswer, pillar) {
   const normalizedUser = normalizeAnswer(userAnswer);
-  const normalizedOfficial = normalizeAnswer(officialAnswer);
+  const userTokens = tokenize(normalizedUser);
 
-  if (!normalizedUser && !normalizedOfficial) return 100;
-  if (!normalizedUser || !normalizedOfficial) return 0;
-
-  const fullDistance = levenshteinDistance(normalizedUser, normalizedOfficial);
-  const fullMax = Math.max(normalizedUser.length, normalizedOfficial.length);
-  const fullScore = Math.round((1 - fullDistance / fullMax) * 100);
-
-  const essence = extractKeywords(officialAnswer).slice(0, 12).join(' ');
-  let essenceScore = 0;
-  if (essence) {
-    const essenceDistance = levenshteinDistance(normalizedUser, essence);
-    const essenceMax = Math.max(normalizedUser.length, essence.length);
-    essenceScore = Math.round((1 - essenceDistance / essenceMax) * 100);
+  // Multi-word phrase hit is enough for the pillar.
+  for (const phrase of pillar.phrases) {
+    if (normalizedUser.includes(phrase)) return true;
   }
 
-  // Windowed match: score user against the closest chunk of the official answer
-  const userLen = normalizedUser.length;
-  let windowScore = 0;
-  if (userLen >= 12 && normalizedOfficial.length > userLen) {
-    const step = Math.max(8, Math.floor(userLen / 4));
-    for (let i = 0; i <= normalizedOfficial.length - userLen; i += step) {
-      const window = normalizedOfficial.slice(i, i + userLen + Math.floor(userLen * 0.2));
-      const distance = levenshteinDistance(normalizedUser, window);
-      const maxLen = Math.max(normalizedUser.length, window.length);
-      const score = Math.round((1 - distance / maxLen) * 100);
-      if (score > windowScore) windowScore = score;
+  if (pillar.terms.length === 0) return false;
+
+  let hits = 0;
+  for (const term of pillar.terms) {
+    if (userContainsTerm(normalizedUser, userTokens, term)) {
+      hits += 1;
     }
   }
 
-  return Math.max(fullScore, essenceScore, windowScore);
+  // Need at least one strong term, or ~40% of pillar terms for denser pillars.
+  const required = pillar.terms.length <= 2 ? 1 : Math.max(1, Math.ceil(pillar.terms.length * 0.34));
+  return hits >= required;
 }
 
-/** Combined score used for pass/fail. */
-export function scoreAnswer(userAnswer, officialAnswer) {
-  if (!normalizeAnswer(userAnswer)) {
-    return { score: 0, keyword: 0, jaccard: 0, similarity: 0, precision: 0 };
+/** Count how many official concept terms appear (with synonyms) in the user answer. */
+export function countMatchedConcepts(userAnswer, officialAnswer) {
+  const pillars = buildConceptPillars(officialAnswer);
+  const matchedPillars = pillars.filter((pillar) => pillarIsMatched(userAnswer, pillar));
+
+  const officialKeywords = extractKeywords(officialAnswer);
+  const normalizedUser = normalizeAnswer(userAnswer);
+  const userTokens = tokenize(normalizedUser);
+
+  let matchedKeywords = 0;
+  for (const keyword of officialKeywords) {
+    if (userContainsTerm(normalizedUser, userTokens, keyword)) {
+      matchedKeywords += 1;
+    }
   }
 
-  const keyword = keywordCoveragePercent(userAnswer, officialAnswer);
-  const precision = userKeywordPrecisionPercent(userAnswer, officialAnswer);
-  const jaccard = keywordJaccardPercent(userAnswer, officialAnswer);
-  const similarity = calculateSimilarityPercent(userAnswer, officialAnswer);
-  const userKeywordCount = extractKeywords(userAnswer).length;
-
-  // Short on-topic paraphrases: trust precision highly.
-  const shortAnswerBoost =
-    userKeywordCount > 0 && userKeywordCount <= 10
-      ? Math.round(precision * 0.75 + keyword * 0.25)
-      : 0;
-
-  const blended = Math.round(
-    keyword * 0.35 + precision * 0.35 + jaccard * 0.15 + similarity * 0.15,
+  const phraseHits = extractMultiWordHits(normalizedUser).filter((phrase) =>
+    normalizeAnswer(officialAnswer).includes(phrase)
+      || MULTI_WORD_PHRASES.includes(phrase),
   );
 
-  // Three keyword hits at high precision is enough for a pass signal.
-  const strongConceptHit =
-    userKeywordCount >= 3 && precision >= 70 && keyword >= 35
-      ? Math.max(PASS_THRESHOLD, Math.round((precision + keyword) / 2))
-      : 0;
+  return {
+    pillars,
+    matchedPillars,
+    pillarHitCount: matchedPillars.length,
+    pillarTotal: Math.max(pillars.length, 1),
+    matchedKeywords,
+    totalKeywords: Math.max(officialKeywords.length, 1),
+    phraseHits,
+  };
+}
 
-  const score = Math.max(blended, shortAnswerBoost, strongConceptHit, similarity);
+/**
+ * Score based on conceptual pillars + keyword hits.
+ * Incomplete answers (≤1 of 3 pillars) are capped at INCOMPLETE_SCORE_CAP.
+ */
+export function scoreAnswer(userAnswer, officialAnswer) {
+  if (!normalizeAnswer(userAnswer)) {
+    return {
+      score: 0,
+      keyword: 0,
+      precision: 0,
+      jaccard: 0,
+      similarity: 0,
+      pillarHits: 0,
+      pillarTotal: 0,
+      incomplete: true,
+    };
+  }
+
+  const concepts = countMatchedConcepts(userAnswer, officialAnswer);
+  const { pillarHitCount, pillarTotal, matchedKeywords, totalKeywords, phraseHits } =
+    concepts;
+
+  const keywordCoverage = Math.round((matchedKeywords / totalKeywords) * 100);
+  const pillarCoverage = Math.round((pillarHitCount / pillarTotal) * 100);
+
+  // User-keyword precision: are the user's content words on-topic?
+  const userKeywords = extractKeywords(userAnswer);
+  let onTopic = 0;
+  const officialKeys = new Set(extractKeywords(officialAnswer).map(synonymKey));
+  for (const keyword of userKeywords) {
+    const keys = expandWithSynonyms(keyword);
+    if ([...keys].some((key) => officialKeys.has(key) || [...officialKeys].some((ok) => ok.startsWith(key) || key.startsWith(ok)))) {
+      onTopic += 1;
+    }
+  }
+  const precision =
+    userKeywords.length === 0 ? 0 : Math.round((onTopic / userKeywords.length) * 100);
+
+  // Phrase bonus for explicit technical multi-word concepts.
+  const phraseBonus = Math.min(20, phraseHits.length * 10);
+
+  // Base score from pillars (main signal) + keyword coverage (secondary).
+  let score = Math.round(pillarCoverage * 0.7 + keywordCoverage * 0.2 + precision * 0.1);
+  score = Math.min(100, score + phraseBonus);
+
+  // Strong paraphrase: hit most pillars → push into 90–100 band.
+  if (pillarHitCount >= 3) {
+    score = Math.max(score, 90 + Math.min(10, Math.floor(keywordCoverage / 20)));
+  } else if (pillarHitCount === 2) {
+    score = Math.max(score, 72 + Math.min(15, Math.floor(keywordCoverage / 15)));
+  }
+
+  // Completeness gate: missing 2 of 3 pillars ⇒ fail, even if wording matched.
+  const incomplete = pillarTotal >= 3 && pillarHitCount <= 1;
+  if (incomplete) {
+    score = Math.min(score, INCOMPLETE_SCORE_CAP);
+  }
+
+  // Very short cutoffs with almost no content words.
+  if (userKeywords.length > 0 && userKeywords.length <= 2 && pillarHitCount <= 1) {
+    score = Math.min(score, INCOMPLETE_SCORE_CAP);
+  }
 
   return {
     score,
-    keyword,
-    jaccard,
-    similarity,
+    keyword: keywordCoverage,
     precision,
+    jaccard: pillarCoverage,
+    similarity: 0, // kept for API compatibility; no longer Levenshtein-driven
+    pillarHits: pillarHitCount,
+    pillarTotal,
+    incomplete,
+    phraseHits: phraseHits.length,
   };
 }
 
@@ -299,9 +433,13 @@ export function scoreAgainstAnswers(userAnswer, officialAnswers) {
   let best = {
     score: 0,
     keyword: 0,
+    precision: 0,
     jaccard: 0,
     similarity: 0,
-    precision: 0,
+    pillarHits: 0,
+    pillarTotal: 0,
+    incomplete: true,
+    phraseHits: 0,
   };
 
   for (const official of officialAnswers) {
@@ -319,4 +457,21 @@ export function isAnswerCorrect(score) {
 
 export function isAnswerPartial(score) {
   return score >= PARTIAL_THRESHOLD && score < STRONG_THRESHOLD;
+}
+
+/** @deprecated Prefer scoreAnswer — kept for older imports */
+export function calculateSimilarityPercent(userAnswer, officialAnswer) {
+  return scoreAnswer(userAnswer, officialAnswer).score;
+}
+
+export function keywordCoveragePercent(userAnswer, officialAnswer) {
+  return scoreAnswer(userAnswer, officialAnswer).keyword;
+}
+
+export function userKeywordPrecisionPercent(userAnswer, officialAnswer) {
+  return scoreAnswer(userAnswer, officialAnswer).precision;
+}
+
+export function keywordJaccardPercent(userAnswer, officialAnswer) {
+  return scoreAnswer(userAnswer, officialAnswer).jaccard;
 }
